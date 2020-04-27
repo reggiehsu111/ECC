@@ -9,6 +9,4 @@ module Top(i_rst, i_clk, a, prime, Px, Py, k, kP);
     
     output [3:0] kP;
 
-    
-
 endmodule
