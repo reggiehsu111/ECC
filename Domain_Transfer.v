@@ -55,7 +55,7 @@ module Domain_Transfer(clk, reset, ToMont, in_sig, Px_i, Py_i, Prime, Px_out, Py
           IDLE: begin
             if(in_sig) begin
               if(Px > Prime) Px_nxt = Px - Prime;
-              else Px_nxt = Px; 
+              else Px_nxt = Px;
             end
           end
           TO_MONT: begin
