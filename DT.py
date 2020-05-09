@@ -8,6 +8,8 @@ module Domain_Transfer(clk, reset, ToMont, in_sig, Px_i, Py_i, Prime, Px_mont, P
 
 from random import randint
 from montmult import *
+import Crypto.Util.number as num
+import Crypto
 
 num_data_to_mont = 10
 num_data_to_reg = 10
@@ -59,7 +61,7 @@ def main():
 	Py_step_out = []
 	to_mont_list = []
 	for i in range(num_data_to_mont):
-		prime = randint(0, 2**32)
+		prime = num.getPrime(32, randfunc=Crypto.Random.get_random_bytes)
 		Px = randint(0, 2**32)
 		Py = randint(0, 2**32)
 		Px = Px%prime
@@ -78,7 +80,7 @@ def main():
 		Py_golden.append(py_mont)
 
 	for i in range(num_data_to_mont):
-		prime = randint(0, 2**32)
+		prime = num.getPrime(32, randfunc=Crypto.Random.get_random_bytes)
 		Px = randint(0, 2**32)
 		Py = randint(0, 2**32)
 		Px = Px%prime
@@ -143,7 +145,8 @@ def main():
 # 3 * 2^-4 mod 15 = 
 def test_to_reg():
 	for i in range(num_data_to_mont):
-		prime = randint(0, 2**32)
+		n = 32
+		prime = num.getPrime(n, randfunc=Crypto.Random.get_random_bytes)
 		Px = randint(0, 2**32)
 		Py = randint(0, 2**32)
 		Px = Px%prime
@@ -162,5 +165,5 @@ def test_to_reg():
 		print("Is the transformation correct?", px_reg == Px and py_reg == Py)
 
 if __name__ == '__main__':
-	# main()
-	test_to_reg()
+	main()
+	# test_to_reg()

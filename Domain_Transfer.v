@@ -10,6 +10,7 @@ module Domain_Transfer(clk, reset, ToMont, in_sig, Px_i, Py_i, Prime, Px_out, Py
     reg done_reg;
 
     wire [32:0] Px_shift, Py_shift;
+    wire [32:0] Px_add, Py_add;
 
     parameter IDLE = 2'b00;
     parameter TO_MONT = 2'b01;
@@ -21,6 +22,8 @@ module Domain_Transfer(clk, reset, ToMont, in_sig, Px_i, Py_i, Prime, Px_out, Py
     assign Px_shift = Px << 1;
     assign Py_shift = Py << 1;
     assign done = done_reg;
+    assign Px_add = Px + Prime;
+    assign Py_add = Py + Prime;
 
     always @(*) begin
       case(state)
@@ -72,9 +75,9 @@ module Domain_Transfer(clk, reset, ToMont, in_sig, Px_i, Py_i, Prime, Px_out, Py
             else Py_nxt = Py_shift;
           end
           TO_REGULAR: begin
-            if (Px[0]) Px_nxt = (Px + Prime) >> 1;
+            if (Px[0]) Px_nxt = Px_add >> 1;
             else Px_nxt = Px >> 1;
-            if (Py[0]) Py_nxt = (Py + Prime) >> 1;
+            if (Py[0]) Py_nxt = Py_add >> 1;
             else Py_nxt = Py >> 1;
           end
           default: begin
