@@ -1,34 +1,34 @@
 `timescale 1ns/10ps
 `define CYCLE    10.0
+`define COMPUTE_TIME 34
 // You can modify NUM_DATA and MAX_DELAY
 `define PX              "./sim_data/DT/Px.dat"        
 `define PY              "./sim_data/DT/Py.dat" 
 `define PRIME           "./sim_data/DT/Prime.dat"
 `define DONE            "./sim_data/DT/Done.dat"
 `define TOMONT          "./sim_data/DT/ToMont.dat"
-`define InSig           "./sim_data/DT/InSig.dat"
+`define INSIG           "./sim_data/DT/InSig.dat"
 `define PX_GOLDEN       "./sim_data/DT/Px_golden.dat" 
 `define PY_GOLDEN       "./sim_data/DT/Py_golden.dat" 
 
 module DT_test();
 
-    parameter DATA_LENGTH   = 10;
-    parameter OUT_LENGTH    = 12;
+    parameter DATA_LENGTH   = 20;
 
     reg           clk;
-    reg           reset;
+    reg           reset, in_sig, ToMont;
     reg   [31:0]   Px_i, Py_i, Prime;
     wire          done;
     wire  [31:0]  Px_out, Py_out;
 
     reg   to_mont_mem            [0:DATA_LENGTH-1];
-    reg   done_mem               [0:OUT_LENGTH-1];
+    reg   done_mem               [0:DATA_LENGTH-1];
     reg   in_sig_mem             [0:DATA_LENGTH-1];
     reg   [31:0]  px_mem         [0:DATA_LENGTH-1];
     reg   [31:0]  py_mem         [0:DATA_LENGTH-1];
     reg   [31:0]  prime_mem      [0:DATA_LENGTH-1];
-    reg   [31:0]  px_golden_mem  [0:OUT_LENGTH-1];
-    reg   [31:0]  py_golden_mem  [0:OUT_LENGTH-1];
+    reg   [31:0]  px_golden_mem  [0:DATA_LENGTH-1];
+    reg   [31:0]  py_golden_mem  [0:DATA_LENGTH-1];
     reg   [31:0]  px_out_temp, py_out_temp;
     reg   done_temp;
 
@@ -57,6 +57,8 @@ module DT_test();
     initial $readmemh (`PX_GOLDEN,  px_golden_mem);
     initial $readmemh (`PY_GOLDEN,  py_golden_mem);
     initial $readmemh (`DONE, done_mem);
+    initial $readmemh (`INSIG, in_sig_mem);
+    initial $readmemh (`TOMONT, to_mont_mem);
 
     initial begin
        clk         = 1'b1;
@@ -86,14 +88,14 @@ module DT_test();
     end
 
     always @(negedge clk)begin
-        j = j+1;    // Increment j
-        if (j%32 == 0) begin
-            if (i < OUT_LENGTH) begin
-                if(i < DATA_LENGTH)begin
-                  Px_i = px_mem[i];
-                  Py_i = py_mem[i];
-                  Prime = prime_mem[i];
-                end
+        if (j%`COMPUTE_TIME == 0) begin
+            if(i < DATA_LENGTH)begin
+              Px_i = px_mem[i];
+              Py_i = py_mem[i];
+              Prime = prime_mem[i];
+              in_sig = in_sig_mem[i];
+              ToMont = to_mont_mem[i];
+
              px_out_temp = px_golden_mem[i];
              py_out_temp = py_golden_mem[i];
              done_temp = done_mem[i];
@@ -101,11 +103,19 @@ module DT_test();
             end
             else                                       
                stop = 1 ;
-        end     
+        end
+        else begin
+            if (j%`COMPUTE_TIME == 1) begin
+                in_sig = 0;
+                ToMont = 0;      
+            end
+
+        end
+        j = j+1;    // Increment j
     end
 
     always @(posedge clk)begin
-        if (j%32 == 0) begin
+        if (j%`COMPUTE_TIME == 0) begin
             if(Px_out !== px_out_temp || Py_out !== py_out_temp || done !== done_temp) begin
               if(Px_out !== px_out_temp) begin
                   $display("ERROR on PX at %d:output %h !=expect %h ",pattern_num, Px_out, px_out_temp);
@@ -122,7 +132,7 @@ module DT_test();
               err = err + 1 ;
             end
             pattern_num = pattern_num + 1; 
-            if(pattern_num === OUT_LENGTH)  over = 1'b1;
+            if(pattern_num === DATA_LENGTH)  over = 1'b1;
         end
     end
 

@@ -9,7 +9,8 @@ module Domain_Transfer(clk, reset, ToMont, in_sig, Px_i, Py_i, Prime, Px_out, Py
     reg [4:0] counter, counter_nxt;
     reg done_reg;
 
-    wire [31:0] Px_shift, Py_shift;
+    wire [32:0] Px_shift, Py_shift;
+    wire [32:0] Px_add, Py_add;
 
     parameter IDLE = 2'b00;
     parameter TO_MONT = 2'b01;
@@ -18,8 +19,11 @@ module Domain_Transfer(clk, reset, ToMont, in_sig, Px_i, Py_i, Prime, Px_out, Py
 
     assign Px_out = Px;
     assign Py_out = Py;
-    assign Px_shift = {Px[30:0], 1'b0};
-    assign Py_shift = {Py[30:0], 1'b0};
+    assign Px_shift = Px << 1;
+    assign Py_shift = Py << 1;
+    assign done = done_reg;
+    assign Px_add = Px + Prime;
+    assign Py_add = Py + Prime;
 
     always @(*) begin
       case(state)
@@ -54,18 +58,27 @@ module Domain_Transfer(clk, reset, ToMont, in_sig, Px_i, Py_i, Prime, Px_out, Py
         case(state)
           IDLE: begin
             if(in_sig) begin
-              if(Px > Prime) Px_nxt = Px - Prime;
-              else Px_nxt = Px;
+              if(Px_i >= Prime) Px_nxt = Px_i - Prime;
+              else Px_nxt = Px_i;
+              if(Py_i >= Prime) Py_nxt = Py_i - Prime;
+              else Py_nxt = Py_i; 
+            end
+            else begin
+              Px_nxt = Px;
+              Py_nxt = Py;
             end
           end
           TO_MONT: begin
-            if (Px_shift > Prime) Px_nxt = Px_shift - Prime;
+            if (Px_shift >= Prime) Px_nxt = Px_shift - Prime;
             else Px_nxt = Px_shift;
-            if(Py_shift > Prime) Py_nxt = Py_shift - Prime;
+            if(Py_shift >= Prime) Py_nxt = Py_shift - Prime;
             else Py_nxt = Py_shift;
           end
           TO_REGULAR: begin
-            Px_nxt = Px_shift;
+            if (Px[0]) Px_nxt = Px_add >> 1;
+            else Px_nxt = Px >> 1;
+            if (Py[0]) Py_nxt = Py_add >> 1;
+            else Py_nxt = Py >> 1;
           end
           default: begin
             Px_nxt <= 0;
@@ -78,7 +91,7 @@ module Domain_Transfer(clk, reset, ToMont, in_sig, Px_i, Py_i, Prime, Px_out, Py
       /* ====================Sequential Part=================== */
     always@(posedge clk or negedge reset)
     begin
-        if (reset == 1'b0)
+        if (!reset)
         begin
               Px <= 32'b0;
               Py <= 32'b0;
@@ -87,14 +100,8 @@ module Domain_Transfer(clk, reset, ToMont, in_sig, Px_i, Py_i, Prime, Px_out, Py
         end
         else
         begin
-        	if (in_sig) begin
-            Px <= Px_i;
-            Py <= Py_i;
-          end
-          else begin
-            Px <= Px;
-            Py <= Py;
-          end
+          Px <= Px_nxt;
+          Py <= Py_nxt;
           counter <= counter_nxt;
           state <= state_nxt;
           if (counter == 5'b11111) done_reg <= 1'b1;
