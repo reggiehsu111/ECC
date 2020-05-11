@@ -16,7 +16,7 @@ module Top(rst, clk, ready, valid, a, prime, Px, Py, k, kP);
 
     wire GFAU_done, Keyshift_done, PartKey, done_keyshift, done_control;
     wire prime_in, px_in, py_in, a_in ,k_in;
-    wire [31:0] GFAU_result, i1, i2, Px_mont, Py_mont;
+    wire [31:0] GFAU_result, Px_mont, Py_mont;
     wire [1:0] op_s;
 
     assign prime_in = prime_whole;
@@ -26,8 +26,7 @@ module Top(rst, clk, ready, valid, a, prime, Px, Py, k, kP);
     assign k_in = k_whole;
 
     Control ctrl(.i_clk(clk), .i_rst(rst), .GFAU_done(GFAU_done), .Keyshift_done(Keyshift_done),
-    	.PartKey(PartKey), .GFAU_result(GFAU_result), .i1(i1), .i2(i2), .Px_mont(Px_mont),
-    	.Py_mont(Py_mont), .operation_select(op_s), .done_keyshift(done_keyshift), .done_control(done_control), .raw1(px_in), .raw2(py_in), .raw_prime(prime_in));
+    	.PartKey(PartKey), .GFAU_result(GFAU_result), .Px_mont(Px_mont), .Py_mont(Py_mont), .operation_select(op_s), .done_keyshift(done_keyshift), .done_control(done_control), .raw1(px_in), .raw2(py_in), .raw_prime(prime_in));
 
     GFAU gfau(.i_clk(clk), .i_rst(rst), .in_0(px_in), .in_1(py_in), .prime(prime_in), .operation_select(op_s), .done_from_control(done_control), .result(GFAU_result), .done_to_control(GFAU_done));
 
