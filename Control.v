@@ -10,7 +10,7 @@ module Control(
                 operation_select,
                 done_keyshift,
                 done_control,
-                raw1, raw2, raw_prime, Transfer_done, toMont, in_sig
+                raw1, raw2, raw_prime
                 );
   /*========================IO declaration============================ */	  
 
@@ -31,11 +31,11 @@ module Control(
     output done_keyshift; // done signal to key shifter for completion of add of double
     output done_control;  // done signal to GFAU for saving the return value to register
     
-    input Transfer_done;//signal from domain transfer
+    reg Transfer_done;//signal from domain transfer
     reg toMont;// 1 to Mont, 0 inverse
     reg in_sig;// whether to start transfer
 
-    Domain_transfer d0(i_clk, i_reset);
+    Domain_transfer d0(i_clk, i_reset, 1, 1, raw1, raw2, raw_prime);
   /*========================Wire and Reg======================== */	  
     reg [31:0] x1, y1, x2, y2;
     reg [4:0] state;
