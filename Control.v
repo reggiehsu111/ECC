@@ -9,7 +9,8 @@ module Control(
                 operation_select,
                 done_keyshift,
                 done_control,
-                raw1, raw2, raw_prime
+                raw1, raw2, raw_prime,
+                output_1, output_2
                 );
   /*========================IO declaration============================ */	  
 
@@ -29,6 +30,7 @@ module Control(
     output [1:0] operation_select;// 00, 01, 10, 11 add, subtract, multiple, divide
     output done_keyshift; // done signal to key shifter for completion of add of double
     output done_control;  // done signal to GFAU for saving the return value to register
+
     output [31:0] output_1, output_2;// final output to Top(be inverse transferred)
 
     reg Transfer_done;//signal from domain transfer
@@ -52,14 +54,16 @@ module Control(
 
     reg done_control_r;//connect to output wire
     reg done_keyshift_r;// connect to output wire
-   
+    
+    reg [4:0] key_counter;
+    reg [4:0] key_counter_n;
 /*====================assign output wire to the register=========================*/
     assign Px_mont = Px_mont_r;
     assign Py_mont = Py_mont_r;
     assign operation_select = instruction;
     assign done_control = done_control_r;
     assign done_keyshift = done_keyshift_r;
-  /*==========================next state logic=========================*/
+/*==========================next state logic=========================*/
     always@(*)
     begin
         case(state)
