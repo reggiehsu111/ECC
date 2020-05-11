@@ -5,7 +5,6 @@ module Control(
                 Keyshift_done,
                 PartKey,
                 GFAU_result,
-                i1, i2,
                 Px_mont, Py_mont,
                 operation_select,
                 done_keyshift,
@@ -22,7 +21,7 @@ module Control(
 
     input PartKey; // single bit for key
     input [31:0] GFAU_result; // Result from GFAU
-    input [31:0] i1,i2; // transfered inputs
+    reg [31:0] i1,i2; // transfered inputs
 
     input [31:0] raw1, raw2, raw_prime;
 
@@ -30,12 +29,13 @@ module Control(
     output [1:0] operation_select;// 00, 01, 10, 11 add, subtract, multiple, divide
     output done_keyshift; // done signal to key shifter for completion of add of double
     output done_control;  // done signal to GFAU for saving the return value to register
-    
+    output [31:0] output_1, output_2;// final output to Top(be inverse transferred)
+
     reg Transfer_done;//signal from domain transfer
     reg toMont;// 1 to Mont, 0 inverse
     reg in_sig;// whether to start transfer
 
-    Domain_transfer d0(i_clk, i_reset, 1, 1, raw1, raw2, raw_prime);
+    Domain_transfer d0(i_clk, i_reset, 1, 1, raw1, raw2, raw_prime, i1, i2, Transfer_done);
   /*========================Wire and Reg======================== */	  
     reg [31:0] x1, y1, x2, y2;
     reg [4:0] state;
