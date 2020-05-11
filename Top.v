@@ -14,7 +14,21 @@ module Top(rst, clk, ready, valid, a, prime, Px, Py, k, kP);
     reg [2:0] counter, counter_nxt;
     reg state, state_nxt;
 
-    Control ctrl();
+    wire GFAU_done, Keyshift_done, PartKey, done_keyshift, done_control;
+    wire prime_in, px_in, py_in, a_in ,k_in;
+    wire [31:0] GFAU_result, i1, i2, Px_mont, Py_mont;
+    wire [1:0] op_s;
+
+    assign prime_in = prime_whole;
+    assign px_in = px_whole;
+    assign py_in = py_whole;
+    assign a_in = a_whole;
+    assign k_in = k_whole;
+
+    Control ctrl(.i_clk(clk), .i_rst(rst), .GFAU_done(GFAU_done), .Keyshift_done(Keyshift_done),
+    	.PartKey(PartKey), .GFAU_result(GFAU_result), .i1(i1), .i2(i2), .Px_mont(Px_mont),
+    	.Py_mont(Py_mont), .operation_select(op_s), .done_keyshift(done_keyshift), .done_control(done_control), .raw1(px_in), .raw2(py_in), .raw_prime(prime_in));
+
 
 
     always @(*) begin
@@ -31,11 +45,11 @@ module Top(rst, clk, ready, valid, a, prime, Px, Py, k, kP);
 	    		counter_nxt = counter + 1;
     		end
     		else begin
-    			prime_whole_nxt = 0;
-    			px_whole_nxt = 0;
-    			py_whole_nxt = 0;
-    			a_whole_nxt = 0;
-    			k_whole_nxt = 0;
+    			prime_whole_nxt = prime_whole;
+    			px_whole_nxt = px_whole;
+    			py_whole_nxt = py_whole;
+    			a_whole_nxt = a_whole;
+    			k_whole_nxt = k_whole;
     			counter_nxt = 0;
     		end
     	end
@@ -52,11 +66,11 @@ module Top(rst, clk, ready, valid, a, prime, Px, Py, k, kP);
 	    		counter_nxt = counter + 1;
     		end
     		else begin
-    			prime_whole_nxt = 0;
-    			px_whole_nxt = 0;
-    			py_whole_nxt = 0;
-    			a_whole_nxt = 0;
-    			k_whole_nxt = 0;
+    			prime_whole_nxt = prime_whole;
+    			px_whole_nxt = px_whole;
+    			py_whole_nxt = py_whole;
+    			a_whole_nxt = a_whole;
+    			k_whole_nxt = k_whole;
     			counter_nxt = 0;
     		end
     	end
@@ -71,11 +85,11 @@ module Top(rst, clk, ready, valid, a, prime, Px, Py, k, kP);
 	    		counter_nxt = counter + 1;
     		end
     		else begin
-    			prime_whole_nxt = 0;
-    			px_whole_nxt = 0;
-    			py_whole_nxt = 0;
-    			a_whole_nxt = 0;
-    			k_whole_nxt = 0;
+    			prime_whole_nxt = prime_whole;
+    			px_whole_nxt = px_whole;
+    			py_whole_nxt = py_whole;
+    			a_whole_nxt = a_whole;
+    			k_whole_nxt = k_whole;
     			counter_nxt = 0;
     		end
     	end
