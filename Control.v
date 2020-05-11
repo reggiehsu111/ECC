@@ -35,7 +35,7 @@ module Control(
     reg toMont;// 1 to Mont, 0 inverse
     reg in_sig;// whether to start transfer
 
-    Domain_transfer d0(i_clk, i_reset, 1, 1, raw1, raw2, raw_prime);
+    Domain_transfer d0(i_clk, i_reset, 1, 1, raw1, raw2, raw_prime, i1, i2, Transfer_done);
   /*========================Wire and Reg======================== */	  
     reg [31:0] x1, y1, x2, y2;
     reg [4:0] state;
