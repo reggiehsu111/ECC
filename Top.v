@@ -29,6 +29,9 @@ module Top(rst, clk, ready, valid, a, prime, Px, Py, k, kP);
     	.PartKey(PartKey), .GFAU_result(GFAU_result), .i1(i1), .i2(i2), .Px_mont(Px_mont),
     	.Py_mont(Py_mont), .operation_select(op_s), .done_keyshift(done_keyshift), .done_control(done_control), .raw1(px_in), .raw2(py_in), .raw_prime(prime_in));
 
+    GFAU gfau(.i_clk(clk), .i_rst(rst), .in_0(px_in), .in_1(py_in), .prime(prime_in), .operation_select(op_s), .done_from_control(done_control), .result(GFAU_result), .done_to_control(GFAU_done));
+
+
 
 
     always @(*) begin
