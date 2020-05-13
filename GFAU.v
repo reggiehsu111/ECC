@@ -7,7 +7,11 @@ module GFAU(
 	operation_select,
 	done_from_control,
 	result,
-	done_to_control);
+	done_to_control,
+	done_add,
+	done_sub,
+	done_mult,
+	done_div);
 
 	localparam SIZE = 32;
 
@@ -19,15 +23,16 @@ module GFAU(
 
     output[SIZE - 1 : 0] result;
     output done_to_control;
+    output done_add, done_sub, done_mult, done_div;
 
     wire sel_add, sel_sub, sel_mult, sel_div;
     wire [SIZE - 1 : 0] add_out, sub_out, mult_out, div_out;
-    wire done_add, done_sub, done_mult, done_div;
+    
 
-    assign sel_add = (operation_select == 2'd0) ? 1 : 0;
-    assign sel_sub = (operation_select == 2'd1) ? 1 : 0;
-    assign sel_mult = (operation_select == 2'd2) ? 1 : 0;
-    assign sel_div = (operation_select == 2'd3) ? 1 : 0;
+    assign sel_add = (operation_select == 2'd0 && done_from_control == 1) ? 1 : 0;
+    assign sel_sub = (operation_select == 2'd1 && done_from_control == 1) ? 1 : 0;
+    assign sel_mult = (operation_select == 2'd2 && done_from_control == 1) ? 1 : 0;
+    assign sel_div = (operation_select == 2'd3 && done_from_control == 1) ? 1 : 0;
 
     add add_0 (.i_clk(i_clk), .i_rst(i_rst), .add_in_0(in_0), .add_in_1(in_1), .prime(prime),
     		   .sel_add(sel_add), .add_out(add_out), .done_add(done_add));
