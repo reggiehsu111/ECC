@@ -138,13 +138,13 @@ def MonDiv(A,B,p,n):
 			V = (V-U) >> 1
 			R = R << 1
 			S = S+R
-			R = R << 1
 		i += 1
 		if R >= p:
 			R = R - p
 		if S >= p:
 			S = S - p
 	# print("U,V,R,S:", U,V,R,S)
+	# print("i:",i)
 	for j in range(1, i+1-n):
 		R = (R + (int(R)&1)*p) >> 1
 	# print("Latest R:", R)

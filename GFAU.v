@@ -13,7 +13,7 @@ module GFAU(
 	done_mult,
 	done_div);
 
-	localparam SIZE = 32;
+	localparam SIZE = 33;
 
 	input i_clk, i_rst;
 	input [SIZE - 1 : 0] in_0, in_1;
@@ -59,7 +59,7 @@ module add(
 	sel_add,
 	add_out,
 	done_add);
-	localparam SIZE = 32;
+	localparam SIZE = 33;
 
 	input i_clk, i_rst;
 	input [SIZE - 1 : 0] add_in_0, add_in_1;
@@ -96,8 +96,8 @@ module add(
 		endcase
 	end
 
-	always@(posedge i_clk or posedge i_rst) begin
-		if (i_rst) begin
+	always@(posedge i_clk or negedge i_rst) begin
+		if (!i_rst) begin
 			done_add <= 0;
 			add_out <= 0;
 			state <= 0;
@@ -120,7 +120,7 @@ module sub(
 	sel_sub,
 	sub_out,
 	done_sub);
-	localparam SIZE = 32;
+	localparam SIZE = 33;
 
 	input i_clk, i_rst;
 	input [SIZE - 1 : 0] sub_in_0, sub_in_1;
@@ -157,8 +157,8 @@ module sub(
 		endcase
 	end
 
-	always@(posedge i_clk or posedge i_rst) begin
-		if (i_rst) begin
+	always@(posedge i_clk or negedge i_rst) begin
+		if (!i_rst) begin
 			done_sub <= 0;
 			sub_out <= 0;
 			state <= 0;
@@ -181,7 +181,7 @@ module mult(
 	sel_mult,
 	mult_out,
 	done_mult);
-	localparam SIZE = 32;
+	localparam SIZE = 33;
 	
 	input i_clk, i_rst;
 	input sel_mult;
@@ -238,8 +238,8 @@ module mult(
 		endcase
 	end
 
-	always@ (posedge i_clk or posedge i_rst) begin
-		if(i_rst) begin
+	always@ (posedge i_clk or negedge i_rst) begin
+		if(!i_rst) begin
 			i <= 0;
 			mult_out <= 0;
 		end
@@ -260,7 +260,7 @@ module div(
 	div_out,
 	done_div
 	);
-	localparam SIZE = 32;
+	localparam SIZE = 33;
 
 	input i_clk, i_rst;
 	input sel_div;
@@ -382,8 +382,8 @@ module div(
 		endcase
 	end
 
-	always@ (posedge i_clk or posedge i_rst) begin
-		if(i_rst) begin
+	always@ (posedge i_clk or negedge i_rst) begin
+		if(!i_rst) begin
 			U <= 0;
 			V <= 0;
 			R <= 0;
