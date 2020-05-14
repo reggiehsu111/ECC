@@ -131,7 +131,7 @@ module GFAU_test();
 
 
     always @(posedge clk)begin
-        if (done_temp) begin
+        if (done) begin
             if(Result_out !== result_temp || done !== done_temp || done_add !== done_add_temp || done_sub !== done_sub_temp || done_mult !== done_mult_temp || done_div !== done_div_temp) begin
               if(Result_out !== result_temp) begin
                   $display("ERROR on Result at %d:output %h !=expect %h ",pattern_num, Result_out, result_temp);

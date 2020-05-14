@@ -124,7 +124,7 @@ def main():
 				Prime_list.append(prime)
 				ops_list.append(op_type)
 				dfc_list.append(0)
-				result_list.append(0)
+				result_list.append(result)
 				done_list, done_add, done_sub, done_mult, done_div = append_done(0, done_list, done_add, done_sub, done_mult, done_div, op_type)
 
 			# output
