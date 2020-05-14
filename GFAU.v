@@ -13,8 +13,8 @@ module GFAU(
 	done_mult,
 	done_div,
 	state,
-	i,
-	mult_out);
+	div_out
+	);
 
 	localparam SIZE = 32;
 
@@ -27,9 +27,10 @@ module GFAU(
     output[SIZE - 1 : 0] result;
     output done_to_control;
     output done_add, done_sub, done_mult, done_div;
-    output [1:0] state;
-    output [10 : 0] i;
-    output [SIZE - 1 : 0] mult_out;
+    output [2:0] state;
+    output [SIZE - 1 : 0] div_out;
+    //output [10 : 0] i;
+    //output [SIZE - 1 : 0] mult_out;
 
     wire sel_add, sel_sub, sel_mult, sel_div;
     wire [SIZE - 1 : 0] add_out, sub_out, mult_out, div_out;
@@ -45,10 +46,9 @@ module GFAU(
     sub sub_0 (.i_clk(i_clk), .i_rst(i_rst), .sub_in_0(in_0), .sub_in_1(in_1), .prime(prime),
     		   .sel_sub(sel_sub), .sub_out(sub_out), .done_sub(done_sub));
     mult mult_0 (.i_clk(i_clk), .i_rst(i_rst), .mult_in_0(in_0), .mult_in_1(in_1), .prime(prime),
-    			 .sel_mult(sel_mult), .mult_out(mult_out), .done_mult(done_mult), .state(state),
-    			 .i(i));
+    			 .sel_mult(sel_mult), .mult_out(mult_out), .done_mult(done_mult));
     div div_0 (.i_clk(i_clk), .i_rst(i_rst), .div_in_0(in_0), .div_in_1(in_1), .prime(prime),
-			   .sel_div(sel_div), .div_out(div_out), .done_div(done_div));
+			   .sel_div(sel_div), .div_out(div_out), .done_div(done_div), .state(state));
     assign done_to_control = (done_add | done_sub | done_mult | done_div);
     assign result = (done_add == 1) ? add_out :
     				(done_sub == 1) ? sub_out :
@@ -200,8 +200,6 @@ module mult(
 
 	output reg [SIZE - 1 : 0] mult_out;
 	output reg done_mult;
-	output [1 : 0] state;
-	output [10 : 0] i;
 
 	reg [SIZE - 1 : 0] mult_out_n;
 	reg [10 :0] i, i_n;
@@ -272,7 +270,8 @@ module div(
 	prime,
 	sel_div,
 	div_out,
-	done_div
+	done_div,
+	state
 	);
 	localparam SIZE = 32;
 
@@ -281,6 +280,7 @@ module div(
 	input [SIZE - 1 : 0] div_in_0, div_in_1, prime;
 
 	output [SIZE - 1 : 0] div_out;
+	output [2:0] state;
 	output reg done_div;
 
 	reg [SIZE - 1 : 0] U, V, R, S;
@@ -321,7 +321,7 @@ module div(
 				S_n = S;
 				i_n = i + 1;
 				state_n = 3'd2;
-				loop_num_n = 0;
+				loop_num_n = i;
 				done_div_n = 0;
 				if (V <= 0) begin
 					state_n = 3'd3;
@@ -348,8 +348,12 @@ module div(
 				end
 			end
 			3'd2: begin
-				loop_num_n = 0;
+				loop_num_n = loop_num;
 				state_n = 3'd1;
+				U_n = U;
+				V_n = V;
+				R_n = R;
+				S_n = S;
 				done_div_n = 0;
 				if (R >= prime) begin
 					R_n = R - prime;
@@ -362,7 +366,6 @@ module div(
 				end
 				else begin
 					R_n = R;
-					done_div_n = 1;
 					if (S >= prime) begin
 						S_n = S - prime;
 					end
@@ -391,6 +394,7 @@ module div(
 				else begin
 					R_n = prime - R;
 					state_n = 3'd0;
+					done_div_n = 1;
 				end
 			end
 		endcase
@@ -405,6 +409,7 @@ module div(
 			i <= 0;
 			loop_num <= 0;
 			done_div <= 0;
+			state <= 0;
 		end
 		else begin
 			U <= U_n;
@@ -414,6 +419,7 @@ module div(
 			i <= i_n;
 			loop_num <= loop_num_n;
 			done_div <= done_div_n;
+			state <= state_n;
 		end
 	end
 endmodule
