@@ -11,7 +11,10 @@ module GFAU(
 	done_add,
 	done_sub,
 	done_mult,
-	done_div);
+	done_div,
+	state,
+	i,
+	mult_out);
 
 	localparam SIZE = 33;
 
@@ -24,6 +27,9 @@ module GFAU(
     output[SIZE - 1 : 0] result;
     output done_to_control;
     output done_add, done_sub, done_mult, done_div;
+    output [1:0] state;
+    output [10 : 0] i;
+    output [SIZE - 1 : 0] mult_out;
 
     wire sel_add, sel_sub, sel_mult, sel_div;
     wire [SIZE - 1 : 0] add_out, sub_out, mult_out, div_out;
@@ -39,7 +45,8 @@ module GFAU(
     sub sub_0 (.i_clk(i_clk), .i_rst(i_rst), .sub_in_0(in_0), .sub_in_1(in_1), .prime(prime),
     		   .sel_sub(sel_sub), .sub_out(sub_out), .done_sub(done_sub));
     mult mult_0 (.i_clk(i_clk), .i_rst(i_rst), .mult_in_0(in_0), .mult_in_1(in_1), .prime(prime),
-    			 .sel_mult(sel_mult), .mult_out(mult_out), .done_mult(done_mult));
+    			 .sel_mult(sel_mult), .mult_out(mult_out), .done_mult(done_mult), .state(state),
+    			 .i(i));
     div div_0 (.i_clk(i_clk), .i_rst(i_rst), .div_in_0(in_0), .div_in_1(in_1), .prime(prime),
 			   .sel_div(sel_div), .div_out(div_out), .done_div(done_div));
     assign done_to_control = (done_add | done_sub | done_mult | done_div);
@@ -180,7 +187,10 @@ module mult(
 	prime,
 	sel_mult,
 	mult_out,
-	done_mult);
+	done_mult,
+	state,
+	i);
+
 	localparam SIZE = 33;
 	
 	input i_clk, i_rst;
@@ -190,6 +200,8 @@ module mult(
 
 	output reg [SIZE - 1 : 0] mult_out;
 	output reg done_mult;
+	output [1 : 0] state;
+	output [10 : 0] i;
 
 	reg [SIZE - 1 : 0] mult_out_n;
 	reg [10 :0] i, i_n;
@@ -197,13 +209,13 @@ module mult(
 
 	wire [SIZE - 1 : 0] connect, cal_result;
 
-	assign connect = mult_out + mult_in_0[i] ;
+	assign connect = (mult_in_0[i] == 0) ? mult_out : (mult_out + mult_in_1) ;
 	assign cal_result = (connect[0] == 0) ? (connect >> 1) : ((connect + prime) >> 1);
 
 	always @(*) begin
 		case(state)
 			2'b00: begin 
-				i_n = i;
+				i_n = 0;
 				mult_out_n = mult_out;
 				done_mult = 0;
 				state_n = 2'b00;
@@ -219,7 +231,7 @@ module mult(
 				mult_out_n = cal_result;
 				done_mult = 0;
 				state_n = 2'b01;
-				if(i == 32) begin
+				if(i == 33) begin
 					i_n = 0;
 					mult_out_n = mult_out;
 					done_mult = 0;
@@ -242,10 +254,12 @@ module mult(
 		if(!i_rst) begin
 			i <= 0;
 			mult_out <= 0;
+			state <= 0;
 		end
 		else begin
 			i <= i_n;
 			mult_out <= mult_out_n;
+			state <= state_n;
 		end
 	end	
 endmodule
