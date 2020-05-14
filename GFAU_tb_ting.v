@@ -14,9 +14,9 @@ module GFAU_tb;
     wire [SIZE - 1 : 0] result;
     wire done_to_control;
     wire done_add, done_sub, done_mult, done_div;
-    wire [1:0] state;
+    wire [2:0] state;
     wire [10 : 0] i;
-    wire [SIZE - 1 : 0] mult_out;
+    wire [SIZE - 1 : 0] mult_out, div_out;
 
 
 	GFAU GFAU_test(
@@ -34,8 +34,7 @@ module GFAU_tb;
         done_mult,
         done_div,
         state,
-        i,
-        mult_out
+        div_out
     );
 
 /*    `ifdef SDF
@@ -59,7 +58,7 @@ module GFAU_tb;
         #(`CYCLE);
         i_rst = 0;
         #(`CYCLE);
-        operation_select = 2;
+        operation_select = 3;
         done_from_control = 1;
         #(`CYCLE);
         #(`CYCLE);
