@@ -16,7 +16,7 @@ module GFAU(
 	i,
 	mult_out);
 
-	localparam SIZE = 33;
+	localparam SIZE = 32;
 
 	input i_clk, i_rst;
 	input [SIZE - 1 : 0] in_0, in_1;
@@ -66,7 +66,7 @@ module add(
 	sel_add,
 	add_out,
 	done_add);
-	localparam SIZE = 33;
+	localparam SIZE = 32;
 
 	input i_clk, i_rst;
 	input [SIZE - 1 : 0] add_in_0, add_in_1;
@@ -127,7 +127,7 @@ module sub(
 	sel_sub,
 	sub_out,
 	done_sub);
-	localparam SIZE = 33;
+	localparam SIZE = 32;
 
 	input i_clk, i_rst;
 	input [SIZE - 1 : 0] sub_in_0, sub_in_1;
@@ -190,7 +190,7 @@ module mult(
 	done_mult,
 	state,
 	i);
-	localparam SIZE = 33;
+	localparam SIZE = 32;
 	
 	input i_clk, i_rst;
 	input sel_mult;
@@ -230,7 +230,7 @@ module mult(
 				mult_out_n = cal_result;
 				done_mult = 0;
 				state_n = 2'b01;
-				if(i == 33) begin
+				if(i == 32) begin
 					i_n = 0;
 					mult_out_n = mult_out;
 					done_mult = 0;
@@ -273,7 +273,7 @@ module div(
 	div_out,
 	done_div
 	);
-	localparam SIZE = 33;
+	localparam SIZE = 32;
 
 	input i_clk, i_rst;
 	input sel_div;
