@@ -58,7 +58,7 @@ module GFAU_tb;
         #(`CYCLE);
         i_rst = 0;
         #(`CYCLE);
-        operation_select = 3;
+        operation_select = 1;
         done_from_control = 1;
         #(`CYCLE);
         #(`CYCLE);

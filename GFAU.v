@@ -77,14 +77,15 @@ module add(
 	output done_add;
 
 	reg done_add, done_add_n;
-	reg [SIZE - 1 : 0] add_out, add_out_n;
+	reg [SIZE : 0] add_out_ext, add_out_ext_n;
 	reg state, state_n;
 
+	assign add_out = add_out_ext[SIZE - 1 : 0];
 	always@(*) begin
 		case(state)
 			0: begin
 				done_add_n = 0;
-				add_out_n = add_in_0 + add_in_1;
+				add_out_ext_n = add_in_0 + add_in_1;
 				state_n = 0;
 				if (sel_add) begin
 					state_n = 1;
@@ -93,11 +94,11 @@ module add(
 			1: begin
 				state_n = 0;
 				done_add_n = 1;
-				if (add_out > prime) begin
-					add_out_n = add_out - prime;
+				if (add_out_ext > prime) begin
+					add_out_ext_n = add_out_ext - prime;
 				end
 				else begin
-					add_out_n = add_out;
+					add_out_ext_n = add_out_ext;
 				end
 			end
 		endcase
@@ -106,12 +107,12 @@ module add(
 	always@(posedge i_clk or negedge i_rst) begin
 		if (!i_rst) begin
 			done_add <= 0;
-			add_out <= 0;
+			add_out_ext <= 0;
 			state <= 0;
 		end
 		else begin
 			done_add <= done_add_n;
-			add_out <= add_out_n;
+			add_out_ext <= add_out_ext_n;
 			state <= state_n;
 		end
 	end
@@ -137,43 +138,23 @@ module sub(
 	output [SIZE - 1 : 0] sub_out;
 	output done_sub;
 
-	reg done_sub, done_sub_n;
-	reg [SIZE - 1 : 0] sub_out, sub_out_n;
-	reg state, state_n;
+	reg done_sub;
+	reg [SIZE - 1 : 0] sub_out;
+
+	wire [SIZE : 0] restore_0, restore_1;
+
+	assign restore_0 = sub_in_0 + prime;
+	assign restore_1 = restore_0 - sub_in_1;
+
 
 	always@(*) begin
-		case(state)
-			0: begin
-				done_sub_n = 0;
-				sub_out_n = sub_in_0 + prime - sub_in_1;
-				state_n = 0;
-				if (sel_sub) begin
-					state_n = 1;
-				end
-			end
-			1: begin
-				state_n = 0;
-				done_sub_n = 1;
-				if (sub_out > prime) begin
-					sub_out_n = sub_out - prime;
-				end
-				else begin
-					sub_out_n = sub_out;
-				end
-			end
-		endcase
-	end
-
-	always@(posedge i_clk or negedge i_rst) begin
-		if (!i_rst) begin
-			done_sub <= 0;
-			sub_out <= 0;
-			state <= 0;
+		if (sub_in_0 > sub_in_1) begin
+			sub_out = sub_in_0 - sub_in_1;
+			done_sub = 1;
 		end
 		else begin
-			done_sub <= done_sub_n;
-			sub_out <= sub_out_n;
-			state <= state_n;
+			sub_out = restore_1 [SIZE - 1 : 0];
+			done_sub = 1;
 		end
 	end
 	 
