@@ -45,11 +45,30 @@ class Control:
 		self.px = 0
 		self.py = 0
 		return
+    
+    def operate(self):
+        return
+
+class KeyShifter:
+    def __init__(self, key):
+        self.key = key
+        return
+
+    def shift(self):
+        return
 
 def main(output_num):
     control = Control()
     keyshifter = KeyShifter()
     gfau = GFAU()
+
+    prime = num.getPrime(32)
+    Px = randint(0, 2**32)
+    Py = randint(0, 2**32)
+    Px = Px%prime
+    Py = Py%prime
+    key = randint(0, 2**32)
+
 
     Key = randint(0, 2**32)
     raw_prime = num.getPrime(n, randfunc=Crypto.Random.get_random_bytes)

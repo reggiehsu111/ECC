@@ -98,18 +98,20 @@ def main():
 			Px = Px%prime
 			Py = Py%prime
 
+			result, done = gfau.operate(Px, Py, prime, op_type, 1)
+
 			# dfc = 1
 			Px_list.append(Px)
 			Py_list.append(Py)
 			Prime_list.append(prime)
 			ops_list.append(op_type)
 			dfc_list.append(1)
-			result_list.append(0)
+			result_list.append(result)
 			done_list, done_add, done_sub, done_mult, done_div = append_done(0, done_list, done_add, done_sub, done_mult, done_div, op_type)
 
 
 			# input something
-			result, done = gfau.operate(Px, Py, prime, op_type, 1)
+
 			print("Px:", Px)
 			print("Py:", Py)
 			print("Prime:", prime)

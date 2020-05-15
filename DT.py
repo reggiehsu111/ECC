@@ -61,7 +61,7 @@ def main():
 	Py_step_out = []
 	to_mont_list = []
 	for i in range(num_data_to_mont):
-		prime = num.getPrime(32, randfunc=Crypto.Random.get_random_bytes)
+		prime = num.getPrime(32)
 		Px = randint(0, 2**32)
 		Py = randint(0, 2**32)
 		Px = Px%prime
