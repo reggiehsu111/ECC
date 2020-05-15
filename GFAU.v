@@ -50,8 +50,8 @@ module GFAU(
     div div_0 (.i_clk(i_clk), .i_rst(i_rst), .div_in_0(in_0), .div_in_1(in_1), .prime(prime),
 			   .sel_div(sel_div), .div_out(div_out), .done_div(done_div), .state(state));
     assign done_to_control = (done_add | done_sub | done_mult | done_div);
-    assign result = (done_add == 1) ? add_out :
-    				(done_sub == 1) ? sub_out :
+    assign result = (sel_add == 1 && done_add == 1) ? add_out :
+    				(sel_sub == 1 && done_sub == 1) ? sub_out :
     				(done_mult == 1) ? mult_out :
     				(done_div == 1) ? div_out : 0 ;
 endmodule
@@ -73,50 +73,23 @@ module add(
 	input [SIZE - 1 : 0] prime;
 	input sel_add;
 
-	output [SIZE - 1 : 0] add_out;
+	output reg [SIZE - 1 : 0] add_out;
 	output done_add;
 
-	reg done_add, done_add_n;
-	reg [SIZE : 0] add_out_ext, add_out_ext_n;
-	reg state, state_n;
+	wire [SIZE : 0] add_out_ext_0, add_out_ext_1;
 
-	assign add_out = add_out_ext[SIZE - 1 : 0];
+	assign add_out_ext_0 = add_in_0 + add_in_1;
+	assign add_out_ext_1 = add_out_ext_0 - prime;
+	assign done_add = 1;
+
 	always@(*) begin
-		case(state)
-			0: begin
-				done_add_n = 0;
-				add_out_ext_n = add_in_0 + add_in_1;
-				state_n = 0;
-				if (sel_add) begin
-					state_n = 1;
-				end
-			end
-			1: begin
-				state_n = 0;
-				done_add_n = 1;
-				if (add_out_ext > prime) begin
-					add_out_ext_n = add_out_ext - prime;
-				end
-				else begin
-					add_out_ext_n = add_out_ext;
-				end
-			end
-		endcase
-	end
-
-	always@(posedge i_clk or negedge i_rst) begin
-		if (!i_rst) begin
-			done_add <= 0;
-			add_out_ext <= 0;
-			state <= 0;
+		if (add_out_ext_0 > prime) begin
+			add_out = add_out_ext_0[SIZE - 1 : 0];
 		end
 		else begin
-			done_add <= done_add_n;
-			add_out_ext <= add_out_ext_n;
-			state <= state_n;
+			add_out = add_out_ext_1[SIZE - 1 : 0];
 		end
 	end
-	 
 endmodule
 
 module sub(
@@ -138,11 +111,10 @@ module sub(
 	output [SIZE - 1 : 0] sub_out;
 	output done_sub;
 
-	reg done_sub;
 	reg [SIZE - 1 : 0] sub_out;
-
 	wire [SIZE : 0] restore_0, restore_1;
 
+	assign done_sub = 1;
 	assign restore_0 = sub_in_0 + prime;
 	assign restore_1 = restore_0 - sub_in_1;
 
@@ -150,11 +122,9 @@ module sub(
 	always@(*) begin
 		if (sub_in_0 > sub_in_1) begin
 			sub_out = sub_in_0 - sub_in_1;
-			done_sub = 1;
 		end
 		else begin
 			sub_out = restore_1 [SIZE - 1 : 0];
-			done_sub = 1;
 		end
 	end
 	 
