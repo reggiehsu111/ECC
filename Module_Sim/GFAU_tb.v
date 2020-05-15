@@ -6,13 +6,17 @@
 `define PRIME                 "../sim_data/GFAU_test/prime.dat"
 `define OPERATION_SELECT      "../sim_data/GFAU_test/operation_select.dat"
 `define RESULT                "../sim_data/GFAU_test/result.dat"
+`define DONE_ADD              "../sim_data/GFAU_test/done_add.dat"
+`define DONE_SUB              "../sim_data/GFAU_test/done_sub.dat"
+`define DONE_MULT             "../sim_data/GFAU_test/done_mult.dat"
+`define DONE_DIV              "../sim_data/GFAU_test/done_div.dat"
 `define DONE_FROM_CONTROL     "../sim_data/GFAU_test/done_from_control.dat"
 `define DONE_TO_CONTROL       "../sim_data/GFAU_test/done_to_control.dat"
 
 module GFAU_test();
 
 	parameter DATA_NUM = 40;
-	parameter DATA_LENGTH = 1420;
+	parameter DATA_LENGTH = 1364;
 	
 	reg           clk, reset;
 	reg           done_from_control;
@@ -23,6 +27,10 @@ module GFAU_test();
 	reg  [1:0]      operation_select;
 	wire             done_to_control;
 	wire  [31:0]     result;
+	wire             done_add;
+	wire             done_sub;
+	wire             done_mult;
+	wire             done_div;
 	
 	// Inputs from files
 	reg           done_from_control_mem       [0:DATA_LENGTH-1];
@@ -34,10 +42,18 @@ module GFAU_test();
 	// Outputs from files
 	reg           done_to_control_mem       [0:DATA_LENGTH-1];
 	reg  [31:0]   result_mem       [0:DATA_LENGTH-1];
+	reg           done_add_mem       [0:DATA_LENGTH-1];
+	reg           done_sub_mem       [0:DATA_LENGTH-1];
+	reg           done_mult_mem       [0:DATA_LENGTH-1];
+	reg           done_div_mem       [0:DATA_LENGTH-1];
 	
 	// Output goldens
 	reg           done_to_control_golden;
 	reg  [31:0]   result_golden;
+	reg           done_add_golden;
+	reg           done_sub_golden;
+	reg           done_mult_golden;
+	reg           done_div_golden;
 	
 	reg           stop, over;
 	integer       i, j, out_f, err, pattern_num;
@@ -52,6 +68,10 @@ module GFAU_test();
 		.prime(prime)
 		.operation_select(operation_select)
 		.result(result)
+		.done_add(done_add)
+		.done_sub(done_sub)
+		.done_mult(done_mult)
+		.done_div(done_div)
 	);
 	
 	//Inputs
@@ -63,6 +83,10 @@ module GFAU_test();
 	
 	//Outputs
 	initial $readmemh (`RESULT,  result_mem);
+	initial $readmemh (`DONE_ADD,  done_add_mem);
+	initial $readmemh (`DONE_SUB,  done_sub_mem);
+	initial $readmemh (`DONE_MULT,  done_mult_mem);
+	initial $readmemh (`DONE_DIV,  done_div_mem);
 	initial $readmemh (`DONE_TO_CONTROL,  done_to_control_mem);
 	
 	initial begin
@@ -101,6 +125,10 @@ module GFAU_test();
 			done_from_control = done_from_control_mem[i];
 		// Get Output
 			result = result_mem[i];
+			done_add = done_add_mem[i];
+			done_sub = done_sub_mem[i];
+			done_mult = done_mult_mem[i];
+			done_div = done_div_mem[i];
 			done_to_control = done_to_control_mem[i];
 			i = i+1;
 		end
@@ -109,10 +137,26 @@ module GFAU_test();
 	
 	always @(posedge clk)begin
 		if (done_to_control) begin
-			if( result !== result_golden || done_to_control !== done_to_control ) begin
+			if( result !== result_golden || done_add !== done_add_golden || done_sub !== done_sub_golden || done_mult !== done_mult_golden || done_div !== done_div_golden || done_to_control !== done_to_control ) begin
 				if( result !== result_golden) begin
 					$display("ERROR on Result at %d:output %h !=expect %h ",pattern_num,result , result_golden);
 					$display(out_f,"ERROR on Result at %d:output %h !=expect %h ",pattern_num,result , result_golden);
+				end
+				if( done_add !== done_add_golden) begin
+					$display("ERROR on Result at %d:output %h !=expect %h ",pattern_num,done_add , done_add_golden);
+					$display(out_f,"ERROR on Result at %d:output %h !=expect %h ",pattern_num,done_add , done_add_golden);
+				end
+				if( done_sub !== done_sub_golden) begin
+					$display("ERROR on Result at %d:output %h !=expect %h ",pattern_num,done_sub , done_sub_golden);
+					$display(out_f,"ERROR on Result at %d:output %h !=expect %h ",pattern_num,done_sub , done_sub_golden);
+				end
+				if( done_mult !== done_mult_golden) begin
+					$display("ERROR on Result at %d:output %h !=expect %h ",pattern_num,done_mult , done_mult_golden);
+					$display(out_f,"ERROR on Result at %d:output %h !=expect %h ",pattern_num,done_mult , done_mult_golden);
+				end
+				if( done_div !== done_div_golden) begin
+					$display("ERROR on Result at %d:output %h !=expect %h ",pattern_num,done_div , done_div_golden);
+					$display(out_f,"ERROR on Result at %d:output %h !=expect %h ",pattern_num,done_div , done_div_golden);
 				end
 				if( done_to_control !== done_to_control_golden) begin
 					$display("ERROR on Result at %d:output %h !=expect %h ",pattern_num,done_to_control , done_to_control_golden);

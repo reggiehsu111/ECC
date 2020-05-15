@@ -34,6 +34,7 @@ class GFAU(Base_Module):
         # inputs array is a buffer for all inputs
         # read input only when valid
         for in_x in inputs:
+            _, _, _, ops = in_x
             # read input and calculate cycles
             result, cycles = self.operate_fn(in_x)
             self.operate_cycles.append(cycles)
@@ -41,10 +42,13 @@ class GFAU(Base_Module):
             # all zeros for following cycles
             for c in range(cycles-1):
                 self.update_allzero()
+
+            out = [result, 0,0,0,0]
+            out[ops+1] = 1
             
             # output result
             self.update_inputs(0)
-            self.update_outputs([result])
+            self.update_outputs(out)
             self.update_done(1)
             self.update_valid(0)
 
@@ -74,7 +78,7 @@ class GFAU(Base_Module):
         elif ops == 2:
             # mult
             result = MonMul(in_0, in_1, prime, 32)
-            cycles += 32
+            cycles += 33
         else:
             # div
             result, c = MonDiv(in_0, in_1, prime, 32)
@@ -99,7 +103,10 @@ def main():
 
     output_ports = [
         Output_port("result", 32), 
-        Output_port("")
+        Output_port("done_add", 1),
+        Output_port("done_sub", 1),
+        Output_port("done_mult", 1),
+        Output_port("done_div", 1)
     ]
 
     done_port = Done_port("done_to_control", 1)
