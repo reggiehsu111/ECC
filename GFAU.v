@@ -138,7 +138,7 @@ module mult(
 	prime,
 	sel_mult,
 	mult_out,
-	done_mult,
+	done_mult
 	);
 
 	localparam SIZE = 32;
