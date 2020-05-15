@@ -101,7 +101,6 @@ def ModDiv(A,B,p,n):
 		else:
 			print("Path 4")
 			V = (V-U) >> 1
-			R = R << 1
 			S = S+R
 			R = R << 1
 		i += 1
@@ -136,8 +135,8 @@ def MonDiv(A,B,p,n):
 		else:
 			# print("Path 4")
 			V = (V-U) >> 1
-			R = R << 1
 			S = S+R
+			R = R << 1
 		i += 1
 		if R >= p:
 			R = R - p

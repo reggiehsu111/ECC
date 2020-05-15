@@ -17,7 +17,7 @@
 module GFAU_test();
 
     parameter OP_DATA_LENGTH = 10; // data length for each operation
-    parameter DATA_LENGTH = 900; // modify this from GFAU.py
+    parameter DATA_LENGTH = 1420; // modify this from GFAU.py
 
     reg           clk;
     reg           reset, dfc;
