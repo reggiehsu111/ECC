@@ -104,8 +104,8 @@ module add(
 		endcase
 	end
 
-	always@(posedge i_clk or posedge i_rst) begin
-		if (i_rst) begin
+	always@(posedge i_clk or negedge i_rst) begin
+		if (!i_rst) begin
 			done_add <= 0;
 			add_out_ext <= 0;
 			state <= 0;
@@ -168,8 +168,10 @@ module mult(
 	prime,
 	sel_mult,
 	mult_out,
-	done_mult
-	);
+	done_mult,
+	state,
+	i);
+
 	localparam SIZE = 32;
 	
 	input i_clk, i_rst;
@@ -227,8 +229,8 @@ module mult(
 		endcase
 	end
 
-	always@ (posedge i_clk or posedge i_rst) begin
-		if(i_rst) begin
+	always@ (posedge i_clk or negedge i_rst) begin
+		if(!i_rst) begin
 			i <= 0;
 			mult_out <= 0;
 			state <= 0;
@@ -379,8 +381,8 @@ module div(
 		endcase
 	end
 
-	always@ (posedge i_clk or posedge i_rst) begin
-		if(i_rst) begin
+	always@ (posedge i_clk or negedge i_rst) begin
+		if(!i_rst) begin
 			U <= 0;
 			V <= 0;
 			R <= 0;
