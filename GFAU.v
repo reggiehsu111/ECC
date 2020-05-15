@@ -49,9 +49,9 @@ module GFAU(
     			 .sel_mult(sel_mult), .mult_out(mult_out), .done_mult(done_mult));
     div div_0 (.i_clk(i_clk), .i_rst(i_rst), .div_in_0(in_0), .div_in_1(in_1), .prime(prime),
 			   .sel_div(sel_div), .div_out(div_out), .done_div(done_div), .state(state));
-    assign done_to_control = (done_add | done_sub | done_mult | done_div);
-    assign result = (sel_add == 1 && done_add == 1) ? add_out :
-    				(sel_sub == 1 && done_sub == 1) ? sub_out :
+    assign done_to_control = ((sel_add & done_add) | (sel_sub & done_sub) | done_mult | done_div);
+    assign result = (done_add == 1) ? add_out :
+    				(done_sub == 1) ? sub_out :
     				(done_mult == 1) ? mult_out :
     				(done_div == 1) ? div_out : 0 ;
 endmodule
