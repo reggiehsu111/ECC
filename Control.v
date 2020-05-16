@@ -603,8 +603,6 @@ always@(posedge  i_clk or negedge i_reset)
                 key_counter     <= key_counter_n;
                 in_sig          <= in_sig_n;
                 all_done_r      <= all_done_rn;
-                done_keyshift   <= done_keyshift_r;
-                done_control    <= done_control_r;
             end
     end
 endmodule
