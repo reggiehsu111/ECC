@@ -33,8 +33,7 @@ module GFAU_tb;
         done_sub,
         done_mult,
         done_div,
-        state,
-        div_out
+        state
     );
 
 /*    `ifdef SDF
