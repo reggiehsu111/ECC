@@ -14,8 +14,6 @@ module GFAU_tb;
     wire [SIZE - 1 : 0] result;
     wire done_to_control;
     wire done_add, done_sub, done_mult, done_div;
-    wire [2:0] state;
-    wire [10 : 0] i;
     wire [SIZE - 1 : 0] mult_out, div_out;
 
 
@@ -32,8 +30,7 @@ module GFAU_tb;
         done_add,
         done_sub,
         done_mult,
-        done_div,
-        state
+        done_div
     );
 
 /*    `ifdef SDF

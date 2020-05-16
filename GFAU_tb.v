@@ -24,7 +24,8 @@ module GFAU_test();
     reg   [1:0]   ops;
     reg   [31:0]  Px_i, Py_i, Prime;
     wire          done, done_add, done_sub, done_mult, done_div;
-    wire  [31:0]  Result_out;
+    wire  [31:0]  Result_out, mult_out, div_out;
+    wire [32:0] mult_out_mid, R;
 
     // Inputs from files
     reg   dfc_mem                [0:DATA_LENGTH-1];
@@ -62,7 +63,9 @@ module GFAU_test();
 	      .done_add(done_add),
 	      .done_sub(done_sub),
 	      .done_mult(done_mult),
-	      .done_div(done_div));
+	      .done_div(done_div),
+        .div_out(div_out),
+        .R(R));
        
     //initial $sdf_annotate(`SDFFILE, top);
     // Inputs
@@ -82,15 +85,15 @@ module GFAU_test();
 
     initial begin
        clk         = 1'b1;
-       reset       = 1'b1;
+       reset       = 1'b0;
        stop        = 1'b0;  
        over        = 1'b0;
        pattern_num = 0;
        err         = 0;
        i           = 0;
        j           = 0;
-        #2.5 reset=1'b0;                            // system reset
-        #2.5 reset=1'b1;
+        #2.5 reset=1'b1;                            // system reset
+        #2.5 reset=1'b0;
 
     end
 
