@@ -162,15 +162,15 @@ class TB:
 
         _ret.append(("initial begin", 1))
         ret.append("clk         = 1'b1;")
-        ret.append("reset       = 1'b1;")
+        ret.append("reset       = 1'b0;")
         ret.append("stop        = 1'b0;")
         ret.append("over        = 1'b0;")
         ret.append("pattern_num = 0;")
         ret.append("err         = 0;")
         ret.append("i           = 0;")
         ret.append("j           = 0;")
-        ret.append("#2.5 reset=1'b0;")
         ret.append("#2.5 reset=1'b1;")
+        ret.append("#2.5 reset=1'b0;")
         # add depth info
         for x in ret:
             _ret.append((x, 2))
