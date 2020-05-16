@@ -98,6 +98,7 @@ module Control(
                                     in_sig_n = 0;
                                     r1_n = i1_w; /// may not correct after first pass value
                                     r2_n = i2_w;
+                                    done_keyshift_r = 1;
                                     next_state = 0;
                                 end
                             
@@ -601,7 +602,9 @@ always@(posedge  i_clk or negedge i_reset)
                 state           <= next_state;  
                 key_counter     <= key_counter_n;
                 in_sig          <= in_sig_n;
-                all_done_r        <= all_done_rn;
+                all_done_r      <= all_done_rn;
+                done_keyshift   <= done_keyshift_r;
+                done_control    <= done_control_r;
             end
     end
 endmodule
