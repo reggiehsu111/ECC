@@ -40,10 +40,11 @@ def MonMul(A,B,p,n):
 		T = C + Ai*int(B)
 		C = (T + (int(T)&1)*p) >> 1
 		A = A >> 1
-		# print("T:", T, "C:", C)
+		print("C:", C, "//", hex(C)[2:])
 	if C >= p:
 		C = C-p
-	# print("C:", C)
+	print("C:", C, "//", hex(C)[2:])
+	print("")
 	return int(C)
 
 # Input: b
@@ -118,6 +119,7 @@ def ModDiv(A,B,p,n):
 def MonDiv(A,B,p,n):
 	U, V, R, S, i = int(p), int(B), 0, int(A), 0
 	while V>0:
+		print("R:", R, "//", hex(R)[2:])
 		# print("U,V,R,S:", U,V,R,S)
 		if U&1 == 0:
 			# print("Path 1")
@@ -145,7 +147,9 @@ def MonDiv(A,B,p,n):
 	# print("U,V,R,S:", U,V,R,S)
 	# print("i:",i)
 	for j in range(1, i+1-n):
+		print("In for loop R:", R, "//", hex(R)[2:])
 		R = (R + (int(R)&1)*p) >> 1
+	print("R:", R, "//", hex(R)[2:])
 	# print("Latest R:", R)
 	R = p - R
 	return R
@@ -180,5 +184,12 @@ def main():
 	y3 = (s*(x - x3) - y)%p
 	print("x3:", x3)
 	print("y3:", y3)
+
+def test():
+	A = 1156863824
+	B = 1923820480
+	p = 2904401221
+	answer = MonDiv(A,B,p, 32)
+	print("ans:", answer, hex(answer)[2:])
 if __name__ == '__main__':
-	reduce_p_B(17, 83)
+	test()

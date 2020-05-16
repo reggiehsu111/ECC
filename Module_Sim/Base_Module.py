@@ -56,7 +56,7 @@ class Base_Module(ABC):
     @abstractmethod
     def operate_fn(self):
         """
-        Function to operate for each input
+        Function to operate each input
         """
         return
     

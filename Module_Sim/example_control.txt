@@ -1,0 +1,15 @@
+clk, reset, GFAU_done, Keyshift_done, PartKey, GFAU_result, raw1, raw2, raw_prime, a, Px_mont, Py_mont, operation_select
+0, 1, 0, 0, none, none, raw1, raw2, raw_prime, a, none, none, none 
+1, 0, 0, 0, PartKey, none, raw1, raw2, raw_prime, a, none, none, none
+1, 0, 0, 0, PartKey, none, raw1, raw2, raw_prime, a, Px_mont, Py_mont, operation_select
+1, 0, 1, 0, PartKey, result1, raw1, raw2, raw_prime, a, Px_mont, Py_mont, operation_select
+1, 0, 1, 0, PartKey, result2, raw1, raw2, raw_prime, a, Px_mont1, Py_mont1, operation_select1
+.
+.
+.
+.
+.
+1, 0, 1, 0, PartKey, 1, raw1, raw2, raw_prime, a, Px_mont?, Py_mont?, operation_select?
+1, 0, 1, 0, PartKey2, 0, raw1, raw2, raw_prime, a, Px_mont?+1, Py_mont?+1, operation_select?+1
+
+

@@ -52,8 +52,6 @@ def to_mont(P, prime):
 
 
 def main():
-	Px_list = []
-	Py_list = []
 	Px_golden = []
 	Py_golden = []
 	Prime_list = []

@@ -76,6 +76,8 @@ def main():
 	Prime_list = []
 	ops_list = []
 	dfc_list = []
+	Px_list = []
+	Py_list = []
 
 	# outputs
 	result_list = []

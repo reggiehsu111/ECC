@@ -122,7 +122,7 @@ class TB:
         ret.append(("$display(\"ERROR on Result at %d:output %h !=expect %h \",pattern_num,"+ x.name +" , "+ x.name +"_golden);", 5))
         ret.append(("$display(out_f,\"ERROR on Result at %d:output %h !=expect %h \",pattern_num,"+ x.name +" , "+ x.name +"_golden);", 5))
         ret.append(("end", 4))
-        ret.append(("err = err + 1", 4))
+        ret.append(("err = err + 1;", 4))
         ret.append(("end", 3))
         ret.append(("pattern_num = pattern_num + 1;", 3))
         ret.append(("if(pattern_num === DATA_NUM)  over = 1'b1;", 3))
@@ -144,8 +144,8 @@ class TB:
         ret.append((self.valid_port.name+" = "+self.valid_port.name+"_mem[i];", 3))
         ret.append(("// Get Output", 2))
         for x in self.output_ports:
-            ret.append((x.name+" = "+x.name+"_mem[i];", 3))
-        ret.append((self.done_port.name+" = "+self.done_port.name+"_mem[i];", 3))
+            ret.append((x.name+"_golden = "+x.name+"_mem[i];", 3))
+        ret.append((self.done_port.name+"_golden = "+self.done_port.name+"_mem[i];", 3))
         ret.append(("i = i+1;", 3))
         ret.append(("end", 2))
         ret.append(("else stop = 1;", 2))
@@ -221,14 +221,17 @@ class TB:
         ret = []
         _ret = []
         _ret.append((self.module_name + " "+ self.module_name.lower()+"0(", 1))
-        ret.append(".i_clk(clk)")
-        ret.append(".i_rst(reset)")
-        ret.append('.'+self.done_port.name+"("+self.done_port.name+")")
-        ret.append('.'+self.valid_port.name+"("+self.valid_port.name+")")
+        ret.append(".i_clk(clk),")
+        ret.append(".i_rst(reset),")
+        ret.append('.'+self.done_port.name+"("+self.done_port.name+"),")
+        ret.append('.'+self.valid_port.name+"("+self.valid_port.name+"),")
         for x in self.input_ports:
-            ret.append('.'+x.name+"("+x.name+")")
+            ret.append('.'+x.name+"("+x.name+"),")
         for x in self.output_ports:
-            ret.append('.'+x.name+"("+x.name+")")
+            if x == self.output_ports[-1]:
+                ret.append('.'+x.name+"("+x.name+")")
+            else:
+                ret.append('.'+x.name+"("+x.name+"),")
 
         # add depth info
         for x in ret:
@@ -333,7 +336,7 @@ def main():
     valid_port = Valid_port("done_from_control", 1)
 
     # Initialize TB
-    tb = TB(input_ports, output_ports, valid_port, done_port, ".", "../sim_data/GFAU_test", "GFAU", 1390, 40)
+    tb = TB(input_ports, output_ports, valid_port, done_port, ".", "sim_data/GFAU_test", "GFAU", 1390, 40)
 
     tb.write_tb()
     return
