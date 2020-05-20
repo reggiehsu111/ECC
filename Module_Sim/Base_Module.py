@@ -33,6 +33,10 @@ class Done_port(Port):
     def __init__(self, name, bits):
         super().__init__(name, bits)
 
+class Reg_port(Port):
+    def __init__(self, name, bits):
+        super().__init__(name, bits)
+
 
 
 class Base_Module(ABC):

@@ -19,7 +19,7 @@ import Crypto.Util.number as num
 import Crypto
 
 num_data = [10,10,10,10]
-OP_CYCLES = [0, 0, 32, 100]
+OP_CYCLES = [0, 0, 32, 120]
 
 class GFAU:
 	def __init__(self):
