@@ -36,7 +36,7 @@ module Control(
     reg in_sig_n;                         
 
     wire [31:0] i1_w, i2_w;
-    wire Transfer_done_w;
+    wire Transfer_done_w0, Transfer_done_w1;
     wire in_sig_w;
 
     reg [31:0] x1, y1, x2, y2;
@@ -62,10 +62,10 @@ module Control(
     reg [4:0] key_counter;                  // counter for keyshifter is whether finish
     reg [4:0] key_counter_n;
 
-    wire [31:0] transferred_a_w;
+    wire [31:0] transferred_a_w0, transferred_a_w1;
 
-    Domain_Transfer d0(i_clk, i_reset, 1'b1, in_sig_w, raw1, raw2, raw_a, raw_prime, i1_w, i2_w, transferred_a_w, Transfer_done_w);
-    Domain_Transfer d1(i_clk, i_reset, 1'b0, in_sig_w, x3_w, y3_w, raw_a, raw_prime, output_1, output_2, transferred_a_w, Transfer_done_w);
+    Domain_Transfer d0(i_clk, i_reset, 1'b1, in_sig_w, raw1, raw2, raw_a, raw_prime, i1_w, i2_w, transferred_a_w0, Transfer_done_w0);
+    Domain_Transfer d1(i_clk, i_reset, 1'b0, in_sig_w, x3_w, y3_w, raw_a, raw_prime, output_1, output_2, transferred_a_w1, Transfer_done_w1);
 
 /*====================assign output wires to the register=========================*/
 
@@ -88,7 +88,7 @@ module Control(
                     done_control_r = 0;
                     done_keyshift_r = 0;
                     in_sig_n = 0;
-                    if(Transfer_done_w == 1)
+                    if(Transfer_done_w0 == 1)
                         begin
                             if(key_counter == 5'b11111)
                                 begin
@@ -206,7 +206,7 @@ module Control(
             4:
                  begin
                     Px_mont_r = r1;
-                    Py_mont_r = transferred_a_w;
+                    Py_mont_r = transferred_a_w0;
                     instruction = 2'b00;//add
                     done_control_r = 1; done_keyshift_r = 0; in_sig_n = in_sig; all_done_rn = 0;
                     x1_n = x1; y1_n = y1; x2_n = x2; y2_n = y2; x3_n = x3; y3_n = y3;
@@ -630,9 +630,9 @@ module Control(
 
 /* ====================Sequential Part=================== */
 
-always@(posedge  i_clk or negedge i_reset)
+always@(posedge  i_clk or posedge i_reset)
     begin
-        if (i_reset == 1'b0)
+        if (i_reset)
             begin
                 in_sig          <= 1;
                 state	        <= 5'b0;
