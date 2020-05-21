@@ -625,6 +625,11 @@ module Control(
                            key_counter_n = key_counter;
                        end
                 end
+            22:
+                begin
+                    in_sig_n = 1;
+                    next_state = 0;
+                end
         endcase
     end
 
@@ -634,8 +639,8 @@ always@(posedge  i_clk or posedge i_reset)
     begin
         if (i_reset)
             begin
-                in_sig          <= 1;
-                state	        <= 5'b0;
+                in_sig          <= 0;
+                state	        <= 22;
                 done_control_r  <= 0;
                 done_keyshift_r <= 0;
                 key_counter     <= 5'b0000;
