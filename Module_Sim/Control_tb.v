@@ -34,7 +34,7 @@
 module Control_test();
 
     parameter DATA_NUM = 3; // need to be adjusted
-	parameter DATA_LENGTH = 40;
+	parameter DATA_LENGTH = 59;
 	
     // Input registers
 	reg           clk, reset;
@@ -167,7 +167,7 @@ module Control_test();
 		end
 	end
 	
-	always @(negedge clk)begin
+	always @(posedge clk)begin
 		if (i<DATA_LENGTH) begin
 		// Get Input
 			gfau_done = gfau_done_mem[i];
