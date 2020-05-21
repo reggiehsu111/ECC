@@ -34,7 +34,7 @@
 module Control_test();
 
     parameter DATA_NUM = 3; // need to be adjusted
-	parameter DATA_LENGTH = 7;
+	parameter DATA_LENGTH = 40;
 	
     // Input registers
 	reg           clk, reset;
@@ -103,7 +103,7 @@ module Control_test();
         .raw1(raw1),
         .raw2(raw2),
         .raw_prime(raw_prime),
-        .a(in_a),
+        .raw_a(in_a),
         .output_1(output_1),
         .output_2(output_2),
         .all_done(all_done)

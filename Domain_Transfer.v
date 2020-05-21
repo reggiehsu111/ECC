@@ -1,6 +1,6 @@
-module Domain_Transfer(clk, reset, ToMont, in_sig, Px_i, Py_i, A, Prime, Px_out, Py_out, A_out, done);      
+module Domain_Transfer(clk, reset, ToMont, in_sig, Px_i, Py_i, A_i, Prime, Px_out, Py_out, A_out, done);      
     input clk, reset, ToMont, in_sig;
-    input [31:0] Px_i, Py_i, Prime, A; 
+    input [31:0] Px_i, Py_i, Prime, A_i; 
     output [31:0] Px_out, Py_out, A_out;
     output done;
 
@@ -65,8 +65,8 @@ module Domain_Transfer(clk, reset, ToMont, in_sig, Px_i, Py_i, A, Prime, Px_out,
               else Px_nxt = Px_i;
               if(Py_i >= Prime) Py_nxt = Py_i - Prime;
               else Py_nxt = Py_i;
-              if (A >= Prime) A_nxt = A - Prime;
-              else A_nxt = A;
+              if (A_i >= Prime) A_nxt = A_i - Prime;
+              else A_nxt = A_i;
             end
             else begin
               Px_nxt = Px;
