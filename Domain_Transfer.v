@@ -17,9 +17,10 @@ module Domain_Transfer(clk, reset, ToMont, in_sig, Px_i, Py_i, A_i, Prime, Px_ou
     parameter TO_REGULAR = 2'b10;
     parameter OUT = 2'b11;
 
+    assign A_out = A;
     assign Px_out = Px;
     assign Py_out = Py;
-    assign A_out = A;
+
     assign Px_shift = Px << 1;
     assign Py_shift = Py << 1;
     assign A_shift = A << 1;
@@ -91,18 +92,18 @@ module Domain_Transfer(clk, reset, ToMont, in_sig, Px_i, Py_i, A_i, Prime, Px_ou
             else A_nxt = A >> 1;
           end
           default: begin
-            Px_nxt <= 0;
-            Py_nxt <= 0;
-            A_nxt <= 0;
+            Px_nxt = 0;
+            Py_nxt = 0;
+            A_nxt = 0;
           end
 
         endcase
     end
 
       /* ====================Sequential Part=================== */
-    always@(posedge clk or negedge reset)
+    always@(posedge clk or posedge reset)
     begin
-        if (!reset)
+        if (reset)
         begin
               Px <= 32'b0;
               Py <= 32'b0;

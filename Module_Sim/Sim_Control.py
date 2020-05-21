@@ -65,6 +65,10 @@ class Control:
         self.Px_mont = self.to_mont(raw1, raw_prime)
         self.Py_mont = self.to_mont(raw2, raw_prime)
         self.a_mont = self.to_mont(a, raw_prime)
+        for x in range(32):
+            self.update_inputs([0,0,0,0,raw1, raw2, raw_prime,a])
+            self.update_reg(0)
+            self.update_outputs(0)
 
         # output done_keyshift
         self.update_inputs([0,0,0,0,raw1, raw2, raw_prime,a])
@@ -85,11 +89,11 @@ class Control:
         print("state 1 result:", result)
         self.update_inputs([1,1,1,result,raw1, raw2, raw_prime,a])
         self.update_reg([self.current_reg['r1'],self.current_reg['r2'],self.current_reg['r1'],self.current_reg['r2'],self.current_reg['r1'], self.current_reg['r2'],0,0])
-        self.update_outputs([self.current_reg['x1'], self.current_reg['x1'],2,0,0,0,0,0])
+        self.update_outputs([self.current_reg['x1'], self.current_reg['x1'],0,0,0,0,0,0])
         # store result
         self.update_inputs([0,1,1,0,raw1, raw2, raw_prime, a])
         self.update_reg([result,self.current_reg['r2'],result,self.current_reg['r2'],result, self.current_reg['r2'],0,0])
-        self.update_outputs([self.current_reg['x1'], self.current_reg['x1'],2,0,0,0,0,0])
+        self.update_outputs([self.current_reg['x1'], self.current_reg['x1'],0,0,0,0,0,0])
 
     
     def operate_fn(self, in_x):
