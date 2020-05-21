@@ -34,7 +34,7 @@
 module Control_test();
 
     parameter DATA_NUM = 3; // need to be adjusted
-	parameter DATA_LENGTH = 59;
+	parameter DATA_LENGTH = 63;
 	
     // Input registers
 	reg           clk, reset;
