@@ -47,7 +47,7 @@ module Control_test();
 	wire  [31:0]     px_mont, py_mont, output_1, output_2;
 
     // Reg registers
-    wire  [31:0]     r1, r2, x1, x2, x3, y1, y2, y3;
+    reg  [31:0]     r1, r2, x1, x2, x3, y1, y2, y3;
 	
 	// Inputs from files
 	reg           gfau_done_mem       [0:DATA_LENGTH-1];
