@@ -102,7 +102,7 @@ module Control(
                             else
                                 begin
                                     all_done_rn = 0;
-                                    a_n = Transfer_done_w0;
+                                    a_n = transferred_a_w0;
                                     r1_n = i1_w; r2_n = i2_w;
                                     x1_n = x1; y1_n = y1; x2_n = x2; y2_n = y2; x3_n = x3; y3_n = y3;
                                     done_keyshift_r = 1;
