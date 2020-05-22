@@ -92,9 +92,9 @@ module Domain_Transfer(clk, reset, ToMont, in_sig, Px_i, Py_i, A_i, Prime, Px_ou
             else A_nxt = A >> 1;
           end
           default: begin
-            Px_nxt = 0;
-            Py_nxt = 0;
-            A_nxt = 0;
+            Px_nxt = Px;
+            Py_nxt = Py;
+            A_nxt = A;
           end
 
         endcase
