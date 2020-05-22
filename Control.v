@@ -92,7 +92,7 @@ module Control(
                     in_sig_n = 0;
                     if(Transfer_done_w0 == 1)
                         begin
-                            if(key_counter == 5'b11111)
+                            if(key_counter == 1)
                                 begin
                                     all_done_rn = 1;
                                     r1_n = r1; r2_n = r2; x1_n = x1; y1_n = y1; x2_n = x2; y2_n = y2; x3_n = x3; y3_n = y3;
@@ -114,7 +114,7 @@ module Control(
                     else
                         begin
                             all_done_rn = 0;
-                            if(key_counter == 5'b11111)
+                            if(key_counter == 1)
                                 begin
                                     if (in_sig == 0) in_sig_n = 1;
                                     else in_sig_n = 0;
@@ -632,6 +632,7 @@ module Control(
                 begin
                     in_sig_n = 1;
                     next_state = 0;
+                    key_counter_n = 0;
                 end
         endcase
     end

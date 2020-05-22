@@ -224,7 +224,7 @@ class Control:
         print("state 13 result:", result)
         self.update_inputs([1,0,1,result,raw1, raw2, raw_prime,a])
         self.update_outputs([self.current_reg['x2'],self.current_reg['x1'],1,0,0,0,0,0])
-        self.update_reg([result,self.current_reg['r2'],self.current_reg['x1'],result,self.current_reg['y1'], self.current_reg['x2'],self.current_reg['y2'],self.current_reg['x3'],self.current_reg['y3']])
+        self.update_reg([result,self.current_reg['r2'],self.current_reg['x1'],self.current_reg['y1'], self.current_reg['x2'],self.current_reg['y2'],self.current_reg['x3'],self.current_reg['y3']])
 
         # state 14
         self.update_inputs([0,0,1,0,raw1, raw2, raw_prime,a])
@@ -305,14 +305,34 @@ class Control:
 
         # state 21
         self.update_inputs([0,0,1,0,raw1, raw2, raw_prime,a])
-        self.update_outputs([self.current_reg['r2'],self.current_reg['r1'], 2,0,1,0,0,0])
+        self.update_outputs([self.current_reg['r2'],self.current_reg['y1'], 1,0,1,0,0,0])
         self.update_reg([self.current_reg['r1'],self.current_reg['r2'],self.current_reg['x1'],self.current_reg['y1'],self.current_reg['x2'], self.current_reg['y2'],self.current_reg['x3'],self.current_reg['y3']])
 
-        result = gfau([self.current_reg['r2'],self.current_reg['r1'], raw_prime, 2])
-        print("state 20 result:", result)
+        result = gfau([self.current_reg['r2'],self.current_reg['y1'], raw_prime, 1])
+        print("state 21 result:", result)
         self.update_inputs([1,0,1,result,raw1, raw2, raw_prime,a])
-        self.update_outputs([self.current_reg['r2'],self.current_reg['r1'],2,1,0,0,0,0])
+        self.update_outputs([self.current_reg['r2'],self.current_reg['y1'],1,1,0,0,0,0])
         self.update_reg([self.current_reg['r1'],result,self.current_reg['x1'],self.current_reg['y1'], self.current_reg['x2'],self.current_reg['y2'],self.current_reg['x3'],result])
+
+        # state 22
+        self.update_inputs([0,0,1,0,raw1, raw2, raw_prime,a])
+        self.update_outputs([self.current_reg['r2'],self.current_reg['y1'], 0,0,0,0,0,0])
+        self.update_reg([self.current_reg['r1'],self.current_reg['r2'],self.current_reg['x1'],self.current_reg['y1'],self.current_reg['x2'], self.current_reg['y2'],self.current_reg['x3'],self.current_reg['y3']])
+        self.update_inputs([0,0,1,0,raw1, raw2, raw_prime,a])
+        self.update_outputs([self.current_reg['r2'],self.current_reg['y1'], 0,0,0,0,0,0])
+        self.update_reg([self.current_reg['r1'],self.current_reg['r2'],self.current_reg['x1'],self.current_reg['y1'],self.current_reg['x2'], self.current_reg['y2'],self.current_reg['x3'],self.current_reg['y3']])
+
+        x3_trans = self.to_reg(self.current_reg['x3'], raw_prime)
+        y3_trans = self.to_reg(self.current_reg['y3'], raw_prime)
+        for x in range(32):
+            self.update_inputs([0,0,1,0,raw1, raw2, raw_prime,a])
+            self.update_outputs([self.current_reg['r2'],self.current_reg['y1'], 0,0,0,0,0,0])
+            self.update_reg([self.current_reg['r1'],self.current_reg['r2'],self.current_reg['x1'],self.current_reg['y1'],self.current_reg['x2'], self.current_reg['y2'],self.current_reg['x3'],self.current_reg['y3']])
+        self.update_inputs([0,0,1,0,raw1, raw2, raw_prime,a])
+        self.update_outputs([self.current_reg['r2'],self.current_reg['y1'], 0,0,0,x3_trans,y3_trans,0])
+        self.update_reg([self.current_reg['r1'],self.current_reg['r2'],self.current_reg['x1'],self.current_reg['y1'],self.current_reg['x2'], self.current_reg['y2'],self.current_reg['x3'],self.current_reg['y3']])
+
+
 
     
     def operate_fn(self, in_x):
