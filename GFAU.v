@@ -5,15 +5,15 @@ module GFAU(
 	in_1,
 	prime,
 	operation_select,
-	done_from_control,
+	GFAU_done_from_control,
 	result,
-	done_to_control,
-	done_add,
+	GFAU_done_to_control
+	/*done_add,
 	done_sub,
 	done_mult,
 	done_div,
 	div_out,
-	R
+	R*/
 	);
 
 	localparam SIZE = 32;
@@ -22,10 +22,10 @@ module GFAU(
 	input [SIZE - 1 : 0] in_0, in_1;
 	input [SIZE - 1 : 0] prime;
     input [1 : 0] operation_select;
-    input done_from_control;
+    input GFAU_done_from_control;
 
     output[SIZE - 1 : 0] result;
-    output done_to_control;
+    output GFAU_done_to_control;
     output done_add, done_sub, done_mult, done_div;
     output [SIZE - 1 : 0] div_out;
     output [SIZE : 0] R;
@@ -36,10 +36,10 @@ module GFAU(
     wire [SIZE - 1 : 0] add_out, sub_out, mult_out, div_out;
     
 
-    assign sel_add = (operation_select == 2'd0 && done_from_control == 1) ? 1 : 0;
-    assign sel_sub = (operation_select == 2'd1 && done_from_control == 1) ? 1 : 0;
-    assign sel_mult = (operation_select == 2'd2 && done_from_control == 1) ? 1 : 0;
-    assign sel_div = (operation_select == 2'd3 && done_from_control == 1) ? 1 : 0;
+    assign sel_add = (operation_select == 2'd0 && GFAU_done_from_control == 1) ? 1 : 0;
+    assign sel_sub = (operation_select == 2'd1 && GFAU_done_from_control == 1) ? 1 : 0;
+    assign sel_mult = (operation_select == 2'd2 && GFAU_done_from_control == 1) ? 1 : 0;
+    assign sel_div = (operation_select == 2'd3 && GFAU_done_from_control == 1) ? 1 : 0;
 
     add add_0 (.i_clk(i_clk), .i_rst(i_rst), .add_in_0(in_0), .add_in_1(in_1), .prime(prime),
     		   .sel_add(sel_add), .add_out(add_out), .done_add(done_add));
@@ -49,7 +49,7 @@ module GFAU(
     			 .sel_mult(sel_mult), .mult_out(mult_out), .done_mult(done_mult), .mult_out_mid(mult_out_mid));
     div div_0 (.i_clk(i_clk), .i_rst(i_rst), .div_in_0(in_0), .div_in_1(in_1), .prime(prime),
 			   .sel_div(sel_div), .div_out(div_out), .done_div(done_div), .R(R));
-    assign done_to_control = (done_add | done_sub | done_mult | done_div);
+    assign GFAU_done_to_control = (done_add | done_sub | done_mult | done_div);
     assign result = (done_add == 1) ? add_out :
     				(done_sub == 1) ? sub_out :
     				(done_mult == 1) ? mult_out :
