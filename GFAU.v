@@ -12,7 +12,7 @@ module GFAU(
 	done_sub,
 	done_mult,
 	done_div,
-	div_out,
+	div_out
 	R*/
 	);
 
