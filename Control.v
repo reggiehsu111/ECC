@@ -4,11 +4,10 @@ module Control(
                 PartKey, GFAU_result,
                 Px_mont, Py_mont, operation_select,
                 done_keyshift, done_control,
-                raw1, raw2, raw_prime, raw_a,
+                raw1, raw2, raw_prime, raw_a, load_done,
                 output_1, output_2, all_done
                 );
-  /*========================IO declaration============================ */	  
-
+  /*========================IO declaration============================ */	 
     input i_clk;
     input i_reset;
 
@@ -19,6 +18,8 @@ module Control(
     input [31:0] GFAU_result;               // Result from GFAU
 
     input [31:0] raw1, raw2, raw_prime, raw_a;     // non-transferred input and prime
+
+    input load_done;
 
     output [31:0] Px_mont, Py_mont;         // transferred inputs To GFAU
     output [1:0] operation_select;          // 00, 01, 10, 11 add, subtract, multiple, divide
@@ -90,7 +91,16 @@ module Control(
                     done_control_r = 0;
                     done_keyshift_r = 0;
                     in_sig_n = 0;
-                    if(Transfer_done_w0 == 1 || Transfer_done_w1 == 1)
+                    if (load_done == 0) begin
+                        done_control_r = 0;
+                        done_keyshift_r = 0;
+                        in_sig_n = 0;
+                        all_done_rn = 1;
+                        r1_n = r1; r2_n = r2; x1_n = x1; y1_n = y1; x2_n = x2; y2_n = y2; x3_n = x3; y3_n = y3;
+                        next_state = 0;
+                        key_counter_n = 0;
+                    end
+                    else if(Transfer_done_w0 == 1 || Transfer_done_w1 == 1)
                         begin
                             if(key_counter == 2)
                                 begin
