@@ -643,6 +643,10 @@ module Control(
                     in_sig_n = 1;
                     next_state = 0;
                     key_counter_n = 0;
+                    r1_n = r1; r2_n = r2; x1_n = x1; y1_n = y1; x2_n = x2; y2_n = y2; x3_n = x3; y3_n = y3; a_n = a;
+                    Px_mont_r = 0; Py_mont_r = 0;
+                    all_done_rn = 0;
+                    done_control_r = 0; done_keyshift_r = 0;
                 end
         endcase
     end
