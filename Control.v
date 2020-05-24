@@ -90,17 +90,8 @@ module Control(
                 begin
                     done_control_r = 0;
                     done_keyshift_r = 0;
-                    in_sig_n = 0;
-                    if (load_done == 0) begin
-                        done_control_r = 0;
-                        done_keyshift_r = 0;
-                        in_sig_n = 0;
-                        all_done_rn = 1;
-                        r1_n = r1; r2_n = r2; x1_n = x1; y1_n = y1; x2_n = x2; y2_n = y2; x3_n = x3; y3_n = y3;
-                        next_state = 0;
-                        key_counter_n = 0;
-                    end
-                    else if(Transfer_done_w0 == 1 || Transfer_done_w1 == 1)
+                    in_sig_n = 0;                    
+                    if(Transfer_done_w0 == 1 || Transfer_done_w1 == 1)
                         begin
                             if(key_counter == 2)
                                 begin
@@ -643,10 +634,24 @@ module Control(
                     in_sig_n = 1;
                     next_state = 0;
                     key_counter_n = 0;
-                    r1_n = r1; r2_n = r2; x1_n = x1; y1_n = y1; x2_n = x2; y2_n = y2; x3_n = x3; y3_n = y3; a_n = a;
-                    Px_mont_r = 0; Py_mont_r = 0;
+                    r1_n = r1; 
+                    r2_n = r2; 
+                    x1_n = x1; 
+                    y1_n = y1; 
+                    x2_n = x2; 
+                    y2_n = y2; 
+                    x3_n = x3; 
+                    y3_n = y3; 
+                    a_n = a;
+                    Px_mont_r = 0; 
+                    Py_mont_r = 0;
                     all_done_rn = 0;
-                    done_control_r = 0; done_keyshift_r = 0;
+                    done_control_r = 0; 
+                    done_keyshift_r = 0;
+                    if (load_done == 0) begin
+                        in_sig_n = 0;
+                        next_state = 0;
+                    end
                 end
         endcase
     end

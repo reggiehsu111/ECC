@@ -18,7 +18,8 @@ module key_shift(
 	output key_shift_done_to_control;
 
 	reg [6:0] i, i_n;
-	reg state;
+	reg state, state_n;
+	reg key_shift_done_to_control_r;
 
 	assign k_out = k[i];
 
@@ -27,7 +28,7 @@ module key_shift(
 			0: begin
 				state_n = 0;
 				i_n = i;
-				key_shift_done_to_control = 0;
+				key_shift_done_to_control_r = 0;
 				if (key_shift_done_from_control == 1) begin
 					state_n = 1;
 				end
@@ -35,7 +36,7 @@ module key_shift(
 			1: begin
 				state_n = 0;
 				i_n = i + 1;
-				key_shift_done_to_control = 1;
+				key_shift_done_to_control_r = 1;
 			end
 		endcase
 	end

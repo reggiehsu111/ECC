@@ -37,6 +37,7 @@ module Top_ting(
 
 	reg [3 : 0] state, state_n;
 	reg [SIZE - 1 : 0] raw1_r, raw2_r, raw_prime_r, raw_a_r, k_r;
+	reg [SIZE - 1 : 0] raw1_r_n, raw2_r_n, raw_prime_r_n, raw_a_r_n, k_r_n;
 	reg load_done_r;
 	////////////////////////
 
@@ -237,7 +238,7 @@ module Top_ting(
 				k_r_n = k_r;
 
 				load_done_r = 1;
-
+			end
 
 			default: begin
 				state_n = 0;
@@ -274,7 +275,7 @@ module Top_ting(
 
 	
 
-	Control control_0 (.i_clk(i_clk), i_reset(i_rst), .GFAU_done(GFAU_done_to_control), 
+	Control control_0 (.i_clk(i_clk), .i_reset(i_rst), .GFAU_done(GFAU_done_to_control), 
 					   .Keyshift_done(key_shift_done_to_cont), .PartKey(key_from_key_shift), 
 					   .GFAU_result(GFAU_out), .Px_mont(Px_mont), .Py_mont(Py_mont),
 					   .operation_select(operation_select), 

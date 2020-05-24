@@ -26,9 +26,9 @@ module GFAU(
 
     output[SIZE - 1 : 0] result;
     output GFAU_done_to_control;
-    output done_add, done_sub, done_mult, done_div;
-    output [SIZE - 1 : 0] div_out;
-    output [SIZE : 0] R;
+    //output done_add, done_sub, done_mult, done_div;
+    //output [SIZE - 1 : 0] div_out;
+    //output [SIZE : 0] R;
     //output [10 : 0] i;
     //output [SIZE - 1 : 0] mult_out;
 
