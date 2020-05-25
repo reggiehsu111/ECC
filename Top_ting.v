@@ -7,7 +7,8 @@ module Top_ting(
 	Px,
 	Py,
 	k,
-	kP);
+	kP,
+	raw1);
 	
 	localparam SIZE = 32;
 	localparam IDLE = 0;
@@ -15,6 +16,7 @@ module Top_ting(
 	input [3 : 0] a, prime, Px, Py, k;
 
 	output [3 : 0] kP;
+	output [SIZE - 1 : 0] raw1;
 	
 	//////////GFAU vs. Control//////////
 	wire GFAU_done_to_control, GFAU_done_from_control;

@@ -86,61 +86,90 @@ module Control(
     always@(*)
     begin
         case(state)
-            0:
-                begin
-                    done_control_r = 0;
-                    done_keyshift_r = 0;
-                    in_sig_n = 0;                    
-                    if(Transfer_done_w0 == 1 || Transfer_done_w1 == 1)
-                        begin
-                            if(key_counter == 2)
-                                begin
-                                    all_done_rn = 1;
-                                    r1_n = r1; r2_n = r2; x1_n = x1; y1_n = y1; x2_n = x2; y2_n = y2; x3_n = x3; y3_n = y3;
-                                    next_state = 0;
-                                    key_counter_n = 0;
-                                end
-                            else
-                                begin
-                                    all_done_rn = 0;
-                                    a_n = transferred_a_w0;
-                                    r1_n = i1_w; r2_n = i2_w;
-                                    x1_n = x1; y1_n = y1; x2_n = x2; y2_n = y2; x3_n = x3; y3_n = y3;
-                                    done_keyshift_r = 1;
-                                    next_state = 0;
-                                    key_counter_n = key_counter;
-                                end
-                            
-                        end
-                    else
-                        begin
-                            all_done_rn = 0;
-                            if(key_counter == 2)
-                                begin
-                                    if (in_sig == 0) in_sig_n = 1;
-                                    else in_sig_n = 0;
-                                    next_state = 0;
-                                    r1_n = r1; r2_n = r2; x1_n = x1; y1_n = y1; x2_n = x2; y2_n = y2; x3_n = x3; y3_n = y3;
-                                    key_counter_n = key_counter;
-                                end
-                            else    
-                                begin
-                                    key_counter_n = key_counter;
-                                    if(Keyshift_done == 1)
-                                        begin
-                                            in_sig_n = in_sig;
-                                            r1_n = r1; r2_n = r2; x1_n = r1; y1_n = r2; x2_n = r1; y2_n = r2; x3_n = x3; y3_n = y3;
-                                            next_state = 1;
-                                        end
-                                    else
-                                        begin
-                                            in_sig_n = in_sig;
-                                            r1_n = r1; r2_n = r2; x1_n = x1; y1_n = y1; x2_n = x2; y2_n = y2; x3_n = x3; y3_n = y3;
-                                            next_state = 0;
-                                        end
-                                end
-                        end              
+            0: begin
+                done_control_r = 0;
+                done_keyshift_r = 0;
+                in_sig_n = 0;                    
+                if(Transfer_done_w0 == 1 || Transfer_done_w1 == 1) begin                    
+                    if(key_counter == 2) begin                        
+                        all_done_rn = 1;
+                        r1_n = r1; 
+                        r2_n = r2; 
+                        x1_n = x1; 
+                        y1_n = y1; 
+                        x2_n = x2; 
+                        y2_n = y2; 
+                        x3_n = x3; 
+                        y3_n = y3;
+                        next_state = 0;
+                        key_counter_n = 0;
+                    end
+                    else begin                            
+                        all_done_rn = 0;
+                        a_n = transferred_a_w0;
+                        r1_n = i1_w; 
+                        r2_n = i2_w;
+                        x1_n = x1; 
+                        y1_n = y1; 
+                        x2_n = x2; 
+                        y2_n = y2; 
+                        x3_n = x3; 
+                        y3_n = y3;
+                        done_keyshift_r = 1;
+                        next_state = 0;
+                        key_counter_n = key_counter;
+                    end                        
                 end
+
+                else begin                
+                    all_done_rn = 0;
+                    if(key_counter == 2) begin                        
+                        next_state = 0;
+                        r1_n = r1; 
+                        r2_n = r2; 
+                        x1_n = x1; 
+                        y1_n = y1; 
+                        x2_n = x2; 
+                        y2_n = y2; 
+                        x3_n = x3; 
+                        y3_n = y3;
+                        key_counter_n = key_counter;
+                        if (in_sig == 0) begin
+                            in_sig_n = 1;
+                        end
+                        else begin 
+                            in_sig_n = 0;
+                        end
+                    end
+                    else begin                         
+                        key_counter_n = key_counter;
+                        if(Keyshift_done == 1) begin                            
+                            in_sig_n = in_sig;
+                            r1_n = r1; 
+                            r2_n = r2; 
+                            x1_n = r1; 
+                            y1_n = r2; 
+                            x2_n = r1; 
+                            y2_n = r2; 
+                            x3_n = x3; 
+                            y3_n = y3;
+                            next_state = 1;
+                        end
+                        else begin                            
+                            in_sig_n = in_sig;
+                            r1_n = r1; 
+                            r2_n = r2; 
+                            x1_n = x1; 
+                            y1_n = y1; 
+                            x2_n = x2; 
+                            y2_n = y2; 
+                            x3_n = x3; 
+                            y3_n = y3;
+                            next_state = 0;
+                        end
+                    end
+                end              
+            end
             1:
                 begin
                     Px_mont_r = x1;
@@ -422,8 +451,7 @@ module Control(
                            x1_n = x1; y1_n = y1; x2_n = x2; y2_n = y2; x3_n = x3; y3_n = y3;
                        end
                 end
-/*===========================addition control================================*/                
-            
+/*===========================addition control================================*/                            
             13:
                 begin
                     Px_mont_r = x2;
