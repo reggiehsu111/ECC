@@ -2,6 +2,7 @@
 # import Crypto.Util.number as num
 import math
 
+
 def reduce_p_B(p,B):
 	U,V = p,B
 	while V>0:
@@ -179,6 +180,8 @@ def main():
 	y3 = (s*(x - x3) - y)%p
 	print("x3:", x3)
 	print("y3:", y3)
+
+
 
 
 

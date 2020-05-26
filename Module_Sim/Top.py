@@ -32,6 +32,10 @@ class Top(Base_Module):
             # a = self.to_mont(a, prime)
             # Px = self.to_mont(Px, prime)
             # Py = self.to_mont(Py, prime)
+            print("To mont:")
+            print("    a:", a, hex(a)[2:])
+            print("   Px:", Px, hex(Px)[2:])
+            print("   Py:", Py, hex(Py)[2:])
             result_x, result_y = self.get_output(prime, Px, Py, a, key)
             print(result_x, result_y)
             for x in range(8):
@@ -46,7 +50,6 @@ class Top(Base_Module):
             self.update_inputs(0)
             self.update_done(0)
             self.update_outputs([result_x, result_y])
-
         return
     def operate_fn(self):
         return
@@ -57,7 +60,7 @@ class Top(Base_Module):
         print(bin(key))
         for x in range(31,-1,-1):
             k_bit = (key>>x) & 1
-            # print(x, k_bit)
+            print(x, k_bit)
             if k_bit == 0:
                 if result_x == 0 and result_y == 0:
                     continue
@@ -70,8 +73,8 @@ class Top(Base_Module):
                 else:
                     result_x, result_y = self.double(result_x, result_y, a, prime)
                     result_x, result_y = self.add(Px, Py, result_x, result_y, prime)
-            # print(result_x, result_y)
-            # print("")
+            print(result_x, result_y)
+            print("")
         # from montgomery field to regular
         # print("In Mont field:", result_x, result_y)
         result_x = int(result_x)
@@ -82,22 +85,24 @@ class Top(Base_Module):
 
     def add(self, P1_x, P1_y, P2_x, P2_y, prime):
         lam = ModDiv((P2_y - P1_y)%prime, (P2_x - P1_x)%prime, prime, 32)
-        # lam, _ = MonDiv((P2_y - P1_y), (P2_x - P1_x), prime, 32)
+        # print(P2_y - P1_y, (P2_y - P1_y)%prime)
+        # print(P2_x - P1_x, (P2_x - P1_x)%prime)
+        # lam, _ = MonDiv((P2_y - P1_y)%prime, (P2_x - P1_x)%prime, prime, 32)
         lam = lam % prime
-        # print("lam:", lam)
+        print("lam:", lam)
         x3 = ((lam*lam)%prime - P1_x - P2_x) % prime
         y3 = ((lam*(P1_x - x3)) - P1_y) % prime
-        # print("x3:", x3, "y3:", y3)
+        print("x3:", x3, "y3:", y3)
         return x3, y3
     
     def double(self, P1_x, P1_y, a, prime):
         lam = ModDiv((3*P1_x*P1_x + a)%prime, (2*P1_y)%prime, prime, 32)
-        # lam, _ = MonDiv((3*P1_x*P1_x + a), (2*P1_y), prime, 32)
+        # lam, _ = MonDiv((3*P1_x*P1_x + a)%prime, (2*P1_y)%prime, prime, 32)
         lam = lam % prime
-        # print("lam:", lam)
+        print("lam:", lam)
         x3 = ((lam*lam) - 2*P1_x)%prime
         y3 = ((lam*(P1_x - x3)) - P1_y)%prime
-        # print("x3:", x3, "y3:", y3)
+        print("x3:", x3, "y3:", y3)
         return x3, y3
     
     def to_reg(self, P, prime):

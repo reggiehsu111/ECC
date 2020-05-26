@@ -78,7 +78,7 @@ def main():
 		Py_golden.append(py_mont)
 
 	for i in range(num_data_to_mont):
-		prime = num.getPrime(32, randfunc=Crypto.Random.get_random_bytes)
+		prime = num.getPrime(32)
 		Px = randint(0, 2**32)
 		Py = randint(0, 2**32)
 		Px = Px%prime
@@ -144,7 +144,7 @@ def main():
 def test_to_reg():
 	for i in range(num_data_to_mont):
 		n = 32
-		prime = num.getPrime(n, randfunc=Crypto.Random.get_random_bytes)
+		prime = num.getPrime(n)
 		Px = randint(0, 2**32)
 		Py = randint(0, 2**32)
 		Px = Px%prime
@@ -163,5 +163,5 @@ def test_to_reg():
 		print("Is the transformation correct?", px_reg == Px and py_reg == Py)
 
 if __name__ == '__main__':
-	main()
-	# test_to_reg()
+	# main()
+	test_to_reg()
