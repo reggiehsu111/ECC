@@ -19,16 +19,18 @@ module key_shift(
 
 	reg [6:0] i, i_n;
 	reg state, state_n;
-	reg key_shift_done_to_control_r;
+	reg key_shift_done_to_control;
 
 	assign k_out = k[i];
+	//assign k_out = 0;
+	//assign key_shift_done_to_control = key_shift_done_to_control; //key_shift_done_to_control_r;
 
 	always @(*) begin
 		case(state)
 			0: begin
 				state_n = 0;
 				i_n = i;
-				key_shift_done_to_control_r = 0;
+				key_shift_done_to_control = 0;
 				if (key_shift_done_from_control == 1) begin
 					state_n = 1;
 				end
@@ -36,18 +38,18 @@ module key_shift(
 			1: begin
 				state_n = 0;
 				i_n = i + 1;
-				key_shift_done_to_control_r = 1;
+				key_shift_done_to_control = 1;
 			end
 		endcase
 	end
 	always@ (posedge i_clk or posedge i_rst) begin
 		if (i_rst) begin
-			i = 0;
-			state_n = 0;
+			i <= 0;
+			state <= 0;
 		end
 		else begin
 			i <= i_n;
-			state_n = state;
+			state = state_n;
 		end
 	end
 endmodule 

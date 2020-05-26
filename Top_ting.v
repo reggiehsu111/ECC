@@ -278,7 +278,7 @@ module Top_ting(
 	
 
 	Control control_0 (.i_clk(i_clk), .i_reset(i_rst), .GFAU_done(GFAU_done_to_control), 
-					   .Keyshift_done(key_shift_done_to_cont), .PartKey(key_from_key_shift), 
+					   .Keyshift_done(key_shift_done_to_control), .PartKey(key_from_key_shift), 
 					   .GFAU_result(GFAU_out), .Px_mont(Px_mont), .Py_mont(Py_mont),
 					   .operation_select(operation_select), 
 					   .done_keyshift(key_shift_done_from_control), 
