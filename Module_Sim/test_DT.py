@@ -66,6 +66,8 @@ def main():
     a_mont = to_mont(a, prime)
     px_mont = to_mont(px, prime)
     py_mont = to_mont(py, prime)
+    print("px mont:", px_mont, hex(px_mont)[2:])
+    print("py_mont:", py_mont, hex(py_mont)[2:])
 
     div = ModDiv(a, py, prime, 32)
     mont_div, _ = MonDiv(a_mont,py_mont,prime,32)
