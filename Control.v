@@ -91,7 +91,7 @@ module Control(
                 done_keyshift_r = 0;
                 in_sig_n = 0;                    
                 if(Transfer_done_w0 == 1 || Transfer_done_w1 == 1) begin                    
-                    if(key_counter == 2) begin                        
+                    if(key_counter == 2) begin   // this will be change to the length of Key                     
                         all_done_rn = 1;
                         r1_n = r1; 
                         r2_n = r2; 
@@ -103,6 +103,7 @@ module Control(
                         y3_n = y3;
                         next_state = 0;
                         key_counter_n = 0;
+                        a_n = a;
                     end
                     else begin                            
                         all_done_rn = 0;
@@ -111,8 +112,8 @@ module Control(
                         r2_n = i2_w;
                         x1_n = x1; 
                         y1_n = y1; 
-                        x2_n = x2; 
-                        y2_n = y2; 
+                        x2_n = i1_w; 
+                        y2_n = i2_w; 
                         x3_n = x3; 
                         y3_n = y3;
                         done_keyshift_r = 1;
@@ -123,7 +124,8 @@ module Control(
 
                 else begin                
                     all_done_rn = 0;
-                    if(key_counter == 2) begin                        
+                    a_n = a;
+                    if(key_counter == 2) begin// this will be change to the length of Key                        
                         next_state = 0;
                         r1_n = r1; 
                         r2_n = r2; 
@@ -149,11 +151,20 @@ module Control(
                             r2_n = r2; 
                             x1_n = r1; 
                             y1_n = r2; 
-                            x2_n = r1; 
-                            y2_n = r2; 
+                            x2_n = x2; 
+                            y2_n = y2; 
                             x3_n = x3; 
                             y3_n = y3;
-                            next_state = 1;
+                            if(key_counter == 0)begin
+                                next_state = 0;
+                                done_keyshift_r = 1;
+                                key_counter_n = key_counter + 1; 
+                                x3_n = r1;
+                                y3_n = r2;
+                            end
+                            else begin
+                                next_state = 1;
+                            end  
                         end
                         else begin                            
                             in_sig_n = in_sig;
@@ -694,7 +705,7 @@ always@(posedge  i_clk or posedge i_reset)
                 state	        <= 22;
                 done_control_r  <= 0;
                 done_keyshift_r <= 0;
-                key_counter     <= 5'b0000;
+                key_counter     <= 5'b00000;
                 all_done_r      <= 0;
             end
         else
@@ -714,4 +725,5 @@ always@(posedge  i_clk or posedge i_reset)
                 a               <= a_n;    
             end
     end
+
 endmodule
