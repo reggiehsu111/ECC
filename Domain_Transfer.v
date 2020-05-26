@@ -98,6 +98,8 @@ module Domain_Transfer(clk, reset, ToMont, in_sig, Px_i, Py_i, A_i, Prime, Px_ou
           end
 
         endcase
+        if (counter == 5'b11111) done_reg <= 1'b1;
+            else done_reg <= 1'b0;
     end
 
       /* ====================Sequential Part=================== */
@@ -118,8 +120,6 @@ module Domain_Transfer(clk, reset, ToMont, in_sig, Px_i, Py_i, A_i, Prime, Px_ou
           A <= A_nxt;
           counter <= counter_nxt;
           state <= state_nxt;
-          if (counter == 5'b11111) done_reg <= 1'b1;
-            else done_reg <= 1'b0;
         end
     end
   /* ====================================================== */

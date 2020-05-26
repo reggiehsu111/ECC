@@ -78,22 +78,22 @@ def MonInv(B,p,n):
 def ModDiv(A,B,p,n):
 	U, V, R, S, i = int(p), int(B), 0, int(A), 0
 	while V>0:
-		print("U,V,R,S:", U,V,R,S)
+		# print("U,V,R,S:", U,V,R,S)
 		if U&1 == 0:
-			print("Path 1")
+			# print("Path 1")
 			U = U >> 1
 			S = S << 1
 		elif V&1 == 0:
-			print("Path 2")
+			# print("Path 2")
 			V = V >> 1
 			R = R << 1
 		elif U > V:
-			print("Path 3")
+			# print("Path 3")
 			U = (U-V) >> 1
 			R = R+S
 			S = S << 1
 		else:
-			print("Path 4")
+			# print("Path 4")
 			V = (V-U) >> 1
 			S = S+R
 			R = R << 1
@@ -102,10 +102,10 @@ def ModDiv(A,B,p,n):
 			R = R - p
 		if S >= p:
 			S = S - p
-	print("U,V,R,S:", U,V,R,S)
+	# print("U,V,R,S:", U,V,R,S)
 	for j in range(1, i+1):
 		R = (R + (int(R)&1)*p) >> 1
-	print("Latest R:", R)
+	# print("Latest R:", R)
 	R = p - R
 	return R
 
