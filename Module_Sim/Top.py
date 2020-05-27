@@ -24,11 +24,11 @@ class Top(Base_Module):
         for in_x in inputs:
             a, prime, Px, Py, key = in_x
             # for the first 8 cycles, read in a, prime, px, py, key 4 bits at a time
-            a_bits = [(a>>(4*x))&15 for x in range(8)]
-            prime_bits = [(prime>>(4*x))&15 for x in range(8)]
-            Px_bits = [(Px>>(4*x))&15 for x in range(8)]
-            Py_bits = [(Py>>(4*x))&15 for x in range(8)]
-            key_bits = [(key>>(4*x))&15 for x in range(8)]
+            a_bits = [(a>>(4*(7-x)))&15 for x in range(8)]
+            prime_bits = [(prime>>(4*(7-x)))&15 for x in range(8)]
+            Px_bits = [(Px>>(4*(7-x)))&15 for x in range(8)]
+            Py_bits = [(Py>>(4*(7-x)))&15 for x in range(8)]
+            key_bits = [(key>>(4*(7-x)))&15 for x in range(8)]
             # a = self.to_mont(a, prime)
             # Px = self.to_mont(Px, prime)
             # Py = self.to_mont(Py, prime)
