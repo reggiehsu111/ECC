@@ -122,7 +122,7 @@ module Top_test();
             result_y_golden = result_y_mem[i];
 		end
 		else begin
-            if (i == 12000) stop = 1;
+            if (i == 10000) stop = 1;
             else stop = 0;
             // Input remain
 			i_start = 0;

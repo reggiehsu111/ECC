@@ -92,7 +92,7 @@ module Control(
                 in_sig_n = 0;
                 a_n = a;                    
                 if(Transfer_done_w0 == 1 || Transfer_done_w1 == 1) begin                    
-                    if(key_counter == 1) begin   // this will be changed to the length of Key                     
+                    if(key_counter == 31) begin   // this will be changed to the length of Key                     
                         all_done_rn = 1;
                         r1_n = r1; 
                         r2_n = r2; 
@@ -126,7 +126,7 @@ module Control(
                 else begin                
                     all_done_rn = 0;
                     a_n = a;
-                    if(key_counter == 1) begin// this will be change to the length of Key                        
+                    if(key_counter == 31) begin// this will be change to the length of Key                        
                         next_state = 0;
                         r1_n = r1; 
                         r2_n = r2; 
@@ -200,7 +200,6 @@ module Control(
                     y3_n = y3; 
                     a_n = a;
                     key_counter_n = key_counter;
-
                     if(GFAU_done == 1)
                         begin
                             done_control_r = 0;
@@ -879,7 +878,6 @@ module Control(
                     done_keyshift_r = 0;
                     in_sig_n = 1;
                     next_state = 0;
-
                     if (load_done == 0) begin
                         in_sig_n = 0;
                         next_state = 22;
@@ -895,12 +893,20 @@ always@(posedge  i_clk or posedge i_reset)
     begin
         if (i_reset)
             begin
+                r1              <= 0;
+                r2              <= 0;
+                state           <= 22;
+                key_counter     <= key_counter_n;
                 in_sig          <= 0;
-                state	        <= 22;
-                done_control_r  <= 0;
-                done_keyshift_r <= 0;
                 key_counter     <= 5'b00000;
                 all_done_r      <= 0;
+                x1              <= 0;
+                x2              <= 0;
+                y1              <= 0;
+                y2              <= 0;
+                x3              <= 0;
+                y3              <= 0;
+                a               <= 0; 
             end
         else
             begin

@@ -54,6 +54,7 @@ module Domain_Transfer(clk, reset, ToMont, in_sig, Px_i, Py_i, A_i, Prime, Px_ou
         case(state)
             TO_MONT: counter_nxt = counter + 1;
             TO_REGULAR: counter_nxt = counter + 1;
+            OUT: counter_nxt = counter;
             default: counter_nxt = 0;
         endcase
     end
@@ -61,6 +62,7 @@ module Domain_Transfer(clk, reset, ToMont, in_sig, Px_i, Py_i, A_i, Prime, Px_ou
     always @(*) begin
         case(state)
           IDLE: begin
+            done_reg = 0;
             if(in_sig) begin
               if(Px_i >= Prime) Px_nxt = Px_i - Prime;
               else Px_nxt = Px_i;
@@ -76,6 +78,7 @@ module Domain_Transfer(clk, reset, ToMont, in_sig, Px_i, Py_i, A_i, Prime, Px_ou
             end
           end
           TO_MONT: begin
+            done_reg = 0;
             if (Px_shift >= Prime) Px_nxt = Px_shift - Prime;
             else Px_nxt = Px_shift;
             if(Py_shift >= Prime) Py_nxt = Py_shift - Prime;
@@ -84,6 +87,7 @@ module Domain_Transfer(clk, reset, ToMont, in_sig, Px_i, Py_i, A_i, Prime, Px_ou
             else A_nxt = A_shift;
           end
           TO_REGULAR: begin
+            done_reg = 0;
             if (Px[0]) Px_nxt = Px_add >> 1;
             else Px_nxt = Px >> 1;
             if (Py[0]) Py_nxt = Py_add >> 1;
@@ -91,14 +95,20 @@ module Domain_Transfer(clk, reset, ToMont, in_sig, Px_i, Py_i, A_i, Prime, Px_ou
             if (A[0]) A_nxt = A_add >> 1;
             else A_nxt = A >> 1;
           end
+          OUT: begin
+            Px_nxt = Px;
+            Py_nxt = Py;
+            A_nxt = A;
+            done_reg = 1;
+          end
           default: begin
             Px_nxt = Px;
             Py_nxt = Py;
             A_nxt = A;
           end
         endcase
-            if (counter == 5'b11111) done_reg <= 1'b1;
-            else done_reg <= 1'b0;
+            /*if (counter == 5'b11111) done_reg <= 1'b1;
+            else done_reg <= 1'b0;*/
     end
 
       /* ====================Sequential Part=================== */
