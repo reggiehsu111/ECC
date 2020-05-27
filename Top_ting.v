@@ -49,6 +49,7 @@ module Top_ting(
 	assign raw_prime = raw_prime_r;
 	assign raw_a = raw_a_r;
 	assign raw_k = k_r;
+
 	assign load_done = load_done_r;
 
 

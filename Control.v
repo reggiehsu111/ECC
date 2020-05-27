@@ -675,8 +675,6 @@ module Control(
                 end
             22:
                 begin
-                    in_sig_n = 1;
-                    next_state = 0;
                     key_counter_n = 0;
                     r1_n = r1; 
                     r2_n = r2; 
@@ -692,7 +690,13 @@ module Control(
                     all_done_rn = 0;
                     done_control_r = 0; 
                     done_keyshift_r = 0;
+
                     if (load_done == 0) begin
+                        in_sig_n = 0;
+                        next_state = 22;
+
+                    end
+                    else begin
                         in_sig_n = 0;
                         next_state = 22;
                     end
