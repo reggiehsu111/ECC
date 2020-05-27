@@ -187,9 +187,14 @@ module Control(
                 begin
                     Px_mont_r = x1;
                     Py_mont_r = x1;
+<<<<<<< HEAD
+                    instruction = 2'b10; //multi
+                    done_control_r = 1; 
+=======
                     instruction = 2'b10; 
                     done_control_r = 1; 
 
+>>>>>>> 53c848b6264fccde12bc4e27abc862f072f4a32e
                     done_keyshift_r = 0; 
                     in_sig_n = in_sig; 
                     all_done_rn = 0;
@@ -221,8 +226,17 @@ module Control(
                     Px_mont_r = r1;
                     Py_mont_r = r1;
                     instruction = 2'b00; // add
-                    done_control_r = 1; done_keyshift_r = 0; in_sig_n = in_sig; all_done_rn = 0;
-                    x1_n = x1; y1_n = y1; x2_n = x2; y2_n = y2; x3_n = x3; y3_n = y3; a_n = a;
+                    done_control_r = 1; 
+                    done_keyshift_r = 0; 
+                    in_sig_n = in_sig; 
+                    all_done_rn = 0;
+                    x1_n = x1; 
+                    y1_n = y1; 
+                    x2_n = x2; 
+                    y2_n = y2; 
+                    x3_n = x3; 
+                    y3_n = y3; 
+                    a_n = a;
                     key_counter_n = key_counter;
                     if(GFAU_done == 1)
                         begin
@@ -243,8 +257,17 @@ module Control(
                     Px_mont_r = r1;
                     Py_mont_r = r2;
                     instruction = 2'b00;//add
-                    done_control_r = 1; done_keyshift_r = 0; in_sig_n = in_sig; all_done_rn = 0;
-                    x1_n = x1; y1_n = y1; x2_n = x2; y2_n = y2; x3_n = x3; y3_n = y3; a_n = a;
+                    done_control_r = 1; 
+                    done_keyshift_r = 0;
+                    in_sig_n = in_sig; 
+                    all_done_rn = 0;
+                    x1_n = x1; 
+                    y1_n = y1; 
+                    x2_n = x2; 
+                    y2_n = y2; 
+                    x3_n = x3; 
+                    y3_n = y3; 
+                    a_n = a;
                     key_counter_n = key_counter;
                     if(GFAU_done == 1)
                         begin
@@ -265,8 +288,17 @@ module Control(
                     Px_mont_r = r1;
                     Py_mont_r = a;
                     instruction = 2'b00;//add
-                    done_control_r = 1; done_keyshift_r = 0; in_sig_n = in_sig; all_done_rn = 0;
-                    x1_n = x1; y1_n = y1; x2_n = x2; y2_n = y2; x3_n = x3; y3_n = y3; a_n = a;
+                    done_control_r = 1; 
+                    done_keyshift_r = 0; 
+                    in_sig_n = in_sig; 
+                    all_done_rn = 0;
+                    x1_n = x1; 
+                    y1_n = y1; 
+                    x2_n = x2; 
+                    y2_n = y2; 
+                    x3_n = x3; 
+                    y3_n = y3; 
+                    a_n = a;
                     key_counter_n = key_counter;
                     if(GFAU_done == 1)
                         begin
@@ -287,8 +319,17 @@ module Control(
                     Px_mont_r = y1;
                     Py_mont_r = y1;
                     instruction = 2'b00;//add
-                    done_control_r = 1; done_keyshift_r = 0; in_sig_n = in_sig; all_done_rn = 0;
-                    x1_n = x1; y1_n = y1; x2_n = x2; y2_n = y2; x3_n = x3; y3_n = y3; a_n = a;
+                    done_control_r = 1; 
+                    done_keyshift_r = 0; 
+                    in_sig_n = in_sig; 
+                    all_done_rn = 0;
+                    x1_n = x1; 
+                    y1_n = y1; 
+                    x2_n = x2; 
+                    y2_n = y2; 
+                    x3_n = x3; 
+                    y3_n = y3; 
+                    a_n = a;
                     key_counter_n = key_counter;
                     if(GFAU_done == 1)
                         begin
@@ -309,8 +350,17 @@ module Control(
                     Px_mont_r = r1;
                     Py_mont_r = r2;
                     instruction = 2'b11;//divide
-                    done_control_r = 1; done_keyshift_r = 0; in_sig_n = in_sig; all_done_rn = 0;
-                    x1_n = x1; y1_n = y1; x2_n = x2; y2_n = y2; x3_n = x3; y3_n = y3; a_n = a;
+                    done_control_r = 1; 
+                    done_keyshift_r = 0; 
+                    in_sig_n = in_sig; 
+                    all_done_rn = 0;
+                    x1_n = x1; 
+                    y1_n = y1; 
+                    x2_n = x2; 
+                    y2_n = y2; 
+                    x3_n = x3; 
+                    y3_n = y3; 
+                    a_n = a;
                     key_counter_n = key_counter;
                     if(GFAU_done == 1)
                         begin
@@ -331,8 +381,17 @@ module Control(
                     Px_mont_r = r1;
                     Py_mont_r = r1;
                     instruction = 2'b10;//multi
-                    done_control_r = 1; done_keyshift_r = 0; in_sig_n = in_sig; all_done_rn = 0;
-                    x1_n = x1; y1_n = y1; x2_n = x2; y2_n = y2; x3_n = x3; y3_n = y3; a_n = a;
+                    done_control_r = 1; 
+                    done_keyshift_r = 0; 
+                    in_sig_n = in_sig; 
+                    all_done_rn = 0;
+                    x1_n = x1; 
+                    y1_n = y1; 
+                    x2_n = x2; 
+                    y2_n = y2; 
+                    x3_n = x3; 
+                    y3_n = y3; 
+                    a_n = a;
                     key_counter_n = key_counter;
                     if(GFAU_done == 1)
                         begin
@@ -353,8 +412,17 @@ module Control(
                     Px_mont_r = r2;
                     Py_mont_r = x1;
                     instruction = 2'b01;//minus
-                    done_control_r = 1; done_keyshift_r = 0; in_sig_n = in_sig; all_done_rn = 0;
-                    x1_n = x1; y1_n = y1; x2_n = x2; y2_n = y2; x3_n = x3; y3_n = y3; a_n = a;
+                    done_control_r = 1; 
+                    done_keyshift_r = 0; 
+                    in_sig_n = in_sig; 
+                    all_done_rn = 0;
+                    x1_n = x1; 
+                    y1_n = y1; 
+                    x2_n = x2; 
+                    y2_n = y2; 
+                    x3_n = x3; 
+                    y3_n = y3; 
+                    a_n = a;
                     key_counter_n = key_counter;
                     if(GFAU_done == 1)
                         begin
@@ -375,8 +443,16 @@ module Control(
                     Px_mont_r = r2;
                     Py_mont_r = x1;
                     instruction = 2'b01;//minus
-                    done_control_r = 1; done_keyshift_r = 0; in_sig_n = in_sig; all_done_rn = 0;
-                    x1_n = x1; y1_n = y1; x2_n = x2; y2_n = y2; y3_n = y3; a_n = a;
+                    done_control_r = 1; 
+                    done_keyshift_r = 0; 
+                    in_sig_n = in_sig; 
+                    all_done_rn = 0;
+                    x1_n = x1; 
+                    y1_n = y1; 
+                    x2_n = x2; 
+                    y2_n = y2; 
+                    y3_n = y3; 
+                    a_n = a;
                     key_counter_n = key_counter;
                     if(GFAU_done == 1)
                         begin
@@ -399,8 +475,17 @@ module Control(
                     Px_mont_r = x1;
                     Py_mont_r = r2;
                     instruction = 2'b01;//minus
-                    done_control_r = 1; done_keyshift_r = 0; in_sig_n = in_sig; all_done_rn = 0;
-                    x1_n = x1; y1_n = y1; x2_n = x2; y2_n = y2; x3_n = x3; y3_n = y3; a_n = a;
+                    done_control_r = 1; 
+                    done_keyshift_r = 0; 
+                    in_sig_n = in_sig; 
+                    all_done_rn = 0;
+                    x1_n = x1; 
+                    y1_n = y1; 
+                    x2_n = x2; 
+                    y2_n = y2; 
+                    x3_n = x3; 
+                    y3_n = y3; 
+                    a_n = a;
                     key_counter_n = key_counter;
                     if(GFAU_done == 1)
                         begin
@@ -421,8 +506,17 @@ module Control(
                     Px_mont_r = r1;
                     Py_mont_r = r2;
                     instruction = 2'b10;//multi
-                    done_control_r = 1; done_keyshift_r = 0; in_sig_n = in_sig; all_done_rn = 0;
-                    x1_n = x1; y1_n = y1; x2_n = x2; y2_n = y2; x3_n = x3; y3_n = y3; a_n = a;
+                    done_control_r = 1; 
+                    done_keyshift_r = 0; 
+                    in_sig_n = in_sig; 
+                    all_done_rn = 0;
+                    x1_n = x1; 
+                    y1_n = y1; 
+                    x2_n = x2; 
+                    y2_n = y2; 
+                    x3_n = x3; 
+                    y3_n = y3; 
+                    a_n = a;
                     key_counter_n = key_counter;
                     if(GFAU_done == 1)
                         begin
@@ -525,8 +619,17 @@ module Control(
                     Px_mont_r = y2;
                     Py_mont_r = y1;
                     instruction = 2'b01;//minus
-                    done_control_r = 1; done_keyshift_r = 0; in_sig_n = in_sig; all_done_rn = 0;
-                    x1_n = x1; y1_n = y1; x2_n = x2; y2_n = y2; x3_n = x3; y3_n = y3; a_n = a;
+                    done_control_r = 1; 
+                    done_keyshift_r = 0; 
+                    in_sig_n = in_sig; 
+                    all_done_rn = 0;
+                    x1_n = x1; 
+                    y1_n = y1; 
+                    x2_n = x2; 
+                    y2_n = y2; 
+                    x3_n = x3; 
+                    y3_n = y3; 
+                    a_n = a;
                     key_counter_n = key_counter;
                     if(GFAU_done == 1)
                         begin
@@ -547,8 +650,17 @@ module Control(
                     Px_mont_r = r2;
                     Py_mont_r = r1;
                     instruction = 2'b11;//multi
-                    done_control_r = 1; done_keyshift_r = 0; in_sig_n = in_sig; all_done_rn = 0;
-                    x1_n = x1; y1_n = y1; x2_n = x2; y2_n = y2; x3_n = x3; y3_n = y3; a_n = a;
+                    done_control_r = 1; 
+                    done_keyshift_r = 0; 
+                    in_sig_n = in_sig; 
+                    all_done_rn = 0;
+                    x1_n = x1; 
+                    y1_n = y1; 
+                    x2_n = x2; 
+                    y2_n = y2; 
+                    x3_n = x3; 
+                    y3_n = y3; 
+                    a_n = a;
                     key_counter_n = key_counter;
                     if(GFAU_done == 1)
                         begin
@@ -569,8 +681,17 @@ module Control(
                     Px_mont_r = r1;
                     Py_mont_r = r1;
                     instruction = 2'b10;//multi
-                    done_control_r = 1; done_keyshift_r = 0; in_sig_n = in_sig; all_done_rn = 0;
-                    x1_n = x1; y1_n = y1; x2_n = x2; y2_n = y2; x3_n = x3; y3_n = y3; a_n = a;
+                    done_control_r = 1; 
+                    done_keyshift_r = 0; 
+                    in_sig_n = in_sig; 
+                    all_done_rn = 0;
+                    x1_n = x1; 
+                    y1_n = y1; 
+                    x2_n = x2; 
+                    y2_n = y2; 
+                    x3_n = x3; 
+                    y3_n = y3; 
+                    a_n = a;
                     key_counter_n = key_counter;
                     if(GFAU_done == 1)
                         begin
@@ -591,8 +712,17 @@ module Control(
                     Px_mont_r = r2;
                     Py_mont_r = x1;
                     instruction = 2'b01;//minus
-                    done_control_r = 1; done_keyshift_r = 0; in_sig_n = in_sig; all_done_rn = 0;
-                    x1_n = x1; y1_n = y1; x2_n = x2; y2_n = y2; x3_n = x3; y3_n = y3; a_n = a;
+                    done_control_r = 1; 
+                    done_keyshift_r = 0; 
+                    in_sig_n = in_sig; 
+                    all_done_rn = 0;
+                    x1_n = x1; 
+                    y1_n = y1; 
+                    x2_n = x2; 
+                    y2_n = y2; 
+                    x3_n = x3; 
+                    y3_n = y3; 
+                    a_n = a;
                     key_counter_n = key_counter;
                     if(GFAU_done == 1)
                         begin
@@ -613,8 +743,16 @@ module Control(
                     Px_mont_r = r2;
                     Py_mont_r = x2;
                     instruction = 2'b01;//minus
-                    done_control_r = 1; done_keyshift_r = 0; in_sig_n = in_sig; all_done_rn = 0;
-                    x1_n = x1; y1_n = y1; x2_n = x2; y2_n = y2;  y3_n = y3; a_n = a;
+                    done_control_r = 1; 
+                    done_keyshift_r = 0; 
+                    in_sig_n = in_sig; 
+                    all_done_rn = 0;
+                    x1_n = x1; 
+                    y1_n = y1; 
+                    x2_n = x2; 
+                    y2_n = y2;  
+                    y3_n = y3; 
+                    a_n = a;
                     key_counter_n = key_counter;
                     if(GFAU_done == 1)
                         begin
@@ -637,8 +775,17 @@ module Control(
                     Px_mont_r = x1;
                     Py_mont_r = r2;
                     instruction = 2'b01;//minus
-                    done_control_r = 1; done_keyshift_r = 0; in_sig_n = in_sig; all_done_rn = 0;
-                    x1_n = x1; y1_n = y1; x2_n = x2; y2_n = y2; x3_n = x3; y3_n = y3; a_n = a;
+                    done_control_r = 1; 
+                    done_keyshift_r = 0; 
+                    in_sig_n = in_sig; 
+                    all_done_rn = 0;
+                    x1_n = x1; 
+                    y1_n = y1; 
+                    x2_n = x2; 
+                    y2_n = y2; 
+                    x3_n = x3; 
+                    y3_n = y3; 
+                    a_n = a;
                     key_counter_n = key_counter;
                     if(GFAU_done == 1)
                         begin
@@ -659,8 +806,17 @@ module Control(
                     Px_mont_r = r1;
                     Py_mont_r = r2;
                     instruction = 2'b10;//multi
-                    done_control_r = 1; done_keyshift_r = 0; in_sig_n = in_sig; all_done_rn = 0;
-                    x1_n = x1; y1_n = y1; x2_n = x2; y2_n = y2; x3_n = x3; y3_n = y3; a_n = a;
+                    done_control_r = 1; 
+                    done_keyshift_r = 0; 
+                    in_sig_n = in_sig; 
+                    all_done_rn = 0;
+                    x1_n = x1; 
+                    y1_n = y1; 
+                    x2_n = x2; 
+                    y2_n = y2; 
+                    x3_n = x3;
+                    y3_n = y3; 
+                    a_n = a;
                     key_counter_n = key_counter;
                     if(GFAU_done == 1)
                         begin
@@ -681,8 +837,16 @@ module Control(
                     Px_mont_r = r2;
                     Py_mont_r = y1;
                     instruction = 2'b01;//minus
-                    done_control_r = 1; done_keyshift_r = 0; in_sig_n = in_sig; all_done_rn = 0;
-                    x1_n = x1; y1_n = y1; x2_n = x2; y2_n = y2; x3_n = x3; a_n = a;
+                    done_control_r = 1; 
+                    done_keyshift_r = 0; 
+                    in_sig_n = in_sig; 
+                    all_done_rn = 0;
+                    x1_n = x1; 
+                    y1_n = y1; 
+                    x2_n = x2; 
+                    y2_n = y2; 
+                    x3_n = x3; 
+                    a_n = a;
                     if(GFAU_done == 1)
                         begin
                             done_control_r = 0;
