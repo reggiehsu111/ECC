@@ -4,10 +4,11 @@ module Top_ting(
 	i_start,
 	a,
 	prime,
+	k,
 	Px,
 	Py,
-	k,
-	kP,
+	kPx,
+	kPy,
 	raw1);
 	
 	localparam SIZE = 32;
@@ -15,7 +16,7 @@ module Top_ting(
 	input i_rst, i_clk, i_start;
 	input [3 : 0] a, prime, Px, Py, k;
 
-	output [3 : 0] kP;
+	output [SIZE - 1 : 0] kPx, kPy;
 	output [SIZE - 1 : 0] raw1;
 	
 	//////////GFAU vs. Control//////////
@@ -32,7 +33,7 @@ module Top_ting(
 
 
 	//////////Else//////////
-	wire [SIZE - 1 : 0] raw1, raw2, raw_prime, raw_a;
+	wire [SIZE - 1 : 0] raw1, raw2, raw_prime, raw_a, raw_k;
 	wire [SIZE - 1 : 0] final_output_1, final_output_2;
 	wire final_done;
 	wire load_done;
@@ -47,17 +48,19 @@ module Top_ting(
 	assign raw2 = raw2_r;
 	assign raw_prime = raw_prime_r;
 	assign raw_a = raw_a_r;
+	assign raw_k = k_r;
+	assign load_done = load_done_r;
 
 
 	always @(*) begin
 		case(state)
 			0: begin
-				state_n = 0;
-				raw1_r_n = 0;
-				raw2_r_n = 0;
-				raw_prime_r_n = 0;
-				raw_a_r_n = 0;
-				k_r_n = 0;
+				state_n = state;
+				raw1_r_n = raw1_r;
+				raw2_r_n = raw2_r;
+				raw_prime_r_n = raw_prime_r;
+				raw_a_r_n = raw_a_r;
+				k_r_n = k_r;
 				load_done_r = 0;
 				if (i_start == 1) begin
 					state_n = 1;
@@ -231,7 +234,7 @@ module Top_ting(
 				load_done_r = 0;
 			end
 			8: begin
-				state_n = 0;
+				state_n = 8;
 
 				raw1_r_n = raw1_r;
 				raw2_r_n = raw2_r;
@@ -287,12 +290,12 @@ module Top_ting(
 					   .output_1(final_output_1), .output_2(final_output_2), 
 					   .all_done(final_done));
 
-	GFAU GFAU_0 (.i_clk(i_clk), .i_rst(i_rst), .in_0(Px_mont), .in_1(Py_mont), .prime(prime), 
+	GFAU GFAU_0 (.i_clk(i_clk), .i_rst(i_rst), .in_0(Px_mont), .in_1(Py_mont), .prime(raw_prime), 
 				 .operation_select(operation_select),
 				 .GFAU_done_from_control(GFAU_done_from_control), .result(GFAU_out), 
 				 .GFAU_done_to_control(GFAU_done_to_control));
 
-	key_shift key_shift_0 (.i_clk(i_clk), .i_rst(i_rst), .k(k), 
+	key_shift key_shift_0 (.i_clk(i_clk), .i_rst(i_rst), .k(raw_k), 
 						   .key_shift_done_from_control(key_shift_done_from_control), 
 						   .k_out(key_from_key_shift), 
 						   .key_shift_done_to_control(key_shift_done_to_control));

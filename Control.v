@@ -92,7 +92,7 @@ module Control(
                 in_sig_n = 0;
                 a_n = a;                    
                 if(Transfer_done_w0 == 1 || Transfer_done_w1 == 1) begin                    
-                    if(key_counter == 2) begin   // this will be change to the length of Key                     
+                    if(key_counter == 2) begin   // this will be changed to the length of Key                     
                         all_done_rn = 1;
                         r1_n = r1; 
                         r2_n = r2; 
@@ -156,16 +156,16 @@ module Control(
                             y2_n = y2; 
                             x3_n = x3; 
                             y3_n = y3;
-                            if(key_counter == 0)begin
+                            /*if(key_counter == 0)begin
                                 next_state = 0;
                                 done_keyshift_r = 1;
                                 key_counter_n = key_counter + 1; 
                                 x3_n = r1;
                                 y3_n = r2;
-                            end
-                            else begin
-                                next_state = 1;
-                            end  
+                            end*/
+                            //else begin
+                            next_state = 1;
+                            //end  
                         end
                         else begin                            
                             in_sig_n = in_sig;
@@ -694,7 +694,7 @@ module Control(
                     done_keyshift_r = 0;
                     if (load_done == 0) begin
                         in_sig_n = 0;
-                        next_state = 0;
+                        next_state = 22;
                     end
                 end
         endcase

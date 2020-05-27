@@ -46,9 +46,9 @@ module GFAU(
     sub sub_0 (.i_clk(i_clk), .i_rst(i_rst), .sub_in_0(in_0), .sub_in_1(in_1), .prime(prime),
     		   .sel_sub(sel_sub), .sub_out(sub_out), .done_sub(done_sub));
     mult mult_0 (.i_clk(i_clk), .i_rst(i_rst), .mult_in_0(in_0), .mult_in_1(in_1), .prime(prime),
-    			 .sel_mult(sel_mult), .mult_out(mult_out), .done_mult(done_mult), .mult_out_mid(mult_out_mid));
+    			 .sel_mult(sel_mult), .mult_out(mult_out), .done_mult(done_mult));
     div div_0 (.i_clk(i_clk), .i_rst(i_rst), .div_in_0(in_0), .div_in_1(in_1), .prime(prime),
-			   .sel_div(sel_div), .div_out(div_out), .done_div(done_div), .R(R));
+			   .sel_div(sel_div), .div_out(div_out), .done_div(done_div));
     assign GFAU_done_to_control = (done_add | done_sub | done_mult | done_div);
     assign result = (done_add == 1) ? add_out :
     				(done_sub == 1) ? sub_out :
@@ -208,7 +208,7 @@ module mult(
 	sel_mult,
 	mult_out,
 	done_mult,
-	mult_out_mid
+	//mult_out_mid
 	);
 
 	localparam SIZE = 32;
@@ -221,7 +221,7 @@ module mult(
 	output [SIZE - 1 : 0] mult_out;
 	output reg done_mult;
 
-	output reg [SIZE : 0] mult_out_mid;
+	reg [SIZE : 0] mult_out_mid;
 	reg [SIZE : 0] mult_out_mid_n;
 	reg [10 :0] i, i_n;
 	reg [1:0] state, state_n;
@@ -302,7 +302,6 @@ module div(
 	sel_div,
 	div_out,
 	done_div,
-	R
 	);
 	localparam SIZE = 32;
 
@@ -311,7 +310,7 @@ module div(
 	input [SIZE - 1 : 0] div_in_0, div_in_1, prime;
 
 	output [SIZE - 1 : 0] div_out;
-	output [SIZE : 0] R;
+	//output [SIZE : 0] R;
 	output reg done_div;
 
 	reg [SIZE - 1 : 0] U, V;

@@ -18,13 +18,14 @@
 module Top_test();
 
 	parameter DATA_LENGTH = 9;
+	parameter SIZE = 32;
 	
     // Input registers
 	reg           clk, reset, i_start;
 	reg  [3:0]    a, prime, Px, Py, k;
 
     // Output wires
-	wire [3:0]    kP;
+	wire [SIZE - 1:0]    kPx, kPy;
     wire [31:0]   raw1;
 
 
@@ -58,10 +59,11 @@ module Top_test();
         .i_start(i_start),
         .a(a),
         .prime(prime),
+        .k(k),
         .Px(Px),
         .Py(Py),
-        .k(k),
-        .kP(kP),
+        .kPx(kPx),
+        .kPy(kPy),
         .raw1(raw1)
 	);
 	
