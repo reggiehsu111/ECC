@@ -1,11 +1,11 @@
 # Read Design
 read_file -format verilog Temp.v
 
-current_design alu
+current_design Top_ting
 uniquify
 link
 
-source -echo -verbose ./HW3_alu.sdc
+source -echo -verbose ./top.sdc
 
 ############in sdc file
 # Set the Optimization Constraints 
@@ -21,11 +21,11 @@ check_design
 compile -map_effort medium
 
 # Analyze and debug the design
-report_area > area_alu.out
-report_power > power_alu.out
-report_timing -path full -delay max > timing_alu.out
+report_area > area_top.out
+report_power > power_top.out
+report_timing -path full -delay max > timing_top.out
 
 #write -format db -hierarchy -output $active_design.db
-write -format verilog -hierarchy -output HW3_alu_syn.v
-write_sdf -version 2.1 -context verilog HW3_alu.sdf
-write_sdc HW3_alu_syn.sdc
+write -format verilog -hierarchy -output top_syn.v
+write_sdf -version 2.1 -context verilog top_alu.sdf
+write_sdc top_syn.sdc
