@@ -187,14 +187,8 @@ module Control(
                 begin
                     Px_mont_r = x1;
                     Py_mont_r = x1;
-<<<<<<< HEAD
                     instruction = 2'b10; //multi
                     done_control_r = 1; 
-=======
-                    instruction = 2'b10; 
-                    done_control_r = 1; 
-
->>>>>>> 53c848b6264fccde12bc4e27abc862f072f4a32e
                     done_keyshift_r = 0; 
                     in_sig_n = in_sig; 
                     all_done_rn = 0;
