@@ -53,7 +53,7 @@ module key_shift(
 		end
 		else begin
 			i <= i_n;
-			state = state_n;
+			state <= state_n;
 		end
 	end
 endmodule 
