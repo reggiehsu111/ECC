@@ -300,6 +300,8 @@ module Top_ting(
 						   .key_shift_done_from_control(key_shift_done_from_control), 
 						   .k_out(key_from_key_shift), 
 						   .key_shift_done_to_control(key_shift_done_to_control));
+	lookup_table lookup_table_0 (.i_rst(i_rst), .i_clk(i_clk), .P_sel(), .mode(), 
+								 .Px_in(), .Py_in(), .Px_out(), .Py_out());
 
 endmodule
 
@@ -1184,13 +1186,16 @@ module Control(i_clk, i_reset,
                     done_control_r = 0; 
                     done_keyshift_r = 0;
                     in_sig_n = 1;
-                    next_state = 0;
+                    next_state = 23;
                     instruction = 0;
                     if (load_done == 0) begin
                         in_sig_n = 0;
                         next_state = 22;
                     end
                 end
+            23: begin
+            	
+            end
                	default: begin
                		r1_n = r1; 
                     r2_n = r2; 
@@ -1754,7 +1759,7 @@ module div(
 	prime,
 	sel_div,
 	div_out,
-	done_div,
+	done_div
 	);
 	localparam SIZE = 32;
 
@@ -1840,7 +1845,7 @@ module div(
 				S_n = S;
 				done_div_n = 0;
 				i_n = i;
-				if (R >= prime) begi
+				if (R >= prime) begin
 					R_n = R - prime;
 					if (S >= prime) begin
 						S_n = S - prime;
@@ -1910,3 +1915,73 @@ module div(
 endmodule
 
 
+module lookup_table(
+	i_rst,
+	i_clk,
+	P_sel,
+	mode,
+	Px_in,
+	Py_in,
+	Px_out,
+	Py_out
+	);
+	
+	localparam SIZE = 32;
+	input i_rst, i_clk;
+	input [3 : 0] P_sel;
+	input mode; // 0: in from control; 1: out to control
+	input [SIZE - 1 : 0] Px_in, Py_in;
+
+	output [SIZE - 1 : 0] Px_out, Py_out;
+
+	integer i;
+
+	reg [SIZE - 1 : 0] Px_store [3 : 0];
+	reg [SIZE - 1 : 0] Px_store_n [3 : 0];
+	reg [SIZE - 1 : 0] Py_store [3 : 0];
+	reg [SIZE - 1 : 0] Py_store_n [3 : 0];
+	reg [SIZE - 1 : 0] Px_out, Py_out, Px_out_n, Py_out_n;
+
+	always @(*) begin
+		case(mode)
+			0: begin // in from control
+				for (i = 0; i < 16 ; i = i + 1) begin
+					Px_store_n[i] = Px_store[i];
+					Py_store_n[i] = Py_store[i];
+				end
+				Px_out_n = Px_out;
+				Py_out_n = Py_out; 
+				if (P_sel != 0) begin
+					Px_store_n [P_sel] = Px_in;
+					Py_store_n [P_sel] = Py_in;
+				end
+			end
+			1: begin
+				for (i = 0; i < 16 ; i = i + 1) begin
+					Px_store_n[i] = Px_store[i];
+					Py_store_n[i] = Py_store[i];
+				end
+				Px_out_n = Px_store[P_sel];
+				Py_out_n = Py_store[P_sel];
+			end
+		endcase
+	end  
+	always @(posedge i_clk or posedge i_rst) begin
+		if (i_rst) begin
+			for (i = 0; i < 16; i = i + 1) begin
+				Px_store[i] <= 0;
+				Py_store[i] <= 0;
+			end
+			Px_out <= 0;
+			Py_out <= 0;
+		end
+		else begin
+			for (i = 0; i < 16; i = i + 1) begin
+				Px_store[i] <= Px_store_n[i];
+				Py_store[i] <= Py_store_n[i];
+			end
+			Px_out <= Px_out_n;
+			Py_out <= Py_out_n;
+		end
+	end
+endmodule

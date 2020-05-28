@@ -101,7 +101,7 @@ module Top_test();
 	always begin #(`CYCLE/2) clk = ~clk; end
 	
 	initial begin
-		$dumpfile("Top_final.fsdb");
+		$dumpfile("Top.fsdb");
 		$dumpvars;
 	
 		out_f = $fopen("out.dat");
