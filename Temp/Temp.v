@@ -9,6 +9,9 @@ module Top_ting(
 	Py,
 	kPx,
 	kPy,
+    final_output_1,
+    final_output_2,
+    final_done,
 	raw1);
 	
 	localparam SIZE = 32;
@@ -16,8 +19,9 @@ module Top_ting(
 	input i_rst, i_clk, i_start;
 	input [3 : 0] a, prime, Px, Py, k;
 
-	output [SIZE - 1 : 0] kPx, kPy;
+	output [SIZE - 1 : 0] kPx, kPy, final_output_1, final_output_2;
 	output [SIZE - 1 : 0] raw1;
+    output final_done;
 	
 	//////////GFAU vs. Control//////////
 	wire GFAU_done_to_control, GFAU_done_from_control;
@@ -34,8 +38,6 @@ module Top_ting(
 
 	//////////Else//////////
 	wire [SIZE - 1 : 0] raw1, raw2, raw_prime, raw_a, raw_k;
-	wire [SIZE - 1 : 0] final_output_1, final_output_2;
-	wire final_done;
 	wire load_done;
 
 	reg [3 : 0] state, state_n;

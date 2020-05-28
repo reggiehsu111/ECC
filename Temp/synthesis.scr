@@ -5,8 +5,6 @@ current_design Top_ting
 uniquify
 link
 
-source -echo -verbose ./top.sdc
-
 # Set the Optimization Constraints 
 create_clock -period 10 -name "i_clk" -waveform {0 5} "i_clk"
 set_dont_touch_network [get_ports i_clk]
