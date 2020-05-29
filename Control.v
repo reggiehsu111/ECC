@@ -1,5 +1,4 @@
-module Control(
-                i_clk, i_reset,
+module Control(i_clk, i_reset,
                 GFAU_done, Keyshift_done,
                 PartKey, GFAU_result,
                 Px_mont, Py_mont, operation_select,
@@ -90,7 +89,10 @@ module Control(
                 done_control_r = 0;
                 done_keyshift_r = 0;
                 in_sig_n = 0;
-                a_n = a;                    
+                a_n = a;
+                Px_mont_r = 0;
+                Py_mont_r = 0;
+                instruction = 0;                    
                 if(Transfer_done_w0 == 1 || Transfer_done_w1 == 1) begin                    
                     if(key_counter == 31) begin   // this will be changed to the length of Key                     
                         all_done_rn = 1;
@@ -878,12 +880,33 @@ module Control(
                     done_keyshift_r = 0;
                     in_sig_n = 1;
                     next_state = 0;
+                    instruction = 0;
                     if (load_done == 0) begin
                         in_sig_n = 0;
                         next_state = 22;
                     end
-
                 end
+               	default: begin
+               		r1_n = r1; 
+                    r2_n = r2; 
+                    x1_n = x1; 
+                    y1_n = y1; 
+                    x2_n = x2; 
+                    y2_n = y2; 
+                    x3_n = x3; 
+                    y3_n = y3;
+                    a_n = a;
+                    next_state = 0;
+                    key_counter_n = key_counter;
+                    in_sig_n = in_sig;
+                    all_done_rn = all_done_r;
+                    Px_mont_r = 0;
+                    Py_mont_r = 0;
+                    done_keyshift_r = 0;
+                    done_control_r = 0;
+                    instruction = 0;
+
+               	end
         endcase
     end
 

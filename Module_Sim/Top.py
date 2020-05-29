@@ -148,16 +148,16 @@ def main():
     inputs = []
 
     for i in range(NUM_DATA):
-        prime = num.getPrime(32)
-        Px = randint(0, 2**32)
-        Py = randint(0, 2**32)
-        a = randint(0, 2**32)
-        key = randint(0, 2**32)
-        # prime = 2735389841
-        # Px = 1272457263
-        # Py = 2351779975
-        # a = 154459229
-        # key = 3558508425
+        # prime = num.getPrime(32)
+        # Px = randint(0, 2**32)
+        # Py = randint(0, 2**32)
+        # a = randint(0, 2**32)
+        # key = randint(0, 2**32)
+        prime = 3309607849
+        Px = 2544538276
+        Py = 2425451850
+        a = 1069626724
+        key = 1093670752
         print("prime:", prime, hex(prime)[2:])
         print("a:", a, hex(a)[2:])
         print("px:", Px, hex(Px)[2:])
