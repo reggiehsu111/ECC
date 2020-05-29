@@ -32,10 +32,10 @@ class Top(Base_Module):
             # a = self.to_mont(a, prime)
             # Px = self.to_mont(Px, prime)
             # Py = self.to_mont(Py, prime)
-            print("To mont:")
-            print("    a:", a, hex(a)[2:])
-            print("   Px:", Px, hex(Px)[2:])
-            print("   Py:", Py, hex(Py)[2:])
+            # print("To mont:")
+            # print("    a:", a, hex(a)[2:])
+            # print("   Px:", Px, hex(Px)[2:])
+            # print("   Py:", Py, hex(Py)[2:])
             result_x, result_y = self.get_output(prime, Px, Py, a, key)
             print(result_x, result_y)
             for x in range(8):
@@ -57,10 +57,10 @@ class Top(Base_Module):
     def get_output(self, prime, Px, Py, a, key):
         result_x = 0
         result_y = 0
-        print(bin(key))
+        # print(bin(key))
         for x in range(31,-1,-1):
             k_bit = (key>>x) & 1
-            print(x, k_bit)
+            # print(x, k_bit)
             if k_bit == 0:
                 if result_x == 0 and result_y == 0:
                     continue
@@ -73,8 +73,8 @@ class Top(Base_Module):
                 else:
                     result_x, result_y = self.double(result_x, result_y, a, prime)
                     result_x, result_y = self.add(Px, Py, result_x, result_y, prime)
-            print(result_x, result_y)
-            print("")
+            # print(result_x, result_y)
+            # print("")
         # from montgomery field to regular
         # print("In Mont field:", result_x, result_y)
         result_x = int(result_x)
@@ -89,20 +89,20 @@ class Top(Base_Module):
         # print(P2_x - P1_x, (P2_x - P1_x)%prime)
         # lam, _ = MonDiv((P2_y - P1_y)%prime, (P2_x - P1_x)%prime, prime, 32)
         lam = lam % prime
-        print("lam:", lam)
+        # print("lam:", lam)
         x3 = ((lam*lam)%prime - P1_x - P2_x) % prime
         y3 = ((lam*(P1_x - x3)) - P1_y) % prime
-        print("x3:", x3, "y3:", y3)
+        # print("x3:", x3, "y3:", y3)
         return x3, y3
     
     def double(self, P1_x, P1_y, a, prime):
         lam = ModDiv((3*P1_x*P1_x + a)%prime, (2*P1_y)%prime, prime, 32)
         # lam, _ = MonDiv((3*P1_x*P1_x + a)%prime, (2*P1_y)%prime, prime, 32)
         lam = lam % prime
-        print("lam:", lam)
+        # print("lam:", lam)
         x3 = ((lam*lam) - 2*P1_x)%prime
         y3 = ((lam*(P1_x - x3)) - P1_y)%prime
-        print("x3:", x3, "y3:", y3)
+        # print("x3:", x3, "y3:", y3)
         return x3, y3
     
     def to_reg(self, P, prime):
@@ -153,11 +153,11 @@ def main():
         # Py = randint(0, 2**32)
         # a = randint(0, 2**32)
         # key = randint(0, 2**32)
-        prime = 2735389841
-        Px = 1272457263
-        Py = 2351779975
-        a = 154459229
-        key = 3558508425
+        prime = 3309607849
+        Px = 2544538276
+        Py = 2425451850
+        a = 1069626724
+        key = 1093670752
         print("prime:", prime, hex(prime)[2:])
         print("a:", a, hex(a)[2:])
         print("px:", Px, hex(Px)[2:])
