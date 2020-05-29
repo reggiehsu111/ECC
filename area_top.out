@@ -1,0 +1,31 @@
+ 
+****************************************
+Report : area
+Design : Top_ting
+Version: N-2017.09-SP2
+Date   : Thu May 28 18:08:44 2020
+****************************************
+
+Information: Updating design information... (UID-85)
+Library(s) Used:
+
+    fsa0m_a_generic_core_tt1p8v25c (File: /home/raid7_2/userb05/b05016/fsa0m_a_generic_core_tt1p8v25c.db)
+
+Number of ports:                         6232
+Number of nets:                         19665
+Number of cells:                        13421
+Number of combinational cells:          12418
+Number of sequential cells:               940
+Number of macros/black boxes:               0
+Number of buf/inv:                       4638
+Number of references:                      23
+
+Combinational area:             212377.032845
+Buf/Inv area:                    40194.301990
+Noncombinational area:           56208.902782
+Macro/Black Box area:                0.000000
+Net Interconnect area:      undefined  (Wire load has zero net area)
+
+Total cell area:                268585.935627
+Total area:                 undefined
+1
