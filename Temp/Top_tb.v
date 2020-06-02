@@ -30,7 +30,6 @@ module Top_test();
     // Output wires
 	wire [SIZE - 1:0]    final_output_1, final_output_2;
 	wire [3 : 0] kPx, kPy;
-    wire [31:0]   raw1;
 	wire final_done;
 
 
@@ -56,7 +55,7 @@ module Top_test();
     reg  [31:0]    result_x_golden, result_y_golden;
 	
 	reg           stop, over;
-	integer       i, j, out_f, err, pattern_num, data_num;
+	integer       i, j, out_f, err, pattern_num, data_num, counter, counter_flag;
 	
 	Top_ting top0(
 		.i_clk(clk),
@@ -69,10 +68,7 @@ module Top_test();
         .Py(Py),
         .kPx(kPx),
         .kPy(kPy),
-		.final_output_1(final_output_1),
-		.final_output_2(final_output_2),
-		.final_done(final_done),
-        .raw1(raw1)
+		.done(final_done)
 	);
 	
 	//Inputs
@@ -101,6 +97,8 @@ module Top_test();
 		err         = 0;
 		i           = 0;
 		j           = 0;
+		counter     = 0;
+		counter_flag= 0;
 		#2.5 reset=1'b1;
 		#2.5 reset=1'b0;
 	end
@@ -138,10 +136,16 @@ module Top_test();
 
 				j = j + 1;
 				if (final_done) begin
+					counter_flag = 1;
+					counter = 0;
+				end
+				if (counter_flag && counter == 100) begin
 					j = 0;
 					i = i + 1;
 					reset = 1;
+					counter_flag = 0;
 				end
+				counter = counter + 1;
 			end
 			else begin
 				// Get Input
@@ -152,11 +156,12 @@ module Top_test();
 				Py = py_mem[data_num];
 				k = k_mem[data_num];
 				j = j + 1;
+				counter = counter + 1;
 
 			// Get correct results
 				result_x_golden = result_x_mem[data_num];
 				result_y_golden = result_y_mem[data_num];
-				if (final_done || j == 15000) begin
+				if (j == 15000) begin
 					j = 0;
 					i = i + 1;
 					reset = 1;
@@ -169,41 +174,16 @@ module Top_test();
 	end
 	always @(posedge clk)begin
 		if (final_done) begin
-			if( result_x_golden !== final_output_1 || result_y_golden !== final_output_2 ) begin
-				if( result_x_golden !== final_output_1) begin
-					$display("ERROR on Px output at %d:output %h !=expect %h ",pattern_num,final_output_1 , result_x_golden);
-					$display(out_f,"ERROR on Px output at %d:output %h !=expect %h ",pattern_num,final_output_1 , result_x_golden);
-				end
-				if( result_y_golden !== final_output_2) begin
-					$display("ERROR on Py output at %d:output %h !=expect %h ",pattern_num, final_output_2 , result_y_golden);
-					$display(out_f,"ERROR on Py output at %d:output %h !=expect %h ",pattern_num, final_output_2 , result_y_golden);
-				end
-				err = err + 1;
-			end
 			pattern_num = pattern_num + 1;
-			if(pattern_num === 1)  over = 1'b1;
+			if(pattern_num === DATA_LENGTH)  over = 1'b1;
 		end
 	end
 	
     initial begin
           @(posedge stop)      
-          if(over) begin
-             $display("---------------------------------------------\n");
-             if (err == 0)  begin
-                $display("All data have been generated successfully!\n");
-                $display("-------------------PASS-------------------\n");
-             end
-             else begin
-                $display("There are %d errors!\n", err);
-             end
-                $display("---------------------------------------------\n");
-          end
-          else begin
             $display("---------------------------------------------\n");
-            $display("Error!!! There is no any data output ...!\n");
-            $display("-------------------FAIL-------------------\n");
+            $display("-------------------END-------------------\n");
             $display("---------------------------------------------\n");
-          end
           $finish;
     end
 	
