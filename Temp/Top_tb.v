@@ -56,6 +56,7 @@ module Top_test();
 	
 	reg           stop, over;
 	integer       i, j, out_f, err, pattern_num, data_num, counter, counter_flag;
+	integer       range_up, range_down;
 	
 	Top_ting top0(
 		.i_clk(clk),
@@ -135,17 +136,8 @@ module Top_test();
 				result_y_golden = result_y_mem[data_num];
 
 				j = j + 1;
-				if (final_done) begin
-					counter_flag = 1;
-					counter = 0;
-				end
-				if (counter_flag && counter == 100) begin
-					j = 0;
-					i = i + 1;
-					reset = 1;
-					counter_flag = 0;
-				end
-				counter = counter + 1;
+				counter = 0;
+			
 			end
 			else begin
 				// Get Input
@@ -156,15 +148,23 @@ module Top_test();
 				Py = py_mem[data_num];
 				k = k_mem[data_num];
 				j = j + 1;
-				counter = counter + 1;
 
 			// Get correct results
 				result_x_golden = result_x_mem[data_num];
 				result_y_golden = result_y_mem[data_num];
-				if (j == 15000) begin
+
+				if (final_done) begin
+					counter_flag = 1;
+					counter = 0;
+				end
+				if (counter_flag) counter = counter + 1;
+				else counter = 0;
+				if (counter == 100) begin
 					j = 0;
 					i = i + 1;
 					reset = 1;
+					counter_flag = 0;
+					counter = 0;
 				end
 			end
 		end
@@ -173,7 +173,114 @@ module Top_test();
         end
 	end
 	always @(posedge clk)begin
-		if (final_done) begin
+		if (counter_flag && counter <= 8) begin
+			case(counter)
+				2:begin
+					if( result_x_golden[3:0] !== kPx || result_y_golden[3:0] !== kPy ) begin
+						if( result_x_golden[3:0] !== kPx) begin
+							$display("ERROR on Px output at %d:output %h !=expect %h ",pattern_num,kPx , result_x_golden[3:0]);
+							$display(out_f,"ERROR on Px output at %d:output %h !=expect %h ",pattern_num,kPx , result_x_golden[3:0]);
+						end
+						if( result_y_golden[3:0] !== kPy) begin
+							$display("ERROR on Py output at %d:output %h !=expect %h ",pattern_num, kPy , result_y_golden[3:0]);
+							$display(out_f,"ERROR on Py output at %d:output %h !=expect %h ",pattern_num, kPy , result_y_golden[3:0]);
+						end
+						err = err + 1;
+					end
+				end
+				3:begin
+					if( result_x_golden[7:4] !== kPx || result_y_golden[7:4] !== kPy ) begin
+						if( result_x_golden[7:4] !== kPx) begin
+							$display("ERROR on Px output at %d:output %h !=expect %h ",pattern_num,kPx , result_x_golden[7:4]);
+							$display(out_f,"ERROR on Px output at %d:output %h !=expect %h ",pattern_num,kPx , result_x_golden[7:4]);
+						end
+						if( result_y_golden[7:4] !== kPy) begin
+							$display("ERROR on Py output at %d:output %h !=expect %h ",pattern_num, kPy , result_y_golden[7:4]);
+							$display(out_f,"ERROR on Py output at %d:output %h !=expect %h ",pattern_num, kPy , result_y_golden[7:4]);
+						end
+						err = err + 1;
+					end
+				end
+				4:begin
+					if( result_x_golden[11:8] !== kPx || result_y_golden[11:8] !== kPy ) begin
+						if( result_x_golden[11:8] !== kPx) begin
+							$display("ERROR on Px output at %d:output %h !=expect %h ",pattern_num,kPx , result_x_golden[11:8]);
+							$display(out_f,"ERROR on Px output at %d:output %h !=expect %h ",pattern_num,kPx , result_x_golden[11:8]);
+						end
+						if( result_y_golden[11:8] !== kPy) begin
+							$display("ERROR on Py output at %d:output %h !=expect %h ",pattern_num, kPy , result_y_golden[11:8]);
+							$display(out_f,"ERROR on Py output at %d:output %h !=expect %h ",pattern_num, kPy , result_y_golden[11:8]);
+						end
+						err = err + 1;
+					end
+				end
+				5:begin
+					if( result_x_golden[15:12] !== kPx || result_y_golden[15:12] !== kPy ) begin
+						if( result_x_golden[15:12] !== kPx) begin
+							$display("ERROR on Px output at %d:output %h !=expect %h ",pattern_num,kPx , result_x_golden[15:12]);
+							$display(out_f,"ERROR on Px output at %d:output %h !=expect %h ",pattern_num,kPx , result_x_golden[15:12]);
+						end
+						if( result_y_golden[15:12] !== kPy) begin
+							$display("ERROR on Py output at %d:output %h !=expect %h ",pattern_num, kPy , result_y_golden[15:12]);
+							$display(out_f,"ERROR on Py output at %d:output %h !=expect %h ",pattern_num, kPy , result_y_golden[15:12]);
+						end
+						err = err + 1;
+					end
+				end
+				6:begin
+					if( result_x_golden[19:16] !== kPx || result_y_golden[19:16] !== kPy ) begin
+						if( result_x_golden[19:16] !== kPx) begin
+							$display("ERROR on Px output at %d:output %h !=expect %h ",pattern_num,kPx , result_x_golden[19:16]);
+							$display(out_f,"ERROR on Px output at %d:output %h !=expect %h ",pattern_num,kPx , result_x_golden[19:16]);
+						end
+						if( result_y_golden[19:16] !== kPy) begin
+							$display("ERROR on Py output at %d:output %h !=expect %h ",pattern_num, kPy , result_y_golden[19:16]);
+							$display(out_f,"ERROR on Py output at %d:output %h !=expect %h ",pattern_num, kPy , result_y_golden[19:16]);
+						end
+						err = err + 1;
+					end
+				end
+				7:begin
+					if( result_x_golden[23:20] !== kPx || result_y_golden[23:20] !== kPy ) begin
+						if( result_x_golden[23:20] !== kPx) begin
+							$display("ERROR on Px output at %d:output %h !=expect %h ",pattern_num,kPx , result_x_golden[23:20]);
+							$display(out_f,"ERROR on Px output at %d:output %h !=expect %h ",pattern_num,kPx , result_x_golden[23:20]);
+						end
+						if( result_y_golden[23:20] !== kPy) begin
+							$display("ERROR on Py output at %d:output %h !=expect %h ",pattern_num, kPy , result_y_golden[23:20]);
+							$display(out_f,"ERROR on Py output at %d:output %h !=expect %h ",pattern_num, kPy , result_y_golden[23:20]);
+						end
+						err = err + 1;
+					end
+				end
+				8:begin
+					if( result_x_golden[27:24] !== kPx || result_y_golden[27:24] !== kPy ) begin
+						if( result_x_golden[27:24] !== kPx) begin
+							$display("ERROR on Px output at %d:output %h !=expect %h ",pattern_num,kPx , result_x_golden[27:24]);
+							$display(out_f,"ERROR on Px output at %d:output %h !=expect %h ",pattern_num,kPx , result_x_golden[27:24]);
+						end
+						if( result_y_golden[27:24] !== kPy) begin
+							$display("ERROR on Py output at %d:output %h !=expect %h ",pattern_num, kPy , result_y_golden[27:24]);
+							$display(out_f,"ERROR on Py output at %d:output %h !=expect %h ",pattern_num, kPy , result_y_golden[27:24]);
+						end
+						err = err + 1;
+					end
+				end
+				9:begin
+					if( result_x_golden[31:28] !== kPx || result_y_golden[31:28] !== kPy ) begin
+						if( result_x_golden[31:28] !== kPx) begin
+							$display("ERROR on Px output at %d:output %h !=expect %h ",pattern_num,kPx , result_x_golden[31:28]);
+							$display(out_f,"ERROR on Px output at %d:output %h !=expect %h ",pattern_num,kPx , result_x_golden[31:28]);
+						end
+						if( result_y_golden[31:28] !== kPy) begin
+							$display("ERROR on Py output at %d:output %h !=expect %h ",pattern_num, kPy , result_y_golden[31:28]);
+							$display(out_f,"ERROR on Py output at %d:output %h !=expect %h ",pattern_num, kPy , result_y_golden[31:28]);
+						end
+						err = err + 1;
+					end
+				end
+			endcase
+			
 			pattern_num = pattern_num + 1;
 			if(pattern_num === DATA_LENGTH)  over = 1'b1;
 		end
@@ -181,9 +288,23 @@ module Top_test();
 	
     initial begin
           @(posedge stop)      
+          if(over) begin
+             $display("---------------------------------------------\n");
+             if (err == 0)  begin
+                $display("All data have been generated successfully!\n");
+                $display("-------------------PASS-------------------\n");
+             end
+             else begin
+                $display("There are %d errors!\n", err);
+             end
+                $display("---------------------------------------------\n");
+          end
+          else begin
             $display("---------------------------------------------\n");
-            $display("-------------------END-------------------\n");
+            $display("Error!!! There is no any data output ...!\n");
+            $display("-------------------FAIL-------------------\n");
             $display("---------------------------------------------\n");
+          end
           $finish;
     end
 	
