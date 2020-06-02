@@ -15,13 +15,14 @@ module GFAU(
 	div_out
 	R*/
 	);
+	
 
 	localparam SIZE = 32;
 
 	input i_clk, i_rst;
 	input [SIZE - 1 : 0] in_0, in_1;
 	input [SIZE - 1 : 0] prime;
-    input [1 : 0] operation_select;
+	input [1 : 0] operation_select;
     input GFAU_done_from_control;
 
     output[SIZE - 1 : 0] result;
@@ -43,7 +44,7 @@ module GFAU(
 
     add add_0 (.i_clk(i_clk), .i_rst(i_rst), .add_in_0(in_0), .add_in_1(in_1), .prime(prime),
     		   .sel_add(sel_add), .add_out(add_out), .done_add(done_add));
-    sub sub_0 (.i_clk(i_clk), .i_rst(i_rst), .sub_in_0(in_0), .sub_in_1(in_1), .prime(prime),
+    sub sub_0 (.i_clk(i_uuuuuuuuuuuuuuuu:wqclk), .i_rst(i_rst), .sub_in_0(in_0), .sub_in_1(in_1), .prime(prime),
     		   .sel_sub(sel_sub), .sub_out(sub_out), .done_sub(done_sub));
     mult mult_0 (.i_clk(i_clk), .i_rst(i_rst), .mult_in_0(in_0), .mult_in_1(in_1), .prime(prime),
     			 .sel_mult(sel_mult), .mult_out(mult_out), .done_mult(done_mult));

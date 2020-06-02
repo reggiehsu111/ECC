@@ -426,8 +426,8 @@ module Control(i_clk, i_reset,
                         y2_n = i2_w; 
                         x3_n = x3; 
                         y3_n = y3;
-                        done_keyshift_r = 1;
-                        next_state = 0;
+                        done_keyshift_r = 0; //correct
+                        next_state = 23;
                         key_counter_n = key_counter;
                     end                        
                 end
@@ -1193,9 +1193,290 @@ module Control(i_clk, i_reset,
                         next_state = 22;
                     end
                 end
-            23: begin
-            	
-            end
+            23:
+                begin
+                    Px_mont_r = r1;
+                    Py_mont_r = r2;
+                    instruction = 2'b01;//minus
+                    done_control_r = 1; 
+                    done_keyshift_r = 0; 
+                    in_sig_n = in_sig; 
+                    all_done_rn = 0;
+                    x1_n = x1; 
+                    y1_n = y1; 
+                    x2_n = x2; 
+                    y2_n = y2; 
+                    x3_n = x3; 
+                    y3_n = y3; 
+                    a_n = a;
+                    key_counter_n = key_counter;
+                    if(GFAU_done == 1)
+                        begin
+                            done_control_r = 0;
+                            next_state = 14; 
+                            r1_n = GFAU_result;
+                            r2_n = r2;
+                        end
+                    else
+                       begin
+                           next_state = state;
+                           r1_n = r1;
+                           r2_n = r2;
+                       end
+                end
+               
+            24:
+                begin
+                    Px_mont_r = y2;
+                    Py_mont_r = y1;
+                    instruction = 2'b01;//minus
+                    done_control_r = 1; 
+                    done_keyshift_r = 0; 
+                    in_sig_n = in_sig; 
+                    all_done_rn = 0;
+                    x1_n = x1; 
+                    y1_n = y1; 
+                    x2_n = x2; 
+                    y2_n = y2; 
+                    x3_n = x3; 
+                    y3_n = y3; 
+                    a_n = a;
+                    key_counter_n = key_counter;
+                    if(GFAU_done == 1)
+                        begin
+                            done_control_r = 0;
+                            next_state = 15; 
+                            r1_n = r1;
+                            r2_n = GFAU_result;
+                        end
+                    else
+                       begin
+                           next_state = state;
+                           r1_n = r1;
+                           r2_n = r2;
+                       end
+                end
+            25:
+                begin
+                    Px_mont_r = r2;
+                    Py_mont_r = r1;
+                    instruction = 2'b11;//multi
+                    done_control_r = 1; 
+                    done_keyshift_r = 0; 
+                    in_sig_n = in_sig; 
+                    all_done_rn = 0;
+                    x1_n = x1; 
+                    y1_n = y1; 
+                    x2_n = x2; 
+                    y2_n = y2; 
+                    x3_n = x3; 
+                    y3_n = y3; 
+                    a_n = a;
+                    key_counter_n = key_counter;
+                    if(GFAU_done == 1)
+                        begin
+                            done_control_r = 0;
+                            next_state = 16; 
+                            r1_n = GFAU_result;
+                            r2_n = r2;
+                        end
+                    else
+                       begin
+                           next_state = state;
+                           r1_n = r1;
+                           r2_n = r2;
+                       end
+                end
+            26:
+                begin
+                    Px_mont_r = r1;
+                    Py_mont_r = r1;
+                    instruction = 2'b10;//multi
+                    done_control_r = 1; 
+                    done_keyshift_r = 0; 
+                    in_sig_n = in_sig; 
+                    all_done_rn = 0;
+                    x1_n = x1; 
+                    y1_n = y1; 
+                    x2_n = x2; 
+                    y2_n = y2; 
+                    x3_n = x3; 
+                    y3_n = y3; 
+                    a_n = a;
+                    key_counter_n = key_counter;
+                    if(GFAU_done == 1)
+                        begin
+                            done_control_r = 0;
+                            next_state = 17; 
+                            r2_n = GFAU_result;
+                            r1_n = r1;
+                        end
+                    else
+                       begin
+                           next_state = state;
+                           r1_n = r1;
+                           r2_n = r2;
+                       end
+                end
+            27:
+                begin
+                    Px_mont_r = r2;
+                    Py_mont_r = x1;
+                    instruction = 2'b01;//minus
+                    done_control_r = 1; 
+                    done_keyshift_r = 0; 
+                    in_sig_n = in_sig; 
+                    all_done_rn = 0;
+                    x1_n = x1; 
+                    y1_n = y1; 
+                    x2_n = x2; 
+                    y2_n = y2; 
+                    x3_n = x3; 
+                    y3_n = y3; 
+                    a_n = a;
+                    key_counter_n = key_counter;
+                    if(GFAU_done == 1)
+                        begin
+                            done_control_r = 0;
+                            next_state = 18; 
+                            r2_n = GFAU_result;
+                            r1_n = r1;
+                        end
+                    else
+                       begin
+                           next_state = state;
+                           r1_n = r1;
+                           r2_n = r2;
+                       end
+                end
+            28:
+                begin
+                    Px_mont_r = r2;
+                    Py_mont_r = x2;
+                    instruction = 2'b01;//minus
+                    done_control_r = 1; 
+                    done_keyshift_r = 0; 
+                    in_sig_n = in_sig; 
+                    all_done_rn = 0;
+                    x1_n = x1; 
+                    y1_n = y1; 
+                    x2_n = x2; 
+                    y2_n = y2;  
+                    y3_n = y3; 
+                    a_n = a;
+                    key_counter_n = key_counter;
+                    if(GFAU_done == 1)
+                        begin
+                            done_control_r = 0;
+                            next_state = 19; 
+                            r2_n = GFAU_result;
+                            r1_n = r1;
+                            x3_n = GFAU_result;
+                        end
+                    else
+                       begin
+                           next_state = state;
+                           r1_n = r1;
+                           r2_n = r2;
+                           x3_n = x3;
+                       end
+                end
+            29:
+                begin
+                    Px_mont_r = x1;
+                    Py_mont_r = r2;
+                    instruction = 2'b01;//minus
+                    done_control_r = 1; 
+                    done_keyshift_r = 0; 
+                    in_sig_n = in_sig; 
+                    all_done_rn = 0;
+                    x1_n = x1; 
+                    y1_n = y1; 
+                    x2_n = x2; 
+                    y2_n = y2; 
+                    x3_n = x3; 
+                    y3_n = y3; 
+                    a_n = a;
+                    key_counter_n = key_counter;
+                    if(GFAU_done == 1)
+                        begin
+                            done_control_r = 0;
+                            next_state = 20; 
+                            r2_n = GFAU_result;
+                            r1_n = r1;
+                        end
+                    else
+                       begin
+                           next_state = state;
+                           r1_n = r1;
+                           r2_n = r2;
+                       end
+                end
+            30:
+                begin
+                    Px_mont_r = r1;
+                    Py_mont_r = r2;
+                    instruction = 2'b10;//multi
+                    done_control_r = 1; 
+                    done_keyshift_r = 0; 
+                    in_sig_n = in_sig; 
+                    all_done_rn = 0;
+                    x1_n = x1; 
+                    y1_n = y1; 
+                    x2_n = x2; 
+                    y2_n = y2; 
+                    x3_n = x3;
+                    y3_n = y3; 
+                    a_n = a;
+                    key_counter_n = key_counter;
+                    if(GFAU_done == 1)
+                        begin
+                            done_control_r = 0;
+                            next_state = 21; 
+                            r2_n = GFAU_result;
+                            r1_n = r1;
+                        end
+                    else
+                       begin
+                           next_state = state;
+                           r1_n = r1;
+                           r2_n = r2;
+                       end
+                end
+            31:
+               begin
+                    Px_mont_r = r2;
+                    Py_mont_r = y1;
+                    instruction = 2'b01;//minus
+                    done_control_r = 1; 
+                    done_keyshift_r = 0; 
+                    in_sig_n = in_sig; 
+                    all_done_rn = 0;
+                    x1_n = x1; 
+                    y1_n = y1; 
+                    x2_n = x2; 
+                    y2_n = y2; 
+                    x3_n = x3; 
+                    a_n = a;
+                    if(GFAU_done == 1)
+                        begin
+                            done_control_r = 0;
+                            next_state = 0; 
+                            done_keyshift_r = 1;
+                            key_counter_n = key_counter + 1;
+                            y3_n = GFAU_result;
+                            r1_n = x3;
+                            r2_n = GFAU_result;
+                        end
+                    else
+                       begin
+                           next_state = state;
+                           r1_n = r1;
+                           r2_n = r2;
+                           y3_n = y3;
+                           key_counter_n = key_counter;
+                       end
+                end
                	default: begin
                		r1_n = r1; 
                     r2_n = r2; 

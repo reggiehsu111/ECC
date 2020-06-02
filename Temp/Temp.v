@@ -21,6 +21,7 @@ module Top_ting(
 
 	output [SIZE - 1 : 0] kPx, kPy, final_output_1, final_output_2;
 	output [SIZE - 1 : 0] raw1;
+	output [3 : 0] kPx, kPy;
     output final_done;
 	
 	//////////GFAU vs. Control//////////
@@ -246,7 +247,19 @@ module Top_ting(
 				k_r_n = k_r;
 
 				load_done_r = 1;
+				if (final_done == 1) begin
+					state_n = 9;
+				end
 			end
+			9: begin
+				raw1_r_n = raw1_r;
+				raw2_r_n = raw2_r;
+				raw_prime_r_n = raw_prime_r;
+				raw_a_r_n = raw_a_r;
+				k_r_n = k_r;
+				state_n = 10;
+				kPx = final_output_1[3 : 0];
+				kPy = final_output_2[3 : 0];
 
 			default: begin
 				state_n = 0;
@@ -1837,7 +1850,7 @@ module div(
 				S_n = S;
 				done_div_n = 0;
 				i_n = i;
-				if (R >= prime) begi
+				if (R >= prime) begin
 					R_n = R - prime;
 					if (S >= prime) begin
 						S_n = S - prime;
