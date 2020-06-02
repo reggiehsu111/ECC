@@ -28,7 +28,8 @@ module Top_test();
 	reg  [3:0]    a, prime, Px, Py, k;
 
     // Output wires
-	wire [SIZE - 1:0]    kPx, kPy, final_output_1, final_output_2;
+	wire [SIZE - 1:0]    final_output_1, final_output_2;
+	wire [3 : 0] kPx, kPy;
     wire [31:0]   raw1;
 	wire final_done;
 

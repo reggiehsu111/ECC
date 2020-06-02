@@ -19,9 +19,9 @@ module Top_ting(
 	input i_rst, i_clk, i_start;
 	input [3 : 0] a, prime, Px, Py, k;
 
-	output [SIZE - 1 : 0] kPx, kPy, final_output_1, final_output_2;
+	output [SIZE - 1 : 0] final_output_1, final_output_2;
 	output [SIZE - 1 : 0] raw1;
-	output [3 : 0] kPx, kPy;
+	output reg [3 : 0] kPx, kPy;
     output final_done;
 	
 	//////////GFAU vs. Control//////////
@@ -41,7 +41,7 @@ module Top_ting(
 	wire [SIZE - 1 : 0] raw1, raw2, raw_prime, raw_a, raw_k;
 	wire load_done;
 
-	reg [3 : 0] state, state_n;
+	reg [4 : 0] state, state_n;
 	reg [SIZE - 1 : 0] raw1_r, raw2_r, raw_prime_r, raw_a_r, k_r;
 	reg [SIZE - 1 : 0] raw1_r_n, raw2_r_n, raw_prime_r_n, raw_a_r_n, k_r_n;
 	reg load_done_r;
@@ -66,6 +66,8 @@ module Top_ting(
 				raw_a_r_n = raw_a_r;
 				k_r_n = k_r;
 				load_done_r = 0;
+				kPx = 0;
+				kPy = 0;
 				if (i_start == 1) begin
 					state_n = 1;
 
@@ -104,6 +106,8 @@ module Top_ting(
 				k_r_n[31 : 8] = k_r[31 : 8];
 
 				load_done_r = 0;
+				kPx = 0;
+				kPy = 0;
 			end
 			2: begin
 				state_n = 3;
@@ -127,6 +131,8 @@ module Top_ting(
 				k_r_n[31 : 12] = k_r[31 : 12];
 
 				load_done_r = 0;
+				kPx = 0;
+				kPy = 0;
 			end
 			3: begin
 				state_n = 4;
@@ -150,6 +156,8 @@ module Top_ting(
 				k_r_n[31 : 16] = k_r[31 : 16];
 
 				load_done_r = 0;
+				kPx = 0;
+				kPy = 0;
 			end
 			4: begin
 				state_n = 5;
@@ -173,6 +181,8 @@ module Top_ting(
 				k_r_n[31 : 20] = k_r[31 : 20];
 
 				load_done_r = 0;
+				kPx = 0;
+				kPy = 0;
 			end
 			5: begin
 				state_n = 6;
@@ -196,6 +206,8 @@ module Top_ting(
 				k_r_n[31 : 24] = k_r[31 : 24];
 
 				load_done_r = 0;
+				kPx = 0;
+				kPy = 0;
 			end
 			6: begin
 				state_n = 7;
@@ -219,6 +231,8 @@ module Top_ting(
 				k_r_n[31 : 28] = k_r[31 : 28];
 
 				load_done_r = 0;
+				kPx = 0;
+				kPy = 0;
 			end
 			7: begin
 				state_n = 8;
@@ -236,6 +250,8 @@ module Top_ting(
 				k_r_n[31 : 28] = k;
 
 				load_done_r = 0;
+				kPx = 0;
+				kPy = 0;
 			end
 			8: begin
 				state_n = 8;
@@ -247,6 +263,8 @@ module Top_ting(
 				k_r_n = k_r;
 
 				load_done_r = 1;
+				kPx = 0;
+				kPy = 0;
 				if (final_done == 1) begin
 					state_n = 9;
 				end
@@ -260,7 +278,82 @@ module Top_ting(
 				state_n = 10;
 				kPx = final_output_1[3 : 0];
 				kPy = final_output_2[3 : 0];
+			end
+			10: begin
+				raw1_r_n = raw1_r;
+				raw2_r_n = raw2_r;
+				raw_prime_r_n = raw_prime_r;
+				raw_a_r_n = raw_a_r;
+				k_r_n = k_r;
+				state_n = 11;
+				kPx = final_output_1[7 : 4];
+				kPy = final_output_2[7 : 4];
+			end
 
+			11: begin
+				raw1_r_n = raw1_r;
+				raw2_r_n = raw2_r;
+				raw_prime_r_n = raw_prime_r;
+				raw_a_r_n = raw_a_r;
+				k_r_n = k_r;
+				state_n = 12;
+				kPx = final_output_1[11 : 8];
+				kPy = final_output_2[11 : 8];
+			end
+
+			12: begin
+				raw1_r_n = raw1_r;
+				raw2_r_n = raw2_r;
+				raw_prime_r_n = raw_prime_r;
+				raw_a_r_n = raw_a_r;
+				k_r_n = k_r;
+				state_n = 13;
+				kPx = final_output_1[15 : 12];
+				kPy = final_output_2[15 : 12];
+			end
+
+			13: begin
+				raw1_r_n = raw1_r;
+				raw2_r_n = raw2_r;
+				raw_prime_r_n = raw_prime_r;
+				raw_a_r_n = raw_a_r;
+				k_r_n = k_r;
+				state_n = 14;
+				kPx = final_output_1[19 : 16];
+				kPy = final_output_2[19 : 16];
+			end
+
+			14: begin
+				raw1_r_n = raw1_r;
+				raw2_r_n = raw2_r;
+				raw_prime_r_n = raw_prime_r;
+				raw_a_r_n = raw_a_r;
+				k_r_n = k_r;
+				state_n = 15;
+				kPx = final_output_1[23 : 20];
+				kPy = final_output_2[23 : 20];
+			end
+
+			15: begin
+				raw1_r_n = raw1_r;
+				raw2_r_n = raw2_r;
+				raw_prime_r_n = raw_prime_r;
+				raw_a_r_n = raw_a_r;
+				k_r_n = k_r;
+				state_n = 16;
+				kPx = final_output_1[27 : 24];
+				kPy = final_output_2[27 : 24];
+			end
+			16: begin
+				raw1_r_n = raw1_r;
+				raw2_r_n = raw2_r;
+				raw_prime_r_n = raw_prime_r;
+				raw_a_r_n = raw_a_r;
+				k_r_n = k_r;
+				state_n = 0;
+				kPx = final_output_1[31 : 28];
+				kPy = final_output_2[31 : 28];
+			end
 			default: begin
 				state_n = 0;
 
