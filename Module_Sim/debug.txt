@@ -1,0 +1,197 @@
+prime: 3309607849
+px: 2544538276
+py: 2425451850
+a: 1069626724
+key: 1093670752
+px mont: 1059777539 3f2aec03
+py_mont: 164174179 9c91963
+a mont: 60815479 39ff877
+key binary: 1000001001100000001011101100000
+key array x: 1
+result x_mont: 1059777539    hex: 3f2aec03
+result y_mont: 164174179    hex: 9c91963
+result_x 2544538276    hex: 97aa92a4
+result_y 2425451850    hex: 9091754a
+
+key array x: 0
+result x_mont: 1422323915    hex: 54c6f0cb
+result y_mont: 500441568    hex: 1dd421e0
+result_x 1589743099    hex: 5ec18dfb
+result_y 685937356    hex: 28e292cc
+
+key array x: 0
+result x_mont: 2710030940    hex: a187ca5c
+result y_mont: 1163070138    hex: 45530aba
+result_x 198565041    hex: bd5dcb1
+result_y 2783689553    hex: a5ebbb51
+
+key array x: 0
+result x_mont: 139623310    hex: 8527b8e
+result y_mont: 1557968130    hex: 5cdcb502
+result_x 2815969166    hex: a7d8478e
+result_y 610622146    hex: 24655ac2
+
+key array x: 0
+result x_mont: 3269834979    hex: c2e5b8e3
+result y_mont: 235157929    hex: e0439a9
+result_x 1339520804    hex: 4fd77724
+result_y 2054494537    hex: 7a751949
+
+key array x: 0
+result x_mont: 2413723233    hex: 8fde7e61
+result y_mont: 3108148856    hex: b9429678
+result_x 1654766055    hex: 62a1b9e7
+result_y 3184862329    hex: bdd52479
+
+key array x: 1
+result x_mont: 388472381    hex: 17279e3d
+result y_mont: 932817947    hex: 3799ac1b
+result_x 1151973620    hex: 44a9b8f4
+result_y 1983473691    hex: 7639681b
+
+key array x: 0
+result x_mont: 1411786806    hex: 54262836
+result y_mont: 622020744    hex: 25134888
+result_x 2071441778    hex: 7b77b172
+result_y 847395216    hex: 32823990
+
+key array x: 0
+result x_mont: 884977610    hex: 34bfafca
+result y_mont: 2122274772    hex: 7e7f57d4
+result_x 1954158958    hex: 747a196e
+result_y 2618261291    hex: 9c0f7f2b
+
+key array x: 1
+result x_mont: 2922752393    hex: ae35a989
+result y_mont: 2127519333    hex: 7ecf5e65
+result_x 480246012    hex: 1c9ff8fc
+result_y 859747136    hex: 333eb340
+
+key array x: 1
+result x_mont: 1815780195    hex: 6c3a9b63
+result y_mont: 2633434759    hex: 9cf70687
+result_x 2654588496    hex: 9e39ce50
+result_y 2643887000    hex: 9d968398
+
+key array x: 0
+result x_mont: 2411066298    hex: 8fb5f3ba
+result y_mont: 1379740178    hex: 523d2a12
+result_x 998530737    hex: 3b845eb1
+result_y 1381389538    hex: 525654e2
+
+key array x: 0
+result x_mont: 275296467    hex: 1068b0d3
+result y_mont: 731551813    hex: 2b9a9845
+result_x 1554315979    hex: 5ca4facb
+result_y 2593807252    hex: 9a9a5b94
+
+key array x: 0
+result x_mont: 131497023    hex: 7d67c3f
+result y_mont: 1113637484    hex: 4260c26c
+result_x 889010800    hex: 34fd3a70
+result_y 1826716961    hex: 6ce17d21
+
+key array x: 0
+result x_mont: 595938969    hex: 23854e99
+result y_mont: 2028313313    hex: 78e59ae1
+result_x 728044888    hex: 2b651558
+result_y 459111982    hex: 1b5d7e2e
+
+key array x: 0
+result x_mont: 764098260    hex: 2d8b36d4
+result y_mont: 1901333191    hex: 71540ac7
+result_x 1520970073    hex: 5aa82959
+result_y 303611050    hex: 1218bcaa
+
+key array x: 0
+result x_mont: 1819254887    hex: 6c6fa067
+result y_mont: 1501905839    hex: 598543af
+result_x 3051277205    hex: b5decb95
+result_y 1484226366    hex: 58777f3e
+
+key array x: 0
+result x_mont: 890904451    hex: 351a1f83
+result y_mont: 622590867    hex: 251bfb93
+result_x 1222948509    hex: 48e4b69d
+result_y 1075889641    hex: 4020c5e9
+
+key array x: 1
+result x_mont: 2364677568    hex: 8cf21dc0
+result y_mont: 692581649    hex: 2947f511
+result_x 2395456939    hex: 8ec7c5ab
+result_y 1068230059    hex: 3fabe5ab
+
+key array x: 0
+result x_mont: 1904017571    hex: 717d00a3
+result y_mont: 2669380849    hex: 9f1b84f1
+result_x 1034301096    hex: 3da62ea8
+result_y 1499202865    hex: 595c0531
+
+key array x: 1
+result x_mont: 2534703175    hex: 97148047
+result y_mont: 213163939    hex: cb49fa3
+result_x 1897297896    hex: 711677e8
+result_y 2520734612    hex: 963f5b94
+
+key array x: 1
+result x_mont: 1593636038    hex: 5efcf4c6
+result y_mont: 3054244969    hex: b60c1469
+result_x 904687948    hex: 35ec714c
+result_y 2648596957    hex: 9dde61dd
+
+key array x: 1
+result x_mont: 2175636415    hex: 81ad93bf
+result y_mont: 1853535303    hex: 6e7ab447
+result_x 91452429    hex: 573740d
+result_y 1904313535    hex: 718184bf
+
+key array x: 0
+result x_mont: 2151317137    hex: 803a7e91
+result y_mont: 1076260834    hex: 40266fe2
+result_x 2619195758    hex: 9c1dc16e
+result_y 2760650839    hex: a48c3057
+
+key array x: 1
+result x_mont: 1487838847    hex: 58ae9e7f
+result y_mont: 2533636374    hex: 97043916
+result_x 822225275    hex: 3102297b
+result_y 931689240    hex: 37887318
+
+key array x: 1
+result x_mont: 1750353772    hex: 6854476c
+result y_mont: 1413197340    hex: 543bae1c
+result_x 1443594690    hex: 560b81c2
+result_y 1765037533    hex: 693455dd
+
+key array x: 0
+result x_mont: 222558234    hex: d43f81a
+result y_mont: 2877245522    hex: ab7f4852
+result_x 2658707181    hex: 9e78a6ed
+result_y 2368672431    hex: 8d2f12af
+
+key array x: 0
+result x_mont: 2003696390    hex: 776dfb06
+result y_mont: 1287629732    hex: 4cbfaba4
+result_x 782944347    hex: 2eaac85b
+result_y 751375464    hex: 2cc91468
+
+key array x: 0
+result x_mont: 1274331362    hex: 4bf4c0e2
+result y_mont: 2986951772    hex: b209445c
+result_x 1286517377    hex: 4caeb281
+result_y 2214452653    hex: 83fdddad
+
+key array x: 0
+result x_mont: 2227841431    hex: 84ca2997
+result y_mont: 602119881    hex: 23e39ec9
+result_x 3096601957    hex: b8926565
+result_y 2689467064    hex: a04e02b8
+
+key array x: 0
+result x_mont: 2839527847    hex: a93fc1a7
+result y_mont: 1023297680    hex: 3cfe4890
+result_x 851376178    hex: 32bef832
+result_y 1874942770    hex: 6fc15b32
+
+result_x 851376178    hex: 32bef832
+result_y 1874942770    hex: 6fc15b32

@@ -18,7 +18,9 @@
 
 module Top_test();
 
-	parameter DATA_LENGTH = 9;
+	parameter DATA_LENGTH = 10;
+	parameter DATA_CYCLES = 9;
+	parameter TOTAL_LENGTH = DATA_LENGTH * DATA_CYCLES;
 	parameter SIZE = 32;
 	
     // Input registers
@@ -33,27 +35,27 @@ module Top_test();
 
 	
 	// Inputs from files
-	reg           start_mem           [0:DATA_LENGTH-1];
-    reg  [3:0]    a_mem               [0:DATA_LENGTH-1];
-    reg  [3:0]    prime_mem           [0:DATA_LENGTH-1];
-    reg  [3:0]    px_mem              [0:DATA_LENGTH-1];
-    reg  [3:0]    py_mem              [0:DATA_LENGTH-1];
-    reg  [3:0]    k_mem               [0:DATA_LENGTH-1];
+	reg           start_mem           [0:TOTAL_LENGTH-1];
+    reg  [3:0]    a_mem               [0:TOTAL_LENGTH-1];
+    reg  [3:0]    prime_mem           [0:TOTAL_LENGTH-1];
+    reg  [3:0]    px_mem              [0:TOTAL_LENGTH-1];
+    reg  [3:0]    py_mem              [0:TOTAL_LENGTH-1];
+    reg  [3:0]    k_mem               [0:TOTAL_LENGTH-1];
 
 
     // Outputs from files
-    reg  [3:0]    kP_mem              [0:DATA_LENGTH-1];
+    reg  [3:0]    kP_mem              [0:TOTAL_LENGTH-1];
 
     // correct results
-    reg [31:0]    result_x_mem        [0:DATA_LENGTH-1];
-    reg [31:0]    result_y_mem        [0:DATA_LENGTH-1];
+    reg [31:0]    result_x_mem        [0:TOTAL_LENGTH-1];
+    reg [31:0]    result_y_mem        [0:TOTAL_LENGTH-1];
 
 	
 	// correct results 
     reg  [31:0]    result_x_golden, result_y_golden;
 	
 	reg           stop, over;
-	integer       i, j, out_f, err, pattern_num;
+	integer       i, j, out_f, err, pattern_num, data_num;
 	
 	Top_ting top0(
 		.i_clk(clk),
@@ -117,34 +119,52 @@ module Top_test();
 	
 	always @(posedge clk)begin
 		if (i<DATA_LENGTH) begin
-		// Get Input
-			i_start = start_mem[i];
-            a = a_mem[i];
-            prime = prime_mem[i];
-            Px = px_mem[i];
-            Py = py_mem[i];
-            k = k_mem[i];
+			// $display(i, j);
+			if (j<DATA_CYCLES) begin
+				if (reset == 1) reset = 0;
+				data_num = i*DATA_CYCLES + j;
+			// Get Input
+				i_start = start_mem[data_num];
+				a = a_mem[data_num];
+				prime = prime_mem[data_num];
+				Px = px_mem[data_num];
+				Py = py_mem[data_num];
+				k = k_mem[data_num];
 
-		// Get correct results
-			result_x_golden = result_x_mem[i];
-            result_y_golden = result_y_mem[i];
+			// Get correct results
+				result_x_golden = result_x_mem[data_num];
+				result_y_golden = result_y_mem[data_num];
+
+				j = j + 1;
+				if (final_done) begin
+					j = 0;
+					i = i + 1;
+					reset = 1;
+				end
+			end
+			else begin
+				// Get Input
+				i_start = start_mem[data_num];
+				a = a_mem[data_num];
+				prime = prime_mem[data_num];
+				Px = px_mem[data_num];
+				Py = py_mem[data_num];
+				k = k_mem[data_num];
+				j = j + 1;
+
+			// Get correct results
+				result_x_golden = result_x_mem[data_num];
+				result_y_golden = result_y_mem[data_num];
+				if (final_done || j == 15000) begin
+					j = 0;
+					i = i + 1;
+					reset = 1;
+				end
+			end
 		end
 		else begin
-            if (i == 50000) stop = 1;
-            else stop = 0;
-            // Input remain
-			i_start = 0;
-            a = a_mem[DATA_LENGTH-1];
-            prime = prime_mem[DATA_LENGTH-1];
-            Px = px_mem[DATA_LENGTH-1];
-            Py = py_mem[DATA_LENGTH-1];
-            k = k_mem[DATA_LENGTH-1];
-
-		    // Get correct results
-			result_x_golden = result_x_mem[DATA_LENGTH-1];
-            result_y_golden = result_y_mem[DATA_LENGTH-1];
+            stop = 1;
         end
-        i = i+1;
 	end
 	always @(posedge clk)begin
 		if (final_done) begin
