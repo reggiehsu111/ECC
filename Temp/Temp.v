@@ -275,6 +275,7 @@ module Top_ting(
 				raw_a_r_n = raw_a_r;
 				k_r_n = k_r;
 				state_n = 10;
+				load_done_r = 0;
 				kPx = final_output_1[3 : 0];
 				kPy = final_output_2[3 : 0];
 			end
@@ -285,6 +286,7 @@ module Top_ting(
 				raw_a_r_n = raw_a_r;
 				k_r_n = k_r;
 				state_n = 11;
+				load_done_r = 0;
 				kPx = final_output_1[7 : 4];
 				kPy = final_output_2[7 : 4];
 			end
@@ -296,6 +298,7 @@ module Top_ting(
 				raw_a_r_n = raw_a_r;
 				k_r_n = k_r;
 				state_n = 12;
+				load_done_r = 0;
 				kPx = final_output_1[11 : 8];
 				kPy = final_output_2[11 : 8];
 			end
@@ -307,6 +310,7 @@ module Top_ting(
 				raw_a_r_n = raw_a_r;
 				k_r_n = k_r;
 				state_n = 13;
+				load_done_r = 0;
 				kPx = final_output_1[15 : 12];
 				kPy = final_output_2[15 : 12];
 			end
@@ -318,6 +322,7 @@ module Top_ting(
 				raw_a_r_n = raw_a_r;
 				k_r_n = k_r;
 				state_n = 14;
+				load_done_r = 0;
 				kPx = final_output_1[19 : 16];
 				kPy = final_output_2[19 : 16];
 			end
@@ -329,6 +334,7 @@ module Top_ting(
 				raw_a_r_n = raw_a_r;
 				k_r_n = k_r;
 				state_n = 15;
+				load_done_r = 0;
 				kPx = final_output_1[23 : 20];
 				kPy = final_output_2[23 : 20];
 			end
@@ -340,6 +346,7 @@ module Top_ting(
 				raw_a_r_n = raw_a_r;
 				k_r_n = k_r;
 				state_n = 16;
+				load_done_r = 0;
 				kPx = final_output_1[27 : 24];
 				kPy = final_output_2[27 : 24];
 			end
@@ -350,6 +357,7 @@ module Top_ting(
 				raw_a_r_n = raw_a_r;
 				k_r_n = k_r;
 				state_n = 0;
+				load_done_r = 0;
 				kPx = final_output_1[31 : 28];
 				kPy = final_output_2[31 : 28];
 			end
@@ -361,7 +369,8 @@ module Top_ting(
 				raw_prime_r_n = 0;
 				raw_a_r_n = 0;
 				k_r_n = 0;
-
+				kPx = 0;
+				kPy = 0;
 				load_done_r = 0;
 			end
 		endcase
