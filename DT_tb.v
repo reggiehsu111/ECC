@@ -62,15 +62,15 @@ module DT_test();
 
     initial begin
        clk         = 1'b1;
-       reset       = 1'b1;
+       reset       = 1'b0;
        stop        = 1'b0;  
        over        = 1'b0;
        pattern_num = 0;
        err         = 0;
        i           = 0;
        j           = 0;
-        #2.5 reset=1'b0;                            // system reset
-        #2.5 reset=1'b1;
+        #2.5 reset=1'b1;                            // system reset
+        #2.5 reset=1'b0;
 
     end
 
