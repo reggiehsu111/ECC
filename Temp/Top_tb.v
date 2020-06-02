@@ -173,7 +173,7 @@ module Top_test();
         end
 	end
 	always @(posedge clk)begin
-		if (counter_flag && counter <= 8) begin
+		if (counter_flag && counter <= 9) begin
 			case(counter)
 				2:begin
 					if( result_x_golden[3:0] !== kPx || result_y_golden[3:0] !== kPy ) begin
