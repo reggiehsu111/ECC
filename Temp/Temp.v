@@ -30,7 +30,7 @@ module Top_ting(
 	////////////////////////////////////
 
 	//////////key shift vs. Control//////////
-	wire key_shift_done_to_control, key_shift_from_control;
+	wire key_shift_done_to_control, key_shift_done_from_control;
 	wire key_from_key_shift;
 	/////////////////////////////////////////
 
@@ -1598,6 +1598,7 @@ module GFAU(
 
     wire sel_add, sel_sub, sel_mult, sel_div;
     wire [SIZE - 1 : 0] add_out, sub_out, mult_out, div_out;
+    wire done_add, done_sub, done_mult, done_div;
     
 
     assign sel_add = (operation_select == 2'd0 && GFAU_done_from_control == 1) ? 1 : 0;
@@ -1771,7 +1772,7 @@ module mult(
 	prime,
 	sel_mult,
 	mult_out,
-	done_mult,
+	done_mult
 	//mult_out_mid
 	);
 
@@ -1865,7 +1866,7 @@ module div(
 	prime,
 	sel_div,
 	div_out,
-	done_div,
+	done_div
 	);
 	localparam SIZE = 32;
 
