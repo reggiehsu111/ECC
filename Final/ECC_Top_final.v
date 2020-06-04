@@ -468,7 +468,7 @@ module Control(
     reg in_sig;    
     reg in_sig_n;                         
 
-    wire [SIZE - 1 : 0] i1_w, i2_w;
+    wire [SIZE - 1 : 0] i1_w, i2_w, output_1, output_2;
     wire Transfer_done_w0, Transfer_done_w1;
     wire in_sig_w;
 
@@ -499,7 +499,6 @@ module Control(
     wire [1 : 0] P_sel;
     wire [SIZE - 1 : 0] Px_in_to_look, Py_in_to_look, Px_out_from_look, Py_out_from_look;
 
-    wire [SIZE - 1 : 0] Px_store[1 : 0];
 
 
     Domain_Transfer d0(i_clk, i_rst, 1'b1, in_sig_w, raw1, raw2, raw_a, raw_prime, i1_w, i2_w, transferred_a_w0, Transfer_done_w0);
@@ -2350,62 +2349,19 @@ module Control(
                 if(GFAU_done_to_control == 1)
                     begin
                         GFAU_done_from_control = 0;
-                        state_n = 46; 
-                        r1_n = r1;
-                        r2_n = GFAU_out;
-                    end
-                else begin                       
-					state_n = state;
-					r1_n = r1;
-					r2_n = r2;
-				end
-			end
-			46: begin
-				Px_mont = r2;
-                Py_mont = x2;
-                x1_n = x1; 
-                y1_n = y1; 
-                x2_n = x2; 
-                y2_n = y2; 
-                x3_n = x3; 
-                y3_n = y3;
-                r1_n = r1;
-                r2_n = r2;
-                a_n = a;
-                GFAU_done_from_control = 1;
-                operation_select = 2'b01; //sub
-                key_counter_n = key_counter;
-
-                mode_r = 0;
-				lookup_table_done_from_control_r = 0;
-				P_sel_r = 0;
-                                     
-                 
-                key_shift_done_from_control = 0; 
-                 
-				in_sig = 0;
-
-				state_n = state;
-				final_done = 0;
-
-                if(GFAU_done_to_control == 1)
-                    begin
-                        GFAU_done_from_control = 0;
                         state_n = 47; 
                         r1_n = r1;
                         r2_n = GFAU_out;
-                        x3_n = GFAU_out;
                     end
                 else begin                       
 					state_n = state;
 					r1_n = r1;
 					r2_n = r2;
-					x3_n = x3;
 				end
 			end
 			47: begin
-				Px_mont = x1;
-                Py_mont = r2;
+				Px_mont = r2;
+                Py_mont = x2;
                 x1_n = x1; 
                 y1_n = y1; 
                 x2_n = x2; 
@@ -2437,6 +2393,49 @@ module Control(
                         state_n = 48; 
                         r1_n = r1;
                         r2_n = GFAU_out;
+                        x3_n = GFAU_out;
+                    end
+                else begin                       
+					state_n = state;
+					r1_n = r1;
+					r2_n = r2;
+					x3_n = x3;
+				end
+			end
+			48: begin
+				Px_mont = x1;
+                Py_mont = r2;
+                x1_n = x1; 
+                y1_n = y1; 
+                x2_n = x2; 
+                y2_n = y2; 
+                x3_n = x3; 
+                y3_n = y3;
+                r1_n = r1;
+                r2_n = r2;
+                a_n = a;
+                GFAU_done_from_control = 1;
+                operation_select = 2'b01; //sub
+                key_counter_n = key_counter;
+
+                mode_r = 0;
+				lookup_table_done_from_control_r = 0;
+				P_sel_r = 0;
+                                     
+                 
+                key_shift_done_from_control = 0; 
+                 
+				in_sig = 0;
+
+				state_n = state;
+				final_done = 0;
+
+                if(GFAU_done_to_control == 1)
+                    begin
+                        GFAU_done_from_control = 0;
+                        state_n = 49; 
+                        r1_n = r1;
+                        r2_n = GFAU_out;
                     end
                 else begin                       
 					state_n = state;
@@ -2444,7 +2443,7 @@ module Control(
 					r2_n = r2;
 				end
 			end
-			48: begin
+			49: begin
 				Px_mont = r1;
                 Py_mont = r2;
                 x1_n = x1; 
@@ -2475,7 +2474,7 @@ module Control(
                 if(GFAU_done_to_control == 1)
                     begin
                         GFAU_done_from_control = 0;
-                        state_n = 49; 
+                        state_n = 50; 
                         r1_n = r1;
                         r2_n = GFAU_out;
                     end
@@ -2485,7 +2484,7 @@ module Control(
 					r2_n = r2;
 				end
 			end
-			49: begin
+			50: begin
 				Px_mont = r1;
                 Py_mont = y1;
                 x1_n = x1; 
@@ -2516,7 +2515,7 @@ module Control(
                 if(GFAU_done_to_control == 1)
                     begin
                         GFAU_done_from_control = 0;
-                        state_n = 50; 
+                        state_n = 51; 
                         r1_n = r1;
                         r2_n = r2;
                         y3_n = GFAU_out;
@@ -2528,7 +2527,7 @@ module Control(
 					y3_n = y3;
 				end
 			end
-			50: begin
+			51: begin
 				Px_mont = x1;
                 Py_mont = y1;
                 x1_n = x3; 
@@ -2556,10 +2555,10 @@ module Control(
 				state_n = 27;
 				final_done = 0;
 				if (key_counter == 30) begin
-					state_n = 51;
+					state_n = 52;
 				end
 			end
-			51: begin
+			52: begin
 				Px_mont = x1;
                 Py_mont = y1;
                 x1_n = x3; 
@@ -2584,11 +2583,11 @@ module Control(
                  
 				in_sig = 1;
 
-				state_n = 51;
+				state_n = 52;
 				final_done = 0;
 				if (Transfer_done_w1 == 1) begin
 					final_done = 1;
-					state_n = 52;
+					state_n = 53;
 				end
 			end
 		endcase
