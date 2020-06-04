@@ -9,30 +9,28 @@ module Top_ting(
 	Py,
 	kPx,
 	kPy,
-    final_output_1,
-    final_output_2,
-    final_done,
-	raw1);
+    done
+    );
 	
 	localparam SIZE = 32;
 	localparam IDLE = 0;
 	input i_rst, i_clk, i_start;
 	input [3 : 0] a, prime, Px, Py, k;
 
-	output [SIZE - 1 : 0] final_output_1, final_output_2;
-	output [SIZE - 1 : 0] raw1;
 	output reg [3 : 0] kPx, kPy;
-    output final_done;
+    output done;
 	
+
 	//////////GFAU vs. Control//////////
 	wire GFAU_done_to_control, GFAU_done_from_control;
-	wire [SIZE - 1 : 0] Px_mont, Py_mont;
+	wire [SIZE - 1 : 0] Px_mont, Py_mont, final_output_1, final_output_2;
 	wire [SIZE - 1 : 0] GFAU_out;
 	wire [1 : 0] operation_select;
+    wire final_done;
 	////////////////////////////////////
 
 	//////////key shift vs. Control//////////
-	wire key_shift_done_to_control, key_shift_from_control;
+	wire key_shift_done_to_control, key_shift_done_from_control;
 	wire key_from_key_shift;
 	/////////////////////////////////////////
 
@@ -54,6 +52,7 @@ module Top_ting(
 	assign raw_k = k_r;
 
 	assign load_done = load_done_r;
+    assign done = final_done;
 
 
 	always @(*) begin
@@ -276,6 +275,7 @@ module Top_ting(
 				raw_a_r_n = raw_a_r;
 				k_r_n = k_r;
 				state_n = 10;
+				load_done_r = 0;
 				kPx = final_output_1[3 : 0];
 				kPy = final_output_2[3 : 0];
 			end
@@ -286,6 +286,7 @@ module Top_ting(
 				raw_a_r_n = raw_a_r;
 				k_r_n = k_r;
 				state_n = 11;
+				load_done_r = 0;
 				kPx = final_output_1[7 : 4];
 				kPy = final_output_2[7 : 4];
 			end
@@ -297,6 +298,7 @@ module Top_ting(
 				raw_a_r_n = raw_a_r;
 				k_r_n = k_r;
 				state_n = 12;
+				load_done_r = 0;
 				kPx = final_output_1[11 : 8];
 				kPy = final_output_2[11 : 8];
 			end
@@ -308,6 +310,7 @@ module Top_ting(
 				raw_a_r_n = raw_a_r;
 				k_r_n = k_r;
 				state_n = 13;
+				load_done_r = 0;
 				kPx = final_output_1[15 : 12];
 				kPy = final_output_2[15 : 12];
 			end
@@ -319,6 +322,7 @@ module Top_ting(
 				raw_a_r_n = raw_a_r;
 				k_r_n = k_r;
 				state_n = 14;
+				load_done_r = 0;
 				kPx = final_output_1[19 : 16];
 				kPy = final_output_2[19 : 16];
 			end
@@ -330,6 +334,7 @@ module Top_ting(
 				raw_a_r_n = raw_a_r;
 				k_r_n = k_r;
 				state_n = 15;
+				load_done_r = 0;
 				kPx = final_output_1[23 : 20];
 				kPy = final_output_2[23 : 20];
 			end
@@ -341,6 +346,7 @@ module Top_ting(
 				raw_a_r_n = raw_a_r;
 				k_r_n = k_r;
 				state_n = 16;
+				load_done_r = 0;
 				kPx = final_output_1[27 : 24];
 				kPy = final_output_2[27 : 24];
 			end
@@ -351,6 +357,7 @@ module Top_ting(
 				raw_a_r_n = raw_a_r;
 				k_r_n = k_r;
 				state_n = 0;
+				load_done_r = 0;
 				kPx = final_output_1[31 : 28];
 				kPy = final_output_2[31 : 28];
 			end
@@ -362,7 +369,8 @@ module Top_ting(
 				raw_prime_r_n = 0;
 				raw_a_r_n = 0;
 				k_r_n = 0;
-
+				kPx = 0;
+				kPy = 0;
 				load_done_r = 0;
 			end
 		endcase
@@ -389,16 +397,16 @@ module Top_ting(
 
 	
 
-	Control control_0 (.i_clk(i_clk), .i_reset(i_rst), .GFAU_done_to_control(GFAU_done_to_control), 
-					   .key_shift_done_to_control(key_shift_done_to_control), 
+	Control control_0 (.i_clk(i_clk), .i_rst(i_rst), .GFAU_done(GFAU_done_to_control), 
+					   .keyshift_done_to_control(key_shift_done_to_control), 
 					   .key_from_key_shift(key_from_key_shift), 
 					   .GFAU_out(GFAU_out), .Px_mont(Px_mont), .Py_mont(Py_mont),
 					   .operation_select(operation_select), 
 					   .key_shift_done_from_control(key_shift_done_from_control), 
 					   .GFAU_done_from_control(GFAU_done_from_control),
 					   .raw1(raw1), .raw2(raw2), .raw_prime(raw_prime), .raw_a(raw_a), .load_done(load_done),
-					   .output_1(final_output_1), .output_2(final_output_2), 
-					   .all_done(final_done));
+					   .final_output_1(final_output_1), .final_output_2(final_output_2), 
+					   .final_done(final_done));
 
 	GFAU GFAU_0 (.i_clk(i_clk), .i_rst(i_rst), .in_0(Px_mont), .in_1(Py_mont), .prime(raw_prime), 
 				 .operation_select(operation_select),
@@ -413,42 +421,216 @@ module Top_ting(
 endmodule
 
 module Control(
-	i_clk,
+	i_clk, 
 	i_rst,
 	GFAU_done_to_control,
-	key_shift_done_to_control,
-	key_from_key_shift,
-	GFAU_out,
-	raw1,
-	raw2,
-	raw_prime,
+	keyshift_done_to_control,
+	key_from_key_shift, 
+	raw1, 
+	raw2, 
+	raw_prime, 
 	raw_a,
 	load_done,
+	GFAU_out,
 	Px_mont,
 	Py_mont,
 	operation_select,
-	key_shift_done_from_control,
-	GFAU_done_from_control,	
-	output_1,
-	output_2,
-	all_done
+	key_shift_done_from_control, 
+	GFAU_done_from_control,	 
+	final_output_1, 
+	final_output_2, 
+	final_done
 	);
-	
+
 	localparam SIZE = 32;
-	input i_clk, i_rst;
-	input GFAU_done_to_control, key_shift_done_to_control;
-	input [1 : 0] key_from_key_shift;
-	input [SIZE - 1 : 0] GFAU_out;
-	input [SIZE - 1 : 0] raw1, raw2, raw_prime, raw_a;
-	input load_done; //turns to 1 when all 32 bits inputs are generated
+  /*========================IO declaration============================ */	 
+    input i_clk;
+    input i_reset;
 
-	output [SIZE - 1 : 0] Px_mont, Py_mont;
-	output [1 : 0] operation_select;
-	output key_shift_from_control, GFAU_done_from_control;
-	output [SIZE - 1 : 0] output_1, output_2;
-	output all_done;
+    input GFAU_done_to_control;                        // done signal from GFAU
+    input keyshift_done_to_control;                    // done signal from  key shifter
+    input key_from_key_shift;                          // single bit for key
+    input [SIZE - 1 : 0] raw1, raw2, raw_prime, raw_a;     // non-transferred input and prime
+    input load_done;
+    input [SIZE - 1 : 0] GFAU_out;               // Result from GFAU
 
-endmodule
+    output reg [SIZE - 1 : 0] Px_mont, Py_mont;         // transferred inputs To GFAU
+    output reg [1 : 0] operation_select;          // 00, 01, 10, 11 add, subtract, multiple, divide
+    output reg key_shift_done_from_control;                   // done signal to key shifter for completion of add or double
+    output reg GFAU_done_from_control;                    // done signal to GFAU for finishing saving the return value to register
+    output reg [SIZE - 1 : 0] final_output_1, final_output_2;       // final output to Top(be inverse transferred)
+    output reg final_done;                        // kP is finally computed singal to Top
+
+  /*========================Wire and Reg======================== */	  
+     
+    reg all_done_r;
+    reg all_done_rn;
+    reg in_sig;    
+    reg in_sig_n;                         
+
+    wire [SIZE - 1 : 0] i1_w, i2_w;
+    wire Transfer_done_w0, Transfer_done_w1;
+    wire in_sig_w;
+
+    reg [SIZE - 1 : 0] x1, y1, x2, y2;
+    reg [SIZE - 1 : 0] x1_n, y1_n, x2_n, y2_n;              // inputs for Add and Double
+    reg [5:0] state, state_n;                        // state machine
+    
+    reg [1:0] instruction;
+    reg [SIZE - 1 : 0] r1, r2;
+    reg [SIZE - 1 : 0] r1_n, r2_n;
+
+    reg [SIZE - 1 : 0] x3,y3;
+    reg [SIZE - 1 : 0] x3_n, y3_n;
+    
+    wire [SIZE - 1 : 0] x3_w, y3_w;
+    
+    reg [4:0] key_counter;                  // counter for keyshifter is whether finish
+    reg [4:0] key_counter_n;
+
+    reg [SIZE - 1 : 0] a, a_n;
+
+    wire [SIZE - 1 : 0] transferred_a_w0, transferred_a_w1;
+    
+    wire mode, lookup_table_done_from_control;
+    wire [1 : 0] P_sel;
+    wire [SIZE - 1 : 0] Px_in_to_look, Py_in_to_look, Px_out_from_look, Py_out_from_look;
+
+
+    Domain_Transfer d0(i_clk, i_rst, 1'b1, in_sig_w, raw1, raw2, raw_a, raw_prime, i1_w, i2_w, transferred_a_w0, Transfer_done_w0);
+    Domain_Transfer d1(i_clk, i_rst, 1'b0, in_sig_w, x3_w, y3_w, raw_a, raw_prime, output_1, output_2, transferred_a_w1, Transfer_done_w1);
+    lookup_table lookup_0(.i_rst(i_rst), .i_clk(i_clk), .P_sel(P_sel), .mode(mode), 
+    					  .Px_in(Px_in_to_look), .Py_in(Py_in_to_look), 
+    					  .lookup_table_done_from_control(lookup_table_done_from_control),
+    					  .Px_out(Px_out_from_look), .Py_out(Py_out_from_look));
+
+/*====================assign output wires to the register=========================*/
+
+    assign x3_w = x3;
+    assign y3_w = y3;
+    assign in_sig_w = in_sig;
+    assign Px_in_to_look = x1;
+    assign Py_in_to_look = y1;
+/*==========================next state logic=========================*/
+    
+	always @(*) begin
+		case(state)
+			0: begin //IDLE
+				Px_mont = 0;
+				Py_mont = 0;
+				x1_n = 0;
+				x2_n = 0;
+				y1_n = 0;
+				y2_n = 0;
+				x3_n = 0;
+				y3_n = 0;
+				r1_n = 0;
+				r2_n = 0;
+				a_n = a;
+				key_counter_n = 0;
+				in_sig = 0;
+				state_n = 0;
+				if (load_done == 1) begin
+					state_n = 1;
+					in_sig = 1;
+				end
+			end
+			1: begin //Transfer to Mont
+				Px_mont = 0;
+				Py_mont = 0;
+				x1_n = 0;
+				x2_n = 0;
+				y1_n = 0;
+				y2_n = 0;
+				x3_n = 0;
+				y3_n = 0;
+				r1_n = 0;
+				r2_n = 0;
+				a_n = a;
+				key_counter_n = 0;
+				in_sig = 0;
+				state_n = 1;
+				if (Transfer_done_w0 == 1) begin
+					x1_n = i1_w;
+					y1_n = i2_w;
+					a_n = transferred_a_w0;
+					state_n = 2;
+				end
+			end
+			2: begin //Load P to lookup table and start building lookup table
+				begin
+                    Px_mont = x1;
+                    Py_mont = x1;
+                    operation_select = 2'b10; //multi
+                    GFAU_done_from_control = 1; 
+                    key_shift_done_from_control = 0; 
+                    in_sig = 0; 
+                    final_done = 0;
+                    x1_n = x1; 
+                    y1_n = y1; 
+                    x2_n = x2; 
+                    y2_n = y2; 
+                    x3_n = x3; 
+                    y3_n = y3; 
+                    a_n = a;
+                    key_counter_n = 0;
+                    if(GFAU_done_to_control == 1)
+                        begin
+                            GFAU_done_from_control = 0;
+                            state_n = 2; 
+                            r1_n = GFAU_out;
+                            r2_n = r2;
+                        end
+                    else
+                       begin
+                           state_n = state;
+                           r1_n = r1;
+                           r2_n = r2;
+                       end
+                end
+
+	end
+
+/* ====================Sequential Part=================== */
+
+	always@(posedge  i_clk or posedge i_rst)
+	    begin
+	        if (i_rst)
+	            begin
+	                r1              <= 0;
+	                r2              <= 0;
+	                state           <= 0;
+	                key_counter     <= key_counter_n;
+	                in_sig          <= 0;
+	                key_counter     <= 5'b00000;
+	                all_done_r      <= 0;
+	                x1              <= 0;
+	                x2              <= 0;
+	                y1              <= 0;
+	                y2              <= 0;
+	                x3              <= 0;
+	                y3              <= 0;
+	                a               <= 0; 
+	            end
+	        else
+	            begin
+	                r1              <= r1_n;
+	                r2              <= r2_n;
+	                state           <= state_n;  
+	                key_counter     <= key_counter_n;
+	                in_sig          <= in_sig_n;
+	                all_done_r      <= all_done_rn;
+	                x1              <= x1_n;
+	                x2              <= x2_n;
+	                y1              <= y1_n;
+	                y2              <= y2_n;
+	                x3              <= x3_n;
+	                y3              <= y3_n;
+	                a               <= a_n;    
+	            end
+	    end
+
+	endmodule
 
 module Domain_Transfer(clk, reset, ToMont, in_sig, Px_i, Py_i, A_i, Prime, Px_out, Py_out, A_out, done);      
     input clk, reset, ToMont, in_sig;
@@ -590,7 +772,7 @@ module key_shift(
 	key_shift_done_to_control);
 	localparam SH_NUM = 1;
 	localparam SIZE = 32;
-	localparam OUT_SIZE = 1;
+	localparam OUT_SIZE = 2;
 
 	input i_clk, i_rst; 
 	input [SIZE - 1 : 0] k;
@@ -604,7 +786,7 @@ module key_shift(
 	reg state, state_n;
 	reg key_shift_done_to_control;
 
-	assign k_out = k[i];
+	assign k_out = k[i : i - 1];
 	//assign k_out = 0;
 	//assign key_shift_done_to_control = key_shift_done_to_control; //key_shift_done_to_control_r;
 
@@ -616,7 +798,7 @@ module key_shift(
 				key_shift_done_to_control = 0;
 				if (key_shift_done_from_control == 1) begin
 					state_n = 1;
-					i_n = i - 1;
+					i_n = i - 2;
 				end
 			end
 			1: begin
@@ -676,6 +858,7 @@ module GFAU(
 
     wire sel_add, sel_sub, sel_mult, sel_div;
     wire [SIZE - 1 : 0] add_out, sub_out, mult_out, div_out;
+    wire done_add, done_sub, done_mult, done_div;
     
 
     assign sel_add = (operation_select == 2'd0 && GFAU_done_from_control == 1) ? 1 : 0;
@@ -849,7 +1032,7 @@ module mult(
 	prime,
 	sel_mult,
 	mult_out,
-	done_mult,
+	done_mult
 	//mult_out_mid
 	);
 
@@ -943,7 +1126,7 @@ module div(
 	prime,
 	sel_div,
 	div_out,
-	done_div,
+	done_div
 	);
 	localparam SIZE = 32;
 
@@ -1099,9 +1282,6 @@ module div(
 endmodule
 
 
-
-
-
 module lookup_table(
 	i_rst,
 	i_clk,
@@ -1109,53 +1289,61 @@ module lookup_table(
 	mode,
 	Px_in,
 	Py_in,
+	lookup_table_done_from_control,
 	Px_out,
 	Py_out
 	);
 	
 	localparam SIZE = 32;
 	input i_rst, i_clk;
-	input [3 : 0] P_sel;
+	input [1 : 0] P_sel;
 	input mode; // 0: in from control; 1: out to control
 	input [SIZE - 1 : 0] Px_in, Py_in;
+	input lookup_table_done_from_control;
 
 	output [SIZE - 1 : 0] Px_out, Py_out;
 
 	integer i;
 
-	reg [SIZE - 1 : 0] Px_store [3 : 0];
-	reg [SIZE - 1 : 0] Px_store_n [3 : 0];
-	reg [SIZE - 1 : 0] Py_store [3 : 0];
-	reg [SIZE - 1 : 0] Py_store_n [3 : 0];
+	reg [SIZE - 1 : 0] Px_store [1 : 0];
+	reg [SIZE - 1 : 0] Px_store_n [1 : 0];
+	reg [SIZE - 1 : 0] Py_store [1 : 0];
+	reg [SIZE - 1 : 0] Py_store_n [1 : 0];
 	reg [SIZE - 1 : 0] Px_out, Py_out, Px_out_n, Py_out_n;
 
 	always @(*) begin
 		case(mode)
 			0: begin // in from control
-				for (i = 0; i < 16 ; i = i + 1) begin
+				for (i = 0; i < 4 ; i = i + 1) begin
 					Px_store_n[i] = Px_store[i];
 					Py_store_n[i] = Py_store[i];
 				end
 				Px_out_n = Px_out;
 				Py_out_n = Py_out; 
-				if (P_sel != 0) begin
+				if (P_sel != 0 && lookup_table_done_from_control == 1) begin
 					Px_store_n [P_sel] = Px_in;
 					Py_store_n [P_sel] = Py_in;
 				end
 			end
-			1: begin
-				for (i = 0; i < 16 ; i = i + 1) begin
+			1: begin //out to control
+				for (i = 0; i < 4 ; i = i + 1) begin
 					Px_store_n[i] = Px_store[i];
 					Py_store_n[i] = Py_store[i];
 				end
-				Px_out_n = Px_store[P_sel];
-				Py_out_n = Py_store[P_sel];
+				if (P_sel != 0 && lookup_table_done_from_control == 1) begin
+					Px_out_n = Px_store[P_sel];
+					Py_out_n = Py_store[P_sel];
+				end
+				else begin
+					Px_out_n = Px_out;
+					Py_out_n = Py_out;
+				end
 			end
 		endcase
 	end  
 	always @(posedge i_clk or posedge i_rst) begin
 		if (i_rst) begin
-			for (i = 0; i < 16; i = i + 1) begin
+			for (i = 0; i < 4; i = i + 1) begin
 				Px_store[i] <= 0;
 				Py_store[i] <= 0;
 			end
@@ -1163,7 +1351,7 @@ module lookup_table(
 			Py_out <= 0;
 		end
 		else begin
-			for (i = 0; i < 16; i = i + 1) begin
+			for (i = 0; i < 4; i = i + 1) begin
 				Px_store[i] <= Px_store_n[i];
 				Py_store[i] <= Py_store_n[i];
 			end
