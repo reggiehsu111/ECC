@@ -16828,24 +16828,24 @@ module Top_ting ( i_rst, i_clk, i_start, a, prime, k, Px, Py, kPx, kPy, done
   MOAI1S U822 ( .A1(n519), .A2(n380), .B1(n358), .B2(n485), .O(n292) );
 endmodule
 
-module CHIP (clk_p_i, reset_n_i, start_i, a, prime, Px, Py, k, kPx, kPy, done);
+module CHIP (i_clk, i_rst, i_start, a, prime, Px, Py, k, kPx, kPy, done);
 
-    input clk_p_i, reset_n_i, start_i;
+    input i_clk, i_rst, i_start;
 	input [3 : 0] a, prime, Px, Py, k;
 
 	output [3 : 0] kPx, kPy;
     output done;
 
 
-    wire i_clk_p_i, i_reset_n_i, i_start_i;
+    wire i_i_clk, i_i_rst, i_i_start;
     wire [3:0] i_a, i_prime, i_px, i_py, i_k;
     wire [3:0] i_kpx, i_kpy;
     wire i_done;
     wire n_logic0,n_logic1;
     Top_ting top0(
-	.i_rst(i_reset_n_i),
-	.i_clk(i_clk_p_i),
-	.i_start(i_start_i),
+	.i_rst(i_i_rst),
+	.i_clk(i_i_clk),
+	.i_start(i_i_start),
 	.a(i_a),
 	.prime(i_prime),
 	.k(i_k),
@@ -16858,9 +16858,9 @@ module CHIP (clk_p_i, reset_n_i, start_i, a, prime, Px, Py, k, kPx, kPy, done);
     TIE0 ipad_n_logic0(.O(n_logic0));
     TIE1 ipad_n_logic1(.O(n_logic1));
 
-    XMD ipad_clk_p_i (.O(i_clk_p_i), .I(clk_p_i), .PU(n_logic0), .PD(n_logic0), .SMT(n_logic0));
-    XMD ipad_reset_n_i (.O(i_reset_n_i), .I(reset_n_i), .PU(n_logic0), .PD(n_logic0), .SMT(n_logic0));
-    XMD ipad_start_i  (.O(i_start_i), .I(start_i), .PU(n_logic0), .PD(n_logic0), .SMT(n_logic0));
+    XMD ipad_i_clk (.O(i_i_clk), .I(i_clk), .PU(n_logic0), .PD(n_logic0), .SMT(n_logic0));
+    XMD ipad_i_rst (.O(i_i_rst), .I(i_rst), .PU(n_logic0), .PD(n_logic0), .SMT(n_logic0));
+    XMD ipad_i_start  (.O(i_i_start), .I(i_start), .PU(n_logic0), .PD(n_logic0), .SMT(n_logic0));
     XMD ipad_a_i_0  (.O(i_a[0]), .I(a[0]), .PU(n_logic0), .PD(n_logic0), .SMT(n_logic0));
     XMD ipad_a_i_1  (.O(i_a[1]), .I(a[1]), .PU(n_logic0), .PD(n_logic0), .SMT(n_logic0));
     XMD ipad_a_i_2  (.O(i_a[2]), .I(a[2]), .PU(n_logic0), .PD(n_logic0), .SMT(n_logic0));

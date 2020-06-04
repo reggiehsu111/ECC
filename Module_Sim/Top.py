@@ -153,7 +153,9 @@ def main():
     key_list = []
     prime_list = []
     double_list = []
+    double_mont_list = []
     triple_list = []
+    triple_mont_list = []
 
     for i in range(NUM_DATA):
         prime = num.getPrime(32)
@@ -182,7 +184,13 @@ def main():
         """
         double_x, double_y = double(Px, Py, a, prime, False)
         double_list.append((double_x, double_y))
+        double_mont_x = to_mont(double_x, prime)
+        double_mont_y = to_mont(double_y, prime)
+        double_mont_list.append((double_mont_x, double_mont_y))
         triple_x, triple_y = add(double_x, double_y, Px, Py, prime, False)
+        triple_mont_x = to_mont(triple_x, prime)
+        triple_mont_y = to_mont(triple_y, prime)
+        triple_mont_list.append((triple_mont_x, triple_mont_y))
         triple_list.append((triple_x, triple_y))
         Px = Px%prime
         Py = Py%prime
@@ -200,8 +208,14 @@ def main():
             f.write("key: "+ str(hex(key_list[x])[2:])+" // "+ str(key_list[x])+'\n')
             f.write("Double Px: "+ str(hex(double_list[x][0])[2:])+' // '+str(double_list[x][0])+'\n')
             f.write("Double Py: "+ str(hex(double_list[x][1])[2:])+' // '+str(double_list[x][1])+'\n')
+            f.write("Double mont Px: "+ str(hex(double_mont_list[x][0])[2:])+' // '+str(double_mont_list[x][0])+'\n')
+            f.write("Double mont Py: "+ str(hex(double_mont_list[x][1])[2:])+' // '+str(double_mont_list[x][1])+'\n')
+            f.write("\n")
             f.write("Triple Px: "+ str(hex(triple_list[x][0])[2:])+' // '+str(triple_list[x][0])+'\n')
             f.write("Triple Py: "+ str(hex(triple_list[x][1])[2:])+' // '+str(triple_list[x][1])+'\n')
+            f.write("Triple mont Px: "+ str(hex(triple_mont_list[x][0])[2:])+' // '+str(triple_mont_list[x][0])+'\n')
+            f.write("Triple mont Py: "+ str(hex(triple_mont_list[x][1])[2:])+' // '+str(triple_mont_list[x][1])+'\n')
+            f.write("\n")
             f.write("\n")
     
     

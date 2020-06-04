@@ -2,9 +2,9 @@ Version: 1
 
 Orient: R90
 Pad: CORNER0          NW  CORNERD
-Pad: ipad_clk_p_i     N   
-Pad: ipad_reset_n_i   N    
-Pad: ipad_start_i     N   
+Pad: ipad_i_clk       N   
+Pad: ipad_i_rst       N    
+Pad: ipad_i_start     N   
 Pad: ipad_a_i_0       N    
 Pad: ipad_CoreVDD1    N   VCCKD
 Pad: ipad_CoreVSS1    N   GNDKD

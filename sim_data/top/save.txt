@@ -1,110 +1,170 @@
 0:
-Px: e98a49bb // 3918154171
-Py: 6247ddfc // 1648877052
-prime: a525661b // 2770691611
-a: 73bac791 // 1941620625
-key: 9d2b5283 // 2636862083
-Double Px: 20f0dc79 // 552655993
-Double Py: 5c7e3ebc // 1551777468
-Triple Px: 52eee808 // 1391388680
-Triple Py: 1049a7bb // 273262523
+Px: 47a960b2 // 1202282674
+Py: ee367c56 // 3996548182
+prime: f92e8611 // 4180575761
+a: 547872b // 88573739
+key: eac970c2 // 3939070146
+Double Px: b789e411 // 3079267345
+Double Py: 1819d8c5 // 404347077
+Double mont Px: a27785e4 // 2725742052
+Double mont Py: 38c20a4d // 952240717
+
+Triple Px: f50631ff // 4110823935
+Triple Py: d2fafc4a // 3539663946
+Triple mont Px: c8cbc3c4 // 3368797124
+Triple mont Py: 17e712ae // 401019566
+
 
 1:
-Px: 63c7a17d // 1674027389
-Py: 6b00382b // 1795176491
-prime: aaede837 // 2867718199
-a: 740d0d9c // 1947012508
-key: d2cc9e85 // 3536625285
-Double Px: 5960846b // 1499497579
-Double Py: 87b3543c // 2276676668
-Triple Px: 3823eb0c // 941878028
-Triple Py: 5dfb5a3d // 1576753725
+Px: a5802f0b // 2776641291
+Py: 71825efb // 1904369403
+prime: ad4b9db3 // 2907413939
+a: 810ffdee // 2165308910
+key: e3a49f16 // 3819216662
+Double Px: 9f80d5d5 // 2676020693
+Double Py: 6e9db14f // 1855828303
+Double mont Px: 974f28b6 // 2538547382
+Double mont Py: 414edcfc // 1095687420
+
+Triple Px: 929d45ac // 2459780524
+Triple Py: 848cb1ee // 2223813102
+Triple mont Px: 9dc45b2c // 2646891308
+Triple mont Py: a1ed6f55 // 2716692309
+
 
 2:
-Px: daefce28 // 3673148968
-Py: 54b94044 // 1421426756
-prime: c6646f7b // 3328470907
-a: 7169b203 // 1902752259
-key: c3fe3cb3 // 3288218803
-Double Px: 74a6c4ae // 1957086382
-Double Py: 7db65a7e // 2109102718
-Triple Px: b1053dc7 // 2969910727
-Triple Py: 41f37689 // 1106474633
+Px: a417b745 // 2753017669
+Py: e7edc42a // 3891119146
+prime: dad345d1 // 3671279057
+a: a73c18e // 175358350
+key: c581a1a9 // 3313607081
+Double Px: 6244e27a // 1648681594
+Double Py: 207723a3 // 544678819
+Double mont Px: 62e875ff // 1659401727
+Double mont Py: 153792c3 // 355963587
+
+Triple Px: cda1886 // 215619718
+Triple Py: 67f23039 // 1743925305
+Triple mont Px: 64caa61a // 1691002394
+Triple mont Py: 839abb48 // 2207955784
+
 
 3:
-Px: ce27b1b1 // 3458707889
-Py: aaf52451 // 2868192337
-prime: bf111789 // 3205568393
-a: b460d1a7 // 3026244007
-key: c6d1dd4b // 3335642443
-Double Px: 3f1452f3 // 1058296563
-Double Py: 3d849c4b // 1032100939
-Triple Px: 33f89651 // 871929425
-Triple Py: df6de21 // 234282529
+Px: 3a6107ff // 979437567
+Py: 560dd0e9 // 1443746025
+prime: d9a6f617 // 3651597847
+a: 5a649ded // 1516543469
+key: d2b9875d // 3535374173
+Double Px: 1491b714 // 345093908
+Double Py: 49c6fa10 // 1237776912
+Double mont Px: 9d5e2454 // 2640192596
+Double mont Py: 20d0ddb8 // 550559160
+
+Triple Px: a147610c // 2705809676
+Triple Py: c7b3babd // 3350444733
+Triple mont Px: 3e1bc49f // 1042007199
+Triple mont Py: 939b643a // 2476434490
+
 
 4:
-Px: 8c3e835f // 2352907103
-Py: 2c56aa55 // 743877205
-prime: bbdc1dff // 3151764991
-a: 1e949640 // 513054272
-key: 9a2b8ee7 // 2586545895
-Double Px: 142e12c5 // 338563781
-Double Py: 7246298c // 1917200780
-Triple Px: 945ca29e // 2489098910
-Triple Py: 49c56c89 // 1237675145
+Px: 922ae5cf // 2452284879
+Py: 47dfe3e7 // 1205855207
+prime: a3068d97 // 2735115671
+a: e862cf7c // 3898789756
+key: e9c74f20 // 3922153248
+Double Px: 7c9761e0 // 2090295776
+Double Py: 43f7b11f // 1140306207
+Double mont Px: 363a3c49 // 909786185
+Double mont Py: 398f73c4 // 965702596
+
+Triple Px: 9a29f7a4 // 2586441636
+Triple Py: 8383ac73 // 2206444659
+Triple mont Px: 9261dfe2 // 2455887842
+Triple mont Py: a285148b // 2726630539
+
 
 5:
-Px: 9bb06f51 // 2612031313
-Py: de11a778 // 3725698936
-prime: e9ba35e5 // 3921294821
-a: 8eddf70a // 2396911370
-key: f609fdb1 // 4127849905
-Double Px: b4abf8e8 // 3031169256
-Double Py: d11ff8 // 13705208
-Triple Px: dbaedfcf // 3685670863
-Triple Py: 3040b822 // 809547810
+Px: 90931b34 // 2425559860
+Py: d82f4654 // 3626976852
+prime: c2496c7f // 3259591807
+a: 90ee6699 // 2431542937
+key: f8cf8bdc // 4174351324
+Double Px: 32c5c96 // 53238934
+Double Py: 19115e62 // 420568674
+Double mont Px: 686ab660 // 1751823968
+Double mont Py: c17bfef9 // 3246128889
+
+Triple Px: 82552f10 // 2186620688
+Triple Py: b37a840 // 188196928
+Triple mont Px: ea8883b // 245925947
+Triple mont Py: ad1163af // 2903597999
+
 
 6:
-Px: 2f48d21c // 793301532
-Py: a6fc3aee // 2801548014
-prime: d5d9f201 // 3587830273
-a: 9eed872c // 2666366764
-key: 83be6f92 // 2210295698
-Double Px: adbea9b3 // 2914953651
-Double Py: 73c98835 // 1942587445
-Triple Px: 81d7c3e0 // 2178401248
-Triple Py: ca13c477 // 3390293111
+Px: 4fec157a // 1340872058
+Py: 2756531c // 659968796
+prime: a421d4c1 // 2753680577
+a: 5a7d8a9b // 1518176923
+key: 8ea09702 // 2392889090
+Double Px: cd77fe8 // 215449576
+Double Py: 8668809 // 140937225
+Double mont Px: 77bd9bd4 // 2008914900
+Double mont Py: 95f1c05d // 2515648605
+
+Triple Px: 649eb333 // 1688122163
+Triple Py: 9e81fcdc // 2659319004
+Triple mont Px: 9a7126c9 // 2591106761
+Triple mont Py: 9e29faae // 2653551278
+
 
 7:
-Px: 2d412038 // 759242808
-Py: f05e3486 // 4032705670
-prime: e9eafd83 // 3924491651
-a: 8ecc042e // 2395735086
-key: 88cbf477 // 2295067767
-Double Px: 703a509a // 1882869914
-Double Py: b557db7a // 3042433914
-Triple Px: 788209 // 7897609
-Triple Py: 263fe627 // 641721895
+Px: 5fd6c11e // 1607909662
+Py: 41b53fb6 // 1102397366
+prime: f4be8375 // 4106126197
+a: e26f49ba // 3798944186
+key: caa9810f // 3400106255
+Double Px: c6cd2701 // 3335333633
+Double Py: 43a9ef74 // 1135210356
+Double mont Px: 4a7af129 // 1249571113
+Double mont Py: 73ee319e // 1944990110
+
+Triple Px: 5bef8255 // 1542423125
+Triple Py: c9dcc2de // 3386688222
+Triple mont Px: e77fdccb // 3883916491
+Triple mont Py: 4829c6d6 // 1210697430
+
 
 8:
-Px: abeb537a // 2884326266
-Py: cb512b6b // 3411094379
-prime: d85bb817 // 3629889559
-a: 9c742862 // 2624858210
-key: c3945a76 // 3281279606
-Double Px: c786f48f // 3347510415
-Double Py: d02ec767 // 3492726631
-Triple Px: a9ca39de // 2848602590
-Triple Py: 806bf43e // 2154558526
+Px: b206027e // 2986738302
+Py: b1d078a1 // 2983229601
+prime: d297295f // 3533121887
+a: d4f49e33 // 3572801075
+key: 80df982d // 2162137133
+Double Px: 814d54aa // 2169328810
+Double Py: 83f827e3 // 2214078435
+Double mont Px: c181eddf // 3246517727
+Double mont Py: 66d19b95 // 1725012885
+
+Triple Px: 34cd1da6 // 885857702
+Triple Py: 24cb786e // 617314414
+Triple mont Px: 2924de3d // 690282045
+Triple mont Py: 5d057cde // 1560640734
+
 
 9:
-Px: a13b836e // 2705032046
-Py: bca17524 // 3164697892
-prime: 8f40fc71 // 2403400817
-a: e882b150 // 3900879184
-key: 9a40aee8 // 2587930344
-Double Px: 44749b99 // 1148492697
-Double Py: 14d6d92f // 349624623
-Triple Px: 644609cc // 1682311628
-Triple Py: 50d90261 // 1356399201
+Px: 6c7306ed // 1819477741
+Py: 87be5c26 // 2277399590
+prime: f166c337 // 4050043703
+a: 72b74bee // 1924615150
+key: 981cec34 // 2552032308
+Double Px: 47912787 // 1200695175
+Double Py: 342ccb5c // 875350876
+Double mont Px: 96dcce59 // 2531053145
+Double mont Py: faf9223 // 263164451
+
+Triple Px: 3cd3f460 // 1020523616
+Triple Py: 15d2fa7 // 22884263
+Triple mont Px: 2508a684 // 621323908
+Triple mont Py: ed97b2ec // 3986141932
+
 
