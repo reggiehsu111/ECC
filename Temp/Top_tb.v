@@ -106,10 +106,6 @@ module Top_test();
 	
 	always begin #(`CYCLE/2) clk = ~clk; end
 
-	always@(*) begin
-		#(1000*`CYCLE) $display("1000 cycles"); 
-	end
-	
 	initial begin
 		$fsdbDumpfile("Top.fsdb");
 		$fsdbDumpvars;

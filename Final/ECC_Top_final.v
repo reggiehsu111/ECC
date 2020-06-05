@@ -31,7 +31,7 @@ module Top_ting(
 
 	//////////key shift vs. Control//////////
 	wire key_shift_done_to_control, key_shift_done_from_control;
-	wire key_from_key_shift;
+	wire [1 : 0] key_from_key_shift;
 	/////////////////////////////////////////
 
 
@@ -397,7 +397,7 @@ module Top_ting(
 
 	
 
-	Control control_0 (.i_clk(i_clk), .i_rst(i_rst), .GFAU_done(GFAU_done_to_control), 
+	Control control_0 (.i_clk(i_clk), .i_rst(i_rst), .GFAU_done_to_control(GFAU_done_to_control), 
 					   .keyshift_done_to_control(key_shift_done_to_control), 
 					   .key_from_key_shift(key_from_key_shift), 
 					   .GFAU_out(GFAU_out), .Px_mont(Px_mont), .Py_mont(Py_mont),
@@ -445,11 +445,11 @@ module Control(
 	localparam SIZE = 32;
   /*========================IO declaration============================ */	 
     input i_clk;
-    input i_reset;
+    input i_rst;
 
     input GFAU_done_to_control;                        // done signal from GFAU
     input keyshift_done_to_control;                    // done signal from  key shifter
-    input key_from_key_shift;                          // single bit for key
+    input [1 : 0] key_from_key_shift;                          // single bit for key
     input [SIZE - 1 : 0] raw1, raw2, raw_prime, raw_a;     // non-transferred input and prime
     input load_done;
     input [SIZE - 1 : 0] GFAU_out;               // Result from GFAU
@@ -458,7 +458,7 @@ module Control(
     output reg [1 : 0] operation_select;          // 00, 01, 10, 11 add, subtract, multiple, divide
     output reg key_shift_done_from_control;                   // done signal to key shifter for completion of add or double
     output reg GFAU_done_from_control;                    // done signal to GFAU for finishing saving the return value to register
-    output reg [SIZE - 1 : 0] final_output_1, final_output_2;       // final output to Top(be inverse transferred)
+    output [SIZE - 1 : 0] final_output_1, final_output_2;       // final output to Top(be inverse transferred)
     output reg final_done;                        // kP is finally computed singal to Top
 
   /*========================Wire and Reg======================== */	  
@@ -468,7 +468,7 @@ module Control(
     reg in_sig;    
     reg in_sig_n;                         
 
-    wire [SIZE - 1 : 0] i1_w, i2_w;
+    wire [SIZE - 1 : 0] i1_w, i2_w, output_1, output_2;
     wire Transfer_done_w0, Transfer_done_w1;
     wire in_sig_w;
 
@@ -491,26 +491,37 @@ module Control(
     reg [SIZE - 1 : 0] a, a_n;
 
     wire [SIZE - 1 : 0] transferred_a_w0, transferred_a_w1;
+
+    reg mode_r, lookup_table_done_from_control_r;
+    reg [1 : 0] P_sel_r;
     
     wire mode, lookup_table_done_from_control;
     wire [1 : 0] P_sel;
     wire [SIZE - 1 : 0] Px_in_to_look, Py_in_to_look, Px_out_from_look, Py_out_from_look;
 
 
+
     Domain_Transfer d0(i_clk, i_rst, 1'b1, in_sig_w, raw1, raw2, raw_a, raw_prime, i1_w, i2_w, transferred_a_w0, Transfer_done_w0);
     Domain_Transfer d1(i_clk, i_rst, 1'b0, in_sig_w, x3_w, y3_w, raw_a, raw_prime, output_1, output_2, transferred_a_w1, Transfer_done_w1);
-    lookup_table lookup_0(.i_rst(i_rst), .i_clk(i_clk), .P_sel(P_sel), .mode(mode), 
-    					  .Px_in(Px_in_to_look), .Py_in(Py_in_to_look), 
+    lookup_table lookup_0(.i_rst(i_rst), .i_clk(i_clk), 
     					  .lookup_table_done_from_control(lookup_table_done_from_control),
+    					  .P_sel(P_sel), .mode(mode), 
+    					  .Px_in(Px_in_to_look), .Py_in(Py_in_to_look),
     					  .Px_out(Px_out_from_look), .Py_out(Py_out_from_look));
 
 /*====================assign output wires to the register=========================*/
 
+    assign final_output_1 = output_1;
+    assign final_output_2 = output_2;
     assign x3_w = x3;
     assign y3_w = y3;
     assign in_sig_w = in_sig;
-    assign Px_in_to_look = x1;
-    assign Py_in_to_look = y1;
+    assign Px_in_to_look = (state == 2) ? x1 : x3;
+    assign Py_in_to_look = (state == 2) ? y1 : y3;
+
+    assign mode = mode_r;
+    assign lookup_table_done_from_control = lookup_table_done_from_control_r;
+    assign P_sel = P_sel_r;
 /*==========================next state logic=========================*/
     
 	always @(*) begin
@@ -527,9 +538,18 @@ module Control(
 				r1_n = 0;
 				r2_n = 0;
 				a_n = a;
+				GFAU_done_from_control = 0;
+				operation_select = 0;
 				key_counter_n = 0;
+
+				mode_r = 0;
+				lookup_table_done_from_control_r = 0;
+				P_sel_r = 0;
+								
 				in_sig = 0;
+				
 				state_n = 0;
+				final_done = 0;				
 				if (load_done == 1) begin
 					state_n = 1;
 					in_sig = 1;
@@ -547,9 +567,19 @@ module Control(
 				r1_n = 0;
 				r2_n = 0;
 				a_n = a;
+				GFAU_done_from_control = 0;
+				operation_select = 0;
 				key_counter_n = 0;
+
+				mode_r = 0;
+				lookup_table_done_from_control_r = 0;
+				P_sel_r = 0;
+				
 				in_sig = 0;
+				
 				state_n = 1;
+				final_done = 0;
+
 				if (Transfer_done_w0 == 1) begin
 					x1_n = i1_w;
 					y1_n = i2_w;
@@ -558,42 +588,2014 @@ module Control(
 				end
 			end
 			2: begin //Load P to lookup table and start building lookup table
-				begin
-                    Px_mont = x1;
-                    Py_mont = x1;
-                    operation_select = 2'b10; //multi
-                    GFAU_done_from_control = 1; 
-                    key_shift_done_from_control = 0; 
-                    in_sig = 0; 
-                    final_done = 0;
-                    x1_n = x1; 
-                    y1_n = y1; 
-                    x2_n = x2; 
-                    y2_n = y2; 
-                    x3_n = x3; 
-                    y3_n = y3; 
-                    a_n = a;
-                    key_counter_n = 0;
-                    if(GFAU_done_to_control == 1)
-                        begin
-                            GFAU_done_from_control = 0;
-                            state_n = 2; 
-                            r1_n = GFAU_out;
-                            r2_n = r2;
-                        end
-                    else
-                       begin
-                           state_n = state;
-                           r1_n = r1;
-                           r2_n = r2;
-                       end
-                end
+                Px_mont = x1;
+                Py_mont = x1;
+                x1_n = x1; 
+                y1_n = y1; 
+                x2_n = x2; 
+                y2_n = y2; 
+                x3_n = x3; 
+                y3_n = y3;
+                r1_n = r1;
+                r2_n = r2;
+                a_n = a;
+                GFAU_done_from_control = 1;
+                operation_select = 2'b10; //multi
+                key_counter_n = 0;
 
+                mode_r = 0;
+				lookup_table_done_from_control_r = 1;
+				P_sel_r = 1;
+                                     
+                 
+                key_shift_done_from_control = 0; 
+                 
+				in_sig = 0;
+
+				state_n = 2;
+				final_done = 0;
+
+                if(GFAU_done_to_control == 1)
+                    begin
+                        GFAU_done_from_control = 0;
+                        state_n = 3; 
+                        r1_n = GFAU_out;
+                        r2_n = r2;
+                    end
+                else begin                       
+					state_n = state;
+					r1_n = r1;
+					r2_n = r2;
+				end
+			end
+			3: begin
+				Px_mont = r1;
+                Py_mont = r1;
+                x1_n = x1; 
+                y1_n = y1; 
+                x2_n = x2; 
+                y2_n = y2; 
+                x3_n = x3; 
+                y3_n = y3;
+                r1_n = r1;
+                r2_n = r2;
+                a_n = a;
+                GFAU_done_from_control = 1;
+                operation_select = 2'b00; //add
+                key_counter_n = 0;
+
+                mode_r = 0;
+				lookup_table_done_from_control_r = 0;
+				P_sel_r = 0;
+                                     
+                 
+                key_shift_done_from_control = 0; 
+                 
+				in_sig = 0;
+
+				state_n = state;
+				final_done = 0;
+
+                if(GFAU_done_to_control == 1)
+                    begin
+                        GFAU_done_from_control = 0;
+                        state_n = 4; 
+                        r1_n = r1;
+                        r2_n = GFAU_out;
+                    end
+                else begin                       
+					state_n = state;
+					r1_n = r1;
+					r2_n = r2;
+				end
+			end
+			4: begin
+				Px_mont = r2;
+                Py_mont = r1;
+                x1_n = x1; 
+                y1_n = y1; 
+                x2_n = x2; 
+                y2_n = y2; 
+                x3_n = x3; 
+                y3_n = y3;
+                r1_n = r1;
+                r2_n = r2;
+                a_n = a;
+                GFAU_done_from_control = 1;
+                operation_select = 2'b00; //add
+                key_counter_n = 0;
+
+                mode_r = 0;
+				lookup_table_done_from_control_r = 0;
+				P_sel_r = 0;
+                                     
+                 
+                key_shift_done_from_control = 0; 
+                 
+				in_sig = 0;
+
+				state_n = state;
+				final_done = 0;
+
+                if(GFAU_done_to_control == 1)
+                    begin
+                        GFAU_done_from_control = 0;
+                        state_n = 5; 
+                        r1_n = GFAU_out;
+                        r2_n = r2;
+                    end
+                else begin                       
+					state_n = state;
+					r1_n = r1;
+					r2_n = r2;
+				end
+			end
+			5: begin
+				Px_mont = r1;
+                Py_mont = a;
+                x1_n = x1; 
+                y1_n = y1; 
+                x2_n = x2; 
+                y2_n = y2; 
+                x3_n = x3; 
+                y3_n = y3;
+                r1_n = r1;
+                r2_n = r2;
+                a_n = a;
+                GFAU_done_from_control = 1;
+                operation_select = 2'b00; //add
+                key_counter_n = 0;
+
+                mode_r = 0;
+				lookup_table_done_from_control_r = 0;
+				P_sel_r = 0;
+                                     
+                 
+                key_shift_done_from_control = 0; 
+                 
+				in_sig = 0;
+
+				state_n = state;
+				final_done = 0;
+
+                if(GFAU_done_to_control == 1)
+                    begin
+                        GFAU_done_from_control = 0;
+                        state_n = 6; 
+                        r1_n = GFAU_out;
+                        r2_n = r2;
+                    end
+                else begin                       
+					state_n = state;
+					r1_n = r1;
+					r2_n = r2;
+				end
+			end
+			6: begin
+				Px_mont = y1;
+                Py_mont = y1;
+                x1_n = x1; 
+                y1_n = y1; 
+                x2_n = x2; 
+                y2_n = y2; 
+                x3_n = x3; 
+                y3_n = y3;
+                r1_n = r1;
+                r2_n = r2;
+                a_n = a;
+                GFAU_done_from_control = 1;
+                operation_select = 2'b00; //add
+                key_counter_n = 0;
+
+                mode_r = 0;
+				lookup_table_done_from_control_r = 0;
+				P_sel_r = 0;
+                                     
+                 
+                key_shift_done_from_control = 0; 
+                 
+				in_sig = 0;
+
+				state_n = state;
+				final_done = 0;
+
+                if(GFAU_done_to_control == 1)
+                    begin
+                        GFAU_done_from_control = 0;
+                        state_n = 7; 
+                        r1_n = r1;
+                        r2_n = GFAU_out;
+                    end
+                else begin                       
+					state_n = state;
+					r1_n = r1;
+					r2_n = r2;
+				end
+			end
+			7: begin
+				Px_mont = r1;
+                Py_mont = r2;
+                x1_n = x1; 
+                y1_n = y1; 
+                x2_n = x2; 
+                y2_n = y2; 
+                x3_n = x3; 
+                y3_n = y3;
+                r1_n = r1;
+                r2_n = r2;
+                a_n = a;
+                GFAU_done_from_control = 1;
+                operation_select = 2'b11; //div
+                key_counter_n = 0;
+
+                mode_r = 0;
+				lookup_table_done_from_control_r = 0;
+				P_sel_r = 0;
+                                     
+                 
+                key_shift_done_from_control = 0; 
+                 
+				in_sig = 0;
+
+				state_n = state;
+				final_done = 0;
+
+                if(GFAU_done_to_control == 1)
+                    begin
+                        GFAU_done_from_control = 0;
+                        state_n = 8; 
+                        r1_n = GFAU_out;
+                        r2_n = r2;
+                    end
+                else begin                       
+					state_n = state;
+					r1_n = r1;
+					r2_n = r2;
+				end
+			end
+			8: begin
+				Px_mont = r1;
+                Py_mont = r1;
+                x1_n = x1; 
+                y1_n = y1; 
+                x2_n = x2; 
+                y2_n = y2; 
+                x3_n = x3; 
+                y3_n = y3;
+                r1_n = r1;
+                r2_n = r2;
+                a_n = a;
+                GFAU_done_from_control = 1;
+                operation_select = 2'b10; //multi
+                key_counter_n = 0;
+
+                mode_r = 0;
+				lookup_table_done_from_control_r = 0;
+				P_sel_r = 0;
+                                     
+                 
+                key_shift_done_from_control = 0; 
+                 
+				in_sig = 0;
+
+				state_n = state;
+				final_done = 0;
+
+                if(GFAU_done_to_control == 1)
+                    begin
+                        GFAU_done_from_control = 0;
+                        state_n = 9; 
+                        r1_n = r1;
+                        r2_n = GFAU_out;
+                    end
+                else begin                       
+					state_n = state;
+					r1_n = r1;
+					r2_n = r2;
+				end
+			end
+			9: begin
+				Px_mont = r2;
+                Py_mont = x1;
+                x1_n = x1; 
+                y1_n = y1; 
+                x2_n = x2; 
+                y2_n = y2; 
+                x3_n = x3; 
+                y3_n = y3;
+                r1_n = r1;
+                r2_n = r2;
+                a_n = a;
+                GFAU_done_from_control = 1;
+                operation_select = 2'b01; //sub
+                key_counter_n = 0;
+
+                mode_r = 0;
+				lookup_table_done_from_control_r = 0;
+				P_sel_r = 0;
+                                     
+                 
+                key_shift_done_from_control = 0; 
+                 
+				in_sig = 0;
+
+				state_n = state;
+				final_done = 0;
+
+                if(GFAU_done_to_control == 1)
+                    begin
+                        GFAU_done_from_control = 0;
+                        state_n = 10; 
+                        r1_n = r1;
+                        r2_n = GFAU_out;
+                    end
+                else begin                       
+					state_n = state;
+					r1_n = r1;
+					r2_n = r2;
+				end
+			end
+			10: begin
+				Px_mont = r2;
+                Py_mont = x1;
+                x1_n = x1; 
+                y1_n = y1; 
+                x2_n = x2; 
+                y2_n = y2; 
+                x3_n = x3; 
+                y3_n = y3;
+                r1_n = r1;
+                r2_n = r2;
+                a_n = a;
+                GFAU_done_from_control = 1;
+                operation_select = 2'b01; //sub
+                key_counter_n = 0;
+
+                mode_r = 0;
+				lookup_table_done_from_control_r = 0;
+				P_sel_r = 0;
+                                     
+                 
+                key_shift_done_from_control = 0; 
+                 
+				in_sig = 0;
+
+				state_n = state;
+				final_done = 0;
+
+                if(GFAU_done_to_control == 1)
+                    begin
+                        GFAU_done_from_control = 0;
+                        state_n = 11; 
+                        r1_n = r1;
+                        r2_n = GFAU_out;
+                        x3_n = GFAU_out;
+                    end
+                else begin                       
+					state_n = state;
+					r1_n = r1;
+					r2_n = r2;
+					x3_n = x3;
+				end
+			end
+			11: begin
+				Px_mont = x1;
+                Py_mont = r2;
+                x1_n = x1; 
+                y1_n = y1; 
+                x2_n = x2; 
+                y2_n = y2; 
+                x3_n = x3; 
+                y3_n = y3;
+                r1_n = r1;
+                r2_n = r2;
+                a_n = a;
+                GFAU_done_from_control = 1;
+                operation_select = 2'b01; //sub
+                key_counter_n = 0;
+
+                mode_r = 0;
+				lookup_table_done_from_control_r = 0;
+				P_sel_r = 0;
+                                     
+                 
+                key_shift_done_from_control = 0; 
+                 
+				in_sig = 0;
+
+				state_n = state;
+				final_done = 0;
+
+                if(GFAU_done_to_control == 1)
+                    begin
+                        GFAU_done_from_control = 0;
+                        state_n = 12; 
+                        r1_n = r1;
+                        r2_n = GFAU_out;
+                    end
+                else begin                       
+					state_n = state;
+					r1_n = r1;
+					r2_n = r2;
+				end
+			end
+			12: begin
+				Px_mont = r1;
+                Py_mont = r2;
+                x1_n = x1; 
+                y1_n = y1; 
+                x2_n = x2; 
+                y2_n = y2; 
+                x3_n = x3; 
+                y3_n = y3;
+                r1_n = r1;
+                r2_n = r2;
+                a_n = a;
+                GFAU_done_from_control = 1;
+                operation_select = 2'b10; //multi
+                key_counter_n = 0;
+
+                mode_r = 0;
+				lookup_table_done_from_control_r = 0;
+				P_sel_r = 0;
+                                     
+                 
+                key_shift_done_from_control = 0; 
+                 
+				in_sig = 0;
+
+				state_n = state;
+				final_done = 0;
+
+                if(GFAU_done_to_control == 1)
+                    begin
+                        GFAU_done_from_control = 0;
+                        state_n = 13; 
+                        r1_n = GFAU_out;
+                        r2_n = r2;
+                    end
+                else begin                       
+					state_n = state;
+					r1_n = r1;
+					r2_n = r2;
+				end
+			end
+			13: begin
+				Px_mont = r1;
+                Py_mont = y1;
+                x1_n = x1; 
+                y1_n = y1; 
+                x2_n = x2; 
+                y2_n = y2; 
+                x3_n = x3; 
+                y3_n = y3;
+                r1_n = r1;
+                r2_n = r2;
+                a_n = a;
+                GFAU_done_from_control = 1;
+                operation_select = 2'b01; //sub
+                key_counter_n = 0;
+
+                mode_r = 0;
+				lookup_table_done_from_control_r = 0;
+				P_sel_r = 0;
+                                     
+                 
+                key_shift_done_from_control = 0; 
+                 
+				in_sig = 0;
+
+				state_n = state;
+				final_done = 0;
+
+                if(GFAU_done_to_control == 1)
+                    begin
+                        GFAU_done_from_control = 0;
+                        state_n = 14; 
+                        r1_n = r1;
+                        r2_n = r2;
+                        y3_n = GFAU_out;
+                    end
+                else begin                       
+					state_n = state;
+					r1_n = r1;
+					r2_n = r2;
+					y3_n = y3;
+				end
+			end
+			14: begin //Load 2P and initial calculating 3P
+				Px_mont = r1;
+                Py_mont = y1;
+                x1_n = x3; 
+                y1_n = y3; 
+                x2_n = i1_w; 
+                y2_n = i2_w; 
+                x3_n = x3; 
+                y3_n = y3;
+                r1_n = r1;
+                r2_n = r2;
+                a_n = a;
+                GFAU_done_from_control = 0;
+                operation_select = 2'b00; //stall
+                key_counter_n = 0;
+
+                mode_r = 0;
+				lookup_table_done_from_control_r = 1;
+				P_sel_r = 2;
+                                     
+                 
+                key_shift_done_from_control = 0; 
+                 
+				in_sig = 0;
+
+				state_n = 15;
+				final_done = 0;
+			end
+			15: begin
+				Px_mont = x2;
+                Py_mont = x1;
+                x1_n = x1; 
+                y1_n = y1; 
+                x2_n = x2; 
+                y2_n = y2; 
+                x3_n = x3; 
+                y3_n = y3;
+                r1_n = r1;
+                r2_n = r2;
+                a_n = a;
+                GFAU_done_from_control = 1;
+                operation_select = 2'b01; //sub
+                key_counter_n = 0;
+
+                mode_r = 0;
+				lookup_table_done_from_control_r = 0;
+				P_sel_r = 0;
+                                     
+                 
+                key_shift_done_from_control = 0; 
+                 
+				in_sig = 0;
+
+				state_n = state;
+				final_done = 0;
+
+                if(GFAU_done_to_control == 1)
+                    begin
+                        GFAU_done_from_control = 0;
+                        state_n = 16; 
+                        r1_n = GFAU_out;
+                        r2_n = r2;
+                    end
+                else begin                       
+					state_n = state;
+					r1_n = r1;
+					r2_n = r2;
+				end
+			end
+			16: begin
+				Px_mont = y2;
+                Py_mont = y1;
+                x1_n = x1; 
+                y1_n = y1; 
+                x2_n = x2; 
+                y2_n = y2; 
+                x3_n = x3; 
+                y3_n = y3;
+                r1_n = r1;
+                r2_n = r2;
+                a_n = a;
+                GFAU_done_from_control = 1;
+                operation_select = 2'b01; //sub
+                key_counter_n = 0;
+
+                mode_r = 0;
+				lookup_table_done_from_control_r = 0;
+				P_sel_r = 0;
+                                     
+                 
+                key_shift_done_from_control = 0; 
+                 
+				in_sig = 0;
+
+				state_n = state;
+				final_done = 0;
+
+                if(GFAU_done_to_control == 1)
+                    begin
+                        GFAU_done_from_control = 0;
+                        state_n = 17; 
+                        r1_n = r1;
+                        r2_n = GFAU_out;
+                    end
+                else begin                       
+					state_n = state;
+					r1_n = r1;
+					r2_n = r2;
+				end
+			end
+			17: begin
+				Px_mont = r2;
+                Py_mont = r1;
+                x1_n = x1; 
+                y1_n = y1; 
+                x2_n = x2; 
+                y2_n = y2; 
+                x3_n = x3; 
+                y3_n = y3;
+                r1_n = r1;
+                r2_n = r2;
+                a_n = a;
+                GFAU_done_from_control = 1;
+                operation_select = 2'b11; //div
+                key_counter_n = 0;
+
+                mode_r = 0;
+				lookup_table_done_from_control_r = 0;
+				P_sel_r = 0;
+                                     
+                 
+                key_shift_done_from_control = 0; 
+                 
+				in_sig = 0;
+
+				state_n = state;
+				final_done = 0;
+
+                if(GFAU_done_to_control == 1)
+                    begin
+                        GFAU_done_from_control = 0;
+                        state_n = 18; 
+                        r1_n = GFAU_out;
+                        r2_n = r2;
+                    end
+                else begin                       
+					state_n = state;
+					r1_n = r1;
+					r2_n = r2;
+				end
+			end
+			18: begin
+				Px_mont = r1;
+                Py_mont = r1;
+                x1_n = x1; 
+                y1_n = y1; 
+                x2_n = x2; 
+                y2_n = y2; 
+                x3_n = x3; 
+                y3_n = y3;
+                r1_n = r1;
+                r2_n = r2;
+                a_n = a;
+                GFAU_done_from_control = 1;
+                operation_select = 2'b10; //mult
+                key_counter_n = 0;
+
+                mode_r = 0;
+				lookup_table_done_from_control_r = 0;
+				P_sel_r = 0;
+                                     
+                 
+                key_shift_done_from_control = 0; 
+                 
+				in_sig = 0;
+
+				state_n = state;
+				final_done = 0;
+
+                if(GFAU_done_to_control == 1)
+                    begin
+                        GFAU_done_from_control = 0;
+                        state_n = 19; 
+                        r1_n = r1;
+                        r2_n = GFAU_out;
+                    end
+                else begin                       
+					state_n = state;
+					r1_n = r1;
+					r2_n = r2;
+				end
+			end
+			19: begin
+				Px_mont = r2;
+                Py_mont = r1;
+                x1_n = x1; 
+                y1_n = y1; 
+                x2_n = x2; 
+                y2_n = y2; 
+                x3_n = x3; 
+                y3_n = y3;
+                r1_n = r1;
+                r2_n = r2;
+                a_n = a;
+                GFAU_done_from_control = 1;
+                operation_select = 2'b01; //sub
+                key_counter_n = 0;
+
+                mode_r = 0;
+				lookup_table_done_from_control_r = 0;
+				P_sel_r = 0;
+                                     
+                 
+                key_shift_done_from_control = 0; 
+                 
+				in_sig = 0;
+
+				state_n = state;
+				final_done = 0;
+
+                if(GFAU_done_to_control == 1)
+                    begin
+                        GFAU_done_from_control = 0;
+                        state_n = 20; 
+                        r1_n = r1;
+                        r2_n = GFAU_out;
+                    end
+                else begin                       
+					state_n = state;
+					r1_n = r1;
+					r2_n = r2;
+				end
+			end
+			20: begin
+				Px_mont = r2;
+                Py_mont = x2;
+                x1_n = x1; 
+                y1_n = y1; 
+                x2_n = x2; 
+                y2_n = y2; 
+                x3_n = x3; 
+                y3_n = y3;
+                r1_n = r1;
+                r2_n = r2;
+                a_n = a;
+                GFAU_done_from_control = 1;
+                operation_select = 2'b01; //sub
+                key_counter_n = 0;
+
+                mode_r = 0;
+				lookup_table_done_from_control_r = 0;
+				P_sel_r = 0;
+                                     
+                 
+                key_shift_done_from_control = 0; 
+                 
+				in_sig = 0;
+
+				state_n = state;
+				final_done = 0;
+
+                if(GFAU_done_to_control == 1)
+                    begin
+                        GFAU_done_from_control = 0;
+                        state_n = 21; 
+                        r1_n = r1;
+                        r2_n = GFAU_out;
+                        x3_n = GFAU_out;
+                    end
+                else begin                       
+					state_n = state;
+					r1_n = r1;
+					r2_n = r2;
+					x3_n = x3;
+				end
+			end
+			21: begin
+				Px_mont = x1;
+                Py_mont = r2;
+                x1_n = x1; 
+                y1_n = y1; 
+                x2_n = x2; 
+                y2_n = y2; 
+                x3_n = x3; 
+                y3_n = y3;
+                r1_n = r1;
+                r2_n = r2;
+                a_n = a;
+                GFAU_done_from_control = 1;
+                operation_select = 2'b01; //sub
+                key_counter_n = 0;
+
+                mode_r = 0;
+				lookup_table_done_from_control_r = 0;
+				P_sel_r = 0;
+                                     
+                 
+                key_shift_done_from_control = 0; 
+                 
+				in_sig = 0;
+
+				state_n = state;
+				final_done = 0;
+
+                if(GFAU_done_to_control == 1)
+                    begin
+                        GFAU_done_from_control = 0;
+                        state_n = 22; 
+                        r1_n = r1;
+                        r2_n = GFAU_out;
+                    end
+                else begin                       
+					state_n = state;
+					r1_n = r1;
+					r2_n = r2;
+				end
+			end
+			22: begin
+				Px_mont = r1;
+                Py_mont = r2;
+                x1_n = x1; 
+                y1_n = y1; 
+                x2_n = x2; 
+                y2_n = y2; 
+                x3_n = x3; 
+                y3_n = y3;
+                r1_n = r1;
+                r2_n = r2;
+                a_n = a;
+                GFAU_done_from_control = 1;
+                operation_select = 2'b10; //multi
+                key_counter_n = 0;
+
+                mode_r = 0;
+				lookup_table_done_from_control_r = 0;
+				P_sel_r = 0;
+                                     
+                 
+                key_shift_done_from_control = 0; 
+                 
+				in_sig = 0;
+
+				state_n = state;
+				final_done = 0;
+
+                if(GFAU_done_to_control == 1)
+                    begin
+                        GFAU_done_from_control = 0;
+                        state_n = 23; 
+                        r1_n = r1;
+                        r2_n = GFAU_out;
+                    end
+                else begin                       
+					state_n = state;
+					r1_n = r1;
+					r2_n = r2;
+				end
+			end
+			23: begin
+				Px_mont = r1;
+                Py_mont = y1;
+                x1_n = x1; 
+                y1_n = y1; 
+                x2_n = x2; 
+                y2_n = y2; 
+                x3_n = x3; 
+                y3_n = y3;
+                r1_n = r1;
+                r2_n = r2;
+                a_n = a;
+                GFAU_done_from_control = 1;
+                operation_select = 2'b01; //sub
+                key_counter_n = 0;
+
+                mode_r = 0;
+				lookup_table_done_from_control_r = 0;
+				P_sel_r = 0;
+                                     
+                 
+                key_shift_done_from_control = 0; 
+                 
+				in_sig = 0;
+
+				state_n = state;
+				final_done = 0;
+
+                if(GFAU_done_to_control == 1)
+                    begin
+                        GFAU_done_from_control = 0;
+                        state_n = 24; 
+                        r1_n = r1;
+                        r2_n = r2;
+                        y3_n = GFAU_out;
+                    end
+                else begin                       
+					state_n = state;
+					r1_n = r1;
+					r2_n = r2;
+					y3_n = y3;
+				end
+			end
+			24: begin //Load 3P to lookup table
+				Px_mont = x1;
+                Py_mont = y1;
+                x1_n = x1; 
+                y1_n = y1; 
+                x2_n = x2; 
+                y2_n = y2; 
+                x3_n = x3; 
+                y3_n = y3;
+                r1_n = r1;
+                r2_n = r2;
+                a_n = a;
+                GFAU_done_from_control = 0;
+                operation_select = 2'b00; //stall
+                key_counter_n = 0;
+
+                mode_r = 0;
+				lookup_table_done_from_control_r = 1;
+				P_sel_r = 3;
+
+                key_shift_done_from_control = 0; 
+                 
+				in_sig = 0;
+
+				state_n = 25;
+				final_done = 0;
+			end
+			25: begin //take value from lookup table
+				Px_mont = x1;
+                Py_mont = y1;
+                x1_n = x1; 
+                y1_n = y1; 
+                x2_n = x2; 
+                y2_n = y2; 
+                x3_n = x3; 
+                y3_n = y3;
+                r1_n = r1;
+                r2_n = r2;
+                a_n = a;
+                GFAU_done_from_control = 0;
+                operation_select = 2'b00; //stall
+                key_counter_n = 0;
+
+                mode_r = 1;
+				lookup_table_done_from_control_r = 1;
+				P_sel_r = key_from_key_shift;
+				//P_sel_r = 2;
+
+                key_shift_done_from_control = 1; 
+                 
+				in_sig = 0;
+
+				state_n = 26;
+				final_done = 0;
+			end
+			26: begin //take value from lookup table
+				Px_mont = x1;
+                Py_mont = y1;
+                x1_n = Px_out_from_look; 
+                y1_n = Py_out_from_look; 
+                x2_n = x2; 
+                y2_n = y2; 
+                x3_n = x3; 
+                y3_n = y3;
+                r1_n = r1;
+                r2_n = r2;
+                a_n = a;
+                GFAU_done_from_control = 0;
+                operation_select = 2'b00; //stall
+                key_counter_n = 0;
+
+                mode_r = 0;
+				lookup_table_done_from_control_r = 0;
+				P_sel_r = 0;
+
+                key_shift_done_from_control = 0; 
+                 
+				in_sig = 0;
+
+				state_n = 27;
+				final_done = 0;
+			end
+			27: begin
+				Px_mont = x1;
+                Py_mont = x1;
+                x1_n = x1; 
+                y1_n = y1; 
+                x2_n = x2; 
+                y2_n = y2; 
+                x3_n = x3; 
+                y3_n = y3;
+                r1_n = r1;
+                r2_n = r2;
+                a_n = a;
+                GFAU_done_from_control = 1;
+                operation_select = 2'b10; //multi
+                key_counter_n = key_counter;
+
+                mode_r = 0;
+				lookup_table_done_from_control_r = 0;
+				P_sel_r = 0;
+                                     
+                 
+                key_shift_done_from_control = 0; 
+                 
+				in_sig = 0;
+
+				state_n = state;
+				final_done = 0;
+
+                if(GFAU_done_to_control == 1)
+                    begin
+                        GFAU_done_from_control = 0;
+                        state_n = 28; 
+                        r1_n = GFAU_out;
+                        r2_n = r2;
+                    end
+                else begin                       
+					state_n = state;
+					r1_n = r1;
+					r2_n = r2;
+				end
+			end
+			28: begin
+				Px_mont = r1;
+                Py_mont = r1;
+                x1_n = x1; 
+                y1_n = y1; 
+                x2_n = x2; 
+                y2_n = y2; 
+                x3_n = x3; 
+                y3_n = y3;
+                r1_n = r1;
+                r2_n = r2;
+                a_n = a;
+                GFAU_done_from_control = 1;
+                operation_select = 2'b00; //add
+                key_counter_n = key_counter;
+
+                mode_r = 0;
+				lookup_table_done_from_control_r = 0;
+				P_sel_r = 0;
+                                     
+                 
+                key_shift_done_from_control = 0; 
+                 
+				in_sig = 0;
+
+				state_n = state;
+				final_done = 0;
+
+                if(GFAU_done_to_control == 1)
+                    begin
+                        GFAU_done_from_control = 0;
+                        state_n = 29; 
+                        r1_n = r1;
+                        r2_n = GFAU_out;
+                    end
+                else begin                       
+					state_n = state;
+					r1_n = r1;
+					r2_n = r2;
+				end
+			end
+			29: begin
+				Px_mont = r2;
+                Py_mont = r1;
+                x1_n = x1; 
+                y1_n = y1; 
+                x2_n = x2; 
+                y2_n = y2; 
+                x3_n = x3; 
+                y3_n = y3;
+                r1_n = r1;
+                r2_n = r2;
+                a_n = a;
+                GFAU_done_from_control = 1;
+                operation_select = 2'b00; //add
+                key_counter_n = key_counter;
+
+                mode_r = 0;
+				lookup_table_done_from_control_r = 0;
+				P_sel_r = 0;
+                                     
+                 
+                key_shift_done_from_control = 0; 
+                 
+				in_sig = 0;
+
+				state_n = state;
+				final_done = 0;
+
+                if(GFAU_done_to_control == 1)
+                    begin
+                        GFAU_done_from_control = 0;
+                        state_n = 30; 
+                        r1_n = GFAU_out;
+                        r2_n = r2;
+                    end
+                else begin                       
+					state_n = state;
+					r1_n = r1;
+					r2_n = r2;
+				end
+			end
+			30: begin
+				Px_mont = r1;
+                Py_mont = a;
+                x1_n = x1; 
+                y1_n = y1; 
+                x2_n = x2; 
+                y2_n = y2; 
+                x3_n = x3; 
+                y3_n = y3;
+                r1_n = r1;
+                r2_n = r2;
+                a_n = a;
+                GFAU_done_from_control = 1;
+                operation_select = 2'b00; //add
+                key_counter_n = key_counter;
+
+                mode_r = 0;
+				lookup_table_done_from_control_r = 0;
+				P_sel_r = 0;
+                                     
+                 
+                key_shift_done_from_control = 0; 
+                 
+				in_sig = 0;
+
+				state_n = state;
+				final_done = 0;
+
+                if(GFAU_done_to_control == 1)
+                    begin
+                        GFAU_done_from_control = 0;
+                        state_n = 31; 
+                        r1_n = GFAU_out;
+                        r2_n = r2;
+                    end
+                else begin                       
+					state_n = state;
+					r1_n = r1;
+					r2_n = r2;
+				end
+			end
+			31: begin
+				Px_mont = y1;
+                Py_mont = y1;
+                x1_n = x1; 
+                y1_n = y1; 
+                x2_n = x2; 
+                y2_n = y2; 
+                x3_n = x3; 
+                y3_n = y3;
+                r1_n = r1;
+                r2_n = r2;
+                a_n = a;
+                GFAU_done_from_control = 1;
+                operation_select = 2'b00; //add
+                key_counter_n = key_counter;
+
+                mode_r = 0;
+				lookup_table_done_from_control_r = 0;
+				P_sel_r = 0;
+                                     
+                 
+                key_shift_done_from_control = 0; 
+                 
+				in_sig = 0;
+
+				state_n = state;
+				final_done = 0;
+
+                if(GFAU_done_to_control == 1)
+                    begin
+                        GFAU_done_from_control = 0;
+                        state_n = 32; 
+                        r1_n = r1;
+                        r2_n = GFAU_out;
+                    end
+                else begin                       
+					state_n = state;
+					r1_n = r1;
+					r2_n = r2;
+				end
+			end
+			32: begin
+				Px_mont = r1;
+                Py_mont = r2;
+                x1_n = x1; 
+                y1_n = y1; 
+                x2_n = x2; 
+                y2_n = y2; 
+                x3_n = x3; 
+                y3_n = y3;
+                r1_n = r1;
+                r2_n = r2;
+                a_n = a;
+                GFAU_done_from_control = 1;
+                operation_select = 2'b11; //div
+                key_counter_n = key_counter;
+
+                mode_r = 0;
+				lookup_table_done_from_control_r = 0;
+				P_sel_r = 0;
+                                     
+                 
+                key_shift_done_from_control = 0; 
+                 
+				in_sig = 0;
+
+				state_n = state;
+				final_done = 0;
+
+                if(GFAU_done_to_control == 1)
+                    begin
+                        GFAU_done_from_control = 0;
+                        state_n = 33; 
+                        r1_n = GFAU_out;
+                        r2_n = r2;
+                    end
+                else begin                       
+					state_n = state;
+					r1_n = r1;
+					r2_n = r2;
+				end
+			end
+			33: begin
+				Px_mont = r1;
+                Py_mont = r1;
+                x1_n = x1; 
+                y1_n = y1; 
+                x2_n = x2; 
+                y2_n = y2; 
+                x3_n = x3; 
+                y3_n = y3;
+                r1_n = r1;
+                r2_n = r2;
+                a_n = a;
+                GFAU_done_from_control = 1;
+                operation_select = 2'b10; //multi
+                key_counter_n = key_counter;
+
+                mode_r = 0;
+				lookup_table_done_from_control_r = 0;
+				P_sel_r = 0;
+                                     
+                 
+                key_shift_done_from_control = 0; 
+                 
+				in_sig = 0;
+
+				state_n = state;
+				final_done = 0;
+
+                if(GFAU_done_to_control == 1)
+                    begin
+                        GFAU_done_from_control = 0;
+                        state_n = 34; 
+                        r1_n = r1;
+                        r2_n = GFAU_out;
+                    end
+                else begin                       
+					state_n = state;
+					r1_n = r1;
+					r2_n = r2;
+				end
+			end
+			34: begin
+				Px_mont = r2;
+                Py_mont = x1;
+                x1_n = x1; 
+                y1_n = y1; 
+                x2_n = x2; 
+                y2_n = y2; 
+                x3_n = x3; 
+                y3_n = y3;
+                r1_n = r1;
+                r2_n = r2;
+                a_n = a;
+                GFAU_done_from_control = 1;
+                operation_select = 2'b01; //sub
+                key_counter_n = key_counter;
+
+                mode_r = 0;
+				lookup_table_done_from_control_r = 0;
+				P_sel_r = 0;
+                                     
+                 
+                key_shift_done_from_control = 0; 
+                 
+				in_sig = 0;
+
+				state_n = state;
+				final_done = 0;
+
+                if(GFAU_done_to_control == 1)
+                    begin
+                        GFAU_done_from_control = 0;
+                        state_n = 35; 
+                        r1_n = r1;
+                        r2_n = GFAU_out;
+                    end
+                else begin                       
+					state_n = state;
+					r1_n = r1;
+					r2_n = r2;
+				end
+			end
+			35: begin
+				Px_mont = r2;
+                Py_mont = x1;
+                x1_n = x1; 
+                y1_n = y1; 
+                x2_n = x2; 
+                y2_n = y2; 
+                x3_n = x3; 
+                y3_n = y3;
+                r1_n = r1;
+                r2_n = r2;
+                a_n = a;
+                GFAU_done_from_control = 1;
+                operation_select = 2'b01; //sub
+                key_counter_n = key_counter;
+
+                mode_r = 0;
+				lookup_table_done_from_control_r = 0;
+				P_sel_r = 0;
+                                     
+                 
+                key_shift_done_from_control = 0; 
+                 
+				in_sig = 0;
+
+				state_n = state;
+				final_done = 0;
+
+                if(GFAU_done_to_control == 1)
+                    begin
+                        GFAU_done_from_control = 0;
+                        state_n = 36; 
+                        r1_n = r1;
+                        r2_n = GFAU_out;
+                        x3_n = GFAU_out;
+                    end
+                else begin                       
+					state_n = state;
+					r1_n = r1;
+					r2_n = r2;
+					x3_n = x3;
+				end
+			end
+			36: begin
+				Px_mont = x1;
+                Py_mont = r2;
+                x1_n = x1; 
+                y1_n = y1; 
+                x2_n = x2; 
+                y2_n = y2; 
+                x3_n = x3; 
+                y3_n = y3;
+                r1_n = r1;
+                r2_n = r2;
+                a_n = a;
+                GFAU_done_from_control = 1;
+                operation_select = 2'b01; //sub
+                key_counter_n = key_counter;
+
+                mode_r = 0;
+				lookup_table_done_from_control_r = 0;
+				P_sel_r = 0;
+                                     
+                 
+                key_shift_done_from_control = 0; 
+                 
+				in_sig = 0;
+
+				state_n = state;
+				final_done = 0;
+
+                if(GFAU_done_to_control == 1)
+                    begin
+                        GFAU_done_from_control = 0;
+                        state_n = 37; 
+                        r1_n = r1;
+                        r2_n = GFAU_out;
+                    end
+                else begin                       
+					state_n = state;
+					r1_n = r1;
+					r2_n = r2;
+				end
+			end
+			37: begin
+				Px_mont = r1;
+                Py_mont = r2;
+                x1_n = x1; 
+                y1_n = y1; 
+                x2_n = x2; 
+                y2_n = y2; 
+                x3_n = x3; 
+                y3_n = y3;
+                r1_n = r1;
+                r2_n = r2;
+                a_n = a;
+                GFAU_done_from_control = 1;
+                operation_select = 2'b10; //multi
+                key_counter_n = key_counter;
+
+                mode_r = 0;
+				lookup_table_done_from_control_r = 0;
+				P_sel_r = 0;
+                                     
+                 
+                key_shift_done_from_control = 0; 
+                 
+				in_sig = 0;
+
+				state_n = state;
+				final_done = 0;
+
+                if(GFAU_done_to_control == 1)
+                    begin
+                        GFAU_done_from_control = 0;
+                        state_n = 38; 
+                        r1_n = GFAU_out;
+                        r2_n = r2;
+                    end
+                else begin                       
+					state_n = state;
+					r1_n = r1;
+					r2_n = r2;
+				end
+			end
+			38: begin
+				Px_mont = r1;
+                Py_mont = y1;
+                x1_n = x1; 
+                y1_n = y1; 
+                x2_n = x2; 
+                y2_n = y2; 
+                x3_n = x3; 
+                y3_n = y3;
+                r1_n = r1;
+                r2_n = r2;
+                a_n = a;
+                GFAU_done_from_control = 1;
+                operation_select = 2'b01; //sub
+                key_counter_n = key_counter;
+
+                mode_r = 0;
+				lookup_table_done_from_control_r = 0;
+				P_sel_r = 0;
+                                     
+                 
+                key_shift_done_from_control = 0; 
+                 
+				in_sig = 0;
+
+				state_n = state;
+				final_done = 0;
+
+                if(GFAU_done_to_control == 1)
+                    begin
+                        GFAU_done_from_control = 0;
+                        state_n = 39; 
+                        r1_n = r1;
+                        r2_n = r2;
+                        y3_n = GFAU_out;
+                    end
+                else begin                       
+					state_n = state;
+					r1_n = r1;
+					r2_n = r2;
+					y3_n = y3;
+				end
+			end
+			39: begin
+				Px_mont = x1;
+                Py_mont = y1;
+                x1_n = x3; 
+                y1_n = y3; 
+                x2_n = x2; 
+                y2_n = y2; 
+                x3_n = x3; 
+                y3_n = y3;
+                r1_n = r1;
+                r2_n = r2;
+                a_n = a;
+                GFAU_done_from_control = 0;
+                operation_select = 2'b00; //stall
+                key_counter_n = key_counter + 1;
+
+                mode_r = 0;
+				lookup_table_done_from_control_r = 0;
+				P_sel_r = 0;
+                                     
+                 
+                key_shift_done_from_control = 0; 
+                 
+				in_sig = 0;
+
+				state_n = 27;
+				final_done = 0;
+				if (key_counter[0] == 1) begin
+					state_n = 40;
+				end
+			end
+			40: begin
+				Px_mont = x1;
+                Py_mont = y1;
+                x1_n = x1; 
+                y1_n = y1; 
+                x2_n = x2; 
+                y2_n = y2; 
+                x3_n = x3; 
+                y3_n = y3;
+                r1_n = r1;
+                r2_n = r2;
+                a_n = a;
+                GFAU_done_from_control = 0;
+                operation_select = 2'b00; //stall
+                key_counter_n = key_counter;
+
+                in_sig = 0;
+                final_done = 0;
+                key_shift_done_from_control = 1;
+
+                if (key_from_key_shift != 0) begin
+                	mode_r = 1;
+					lookup_table_done_from_control_r = 1;
+					P_sel_r = key_from_key_shift;
+					state_n = 41;
+				end
+				else begin
+					mode_r = 0;
+					lookup_table_done_from_control_r = 0;
+					P_sel_r = 0;
+					state_n = 27;
+				end                
+			end
+			41: begin
+				Px_mont = x1;
+                Py_mont = y1;
+                x1_n = x1; 
+                y1_n = y1; 
+                x2_n = Px_out_from_look; 
+                y2_n = Py_out_from_look; 
+                x3_n = x3; 
+                y3_n = y3;
+                r1_n = r1;
+                r2_n = r2;
+                a_n = a;
+                GFAU_done_from_control = 0;
+                operation_select = 2'b00; //stall
+                key_counter_n = key_counter;
+
+                mode_r = 0;
+				lookup_table_done_from_control_r = 0;
+				P_sel_r = 0;
+                                     
+                 
+                key_shift_done_from_control = 0; 
+                 
+				in_sig = 0;
+
+				state_n = 42;
+				final_done = 0;
+			end
+			42: begin
+				Px_mont = x2;
+                Py_mont = x1;
+                x1_n = x1; 
+                y1_n = y1; 
+                x2_n = x2; 
+                y2_n = y2; 
+                x3_n = x3; 
+                y3_n = y3;
+                r1_n = r1;
+                r2_n = r2;
+                a_n = a;
+                GFAU_done_from_control = 1;
+                operation_select = 2'b01; //sub
+                key_counter_n = key_counter;
+
+                mode_r = 0;
+				lookup_table_done_from_control_r = 0;
+				P_sel_r = 0;
+                                     
+                 
+                key_shift_done_from_control = 0; 
+                 
+				in_sig = 0;
+
+				state_n = state;
+				final_done = 0;
+
+                if(GFAU_done_to_control == 1)
+                    begin
+                        GFAU_done_from_control = 0;
+                        state_n = 43; 
+                        r1_n = GFAU_out;
+                        r2_n = r2;
+                    end
+                else begin                       
+					state_n = state;
+					r1_n = r1;
+					r2_n = r2;
+				end
+			end
+			43: begin
+				Px_mont = y2;
+                Py_mont = y1;
+                x1_n = x1; 
+                y1_n = y1; 
+                x2_n = x2; 
+                y2_n = y2; 
+                x3_n = x3; 
+                y3_n = y3;
+                r1_n = r1;
+                r2_n = r2;
+                a_n = a;
+                GFAU_done_from_control = 1;
+                operation_select = 2'b01; //sub
+                key_counter_n = key_counter;
+
+                mode_r = 0;
+				lookup_table_done_from_control_r = 0;
+				P_sel_r = 0;
+                                     
+                 
+                key_shift_done_from_control = 0; 
+                 
+				in_sig = 0;
+
+				state_n = state;
+				final_done = 0;
+
+                if(GFAU_done_to_control == 1)
+                    begin
+                        GFAU_done_from_control = 0;
+                        state_n = 44; 
+                        r1_n = r1;
+                        r2_n = GFAU_out;
+                    end
+                else begin                       
+					state_n = state;
+					r1_n = r1;
+					r2_n = r2;
+				end
+			end
+			44: begin
+				Px_mont = r2;
+                Py_mont = r1;
+                x1_n = x1; 
+                y1_n = y1; 
+                x2_n = x2; 
+                y2_n = y2; 
+                x3_n = x3; 
+                y3_n = y3;
+                r1_n = r1;
+                r2_n = r2;
+                a_n = a;
+                GFAU_done_from_control = 1;
+                operation_select = 2'b11; //div
+                key_counter_n = key_counter;
+
+                mode_r = 0;
+				lookup_table_done_from_control_r = 0;
+				P_sel_r = 0;
+                                     
+                 
+                key_shift_done_from_control = 0; 
+                 
+				in_sig = 0;
+
+				state_n = state;
+				final_done = 0;
+
+                if(GFAU_done_to_control == 1)
+                    begin
+                        GFAU_done_from_control = 0;
+                        state_n = 45; 
+                        r1_n = GFAU_out;
+                        r2_n = r2;
+                    end
+                else begin                       
+					state_n = state;
+					r1_n = r1;
+					r2_n = r2;
+				end
+			end
+			45: begin
+				Px_mont = r1;
+                Py_mont = r1;
+                x1_n = x1; 
+                y1_n = y1; 
+                x2_n = x2; 
+                y2_n = y2; 
+                x3_n = x3; 
+                y3_n = y3;
+                r1_n = r1;
+                r2_n = r2;
+                a_n = a;
+                GFAU_done_from_control = 1;
+                operation_select = 2'b10; //mult
+                key_counter_n = key_counter;
+
+                mode_r = 0;
+				lookup_table_done_from_control_r = 0;
+				P_sel_r = 0;
+                                     
+                 
+                key_shift_done_from_control = 0; 
+                 
+				in_sig = 0;
+
+				state_n = state;
+				final_done = 0;
+
+                if(GFAU_done_to_control == 1)
+                    begin
+                        GFAU_done_from_control = 0;
+                        state_n = 46; 
+                        r1_n = r1;
+                        r2_n = GFAU_out;
+                    end
+                else begin                       
+					state_n = state;
+					r1_n = r1;
+					r2_n = r2;
+				end
+			end
+			46: begin
+				Px_mont = r2;
+                Py_mont = r1;
+                x1_n = x1; 
+                y1_n = y1; 
+                x2_n = x2; 
+                y2_n = y2; 
+                x3_n = x3; 
+                y3_n = y3;
+                r1_n = r1;
+                r2_n = r2;
+                a_n = a;
+                GFAU_done_from_control = 1;
+                operation_select = 2'b01; //sub
+                key_counter_n = key_counter;
+
+                mode_r = 0;
+				lookup_table_done_from_control_r = 0;
+				P_sel_r = 0;
+                                     
+                 
+                key_shift_done_from_control = 0; 
+                 
+				in_sig = 0;
+
+				state_n = state;
+				final_done = 0;
+
+                if(GFAU_done_to_control == 1)
+                    begin
+                        GFAU_done_from_control = 0;
+                        state_n = 47; 
+                        r1_n = r1;
+                        r2_n = GFAU_out;
+                    end
+                else begin                       
+					state_n = state;
+					r1_n = r1;
+					r2_n = r2;
+				end
+			end
+			47: begin
+				Px_mont = r2;
+                Py_mont = x2;
+                x1_n = x1; 
+                y1_n = y1; 
+                x2_n = x2; 
+                y2_n = y2; 
+                x3_n = x3; 
+                y3_n = y3;
+                r1_n = r1;
+                r2_n = r2;
+                a_n = a;
+                GFAU_done_from_control = 1;
+                operation_select = 2'b01; //sub
+                key_counter_n = key_counter;
+
+                mode_r = 0;
+				lookup_table_done_from_control_r = 0;
+				P_sel_r = 0;
+                                     
+                 
+                key_shift_done_from_control = 0; 
+                 
+				in_sig = 0;
+
+				state_n = state;
+				final_done = 0;
+
+                if(GFAU_done_to_control == 1)
+                    begin
+                        GFAU_done_from_control = 0;
+                        state_n = 48; 
+                        r1_n = r1;
+                        r2_n = GFAU_out;
+                        x3_n = GFAU_out;
+                    end
+                else begin                       
+					state_n = state;
+					r1_n = r1;
+					r2_n = r2;
+					x3_n = x3;
+				end
+			end
+			48: begin
+				Px_mont = x1;
+                Py_mont = r2;
+                x1_n = x1; 
+                y1_n = y1; 
+                x2_n = x2; 
+                y2_n = y2; 
+                x3_n = x3; 
+                y3_n = y3;
+                r1_n = r1;
+                r2_n = r2;
+                a_n = a;
+                GFAU_done_from_control = 1;
+                operation_select = 2'b01; //sub
+                key_counter_n = key_counter;
+
+                mode_r = 0;
+				lookup_table_done_from_control_r = 0;
+				P_sel_r = 0;
+                                     
+                 
+                key_shift_done_from_control = 0; 
+                 
+				in_sig = 0;
+
+				state_n = state;
+				final_done = 0;
+
+                if(GFAU_done_to_control == 1)
+                    begin
+                        GFAU_done_from_control = 0;
+                        state_n = 49; 
+                        r1_n = r1;
+                        r2_n = GFAU_out;
+                    end
+                else begin                       
+					state_n = state;
+					r1_n = r1;
+					r2_n = r2;
+				end
+			end
+			49: begin
+				Px_mont = r1;
+                Py_mont = r2;
+                x1_n = x1; 
+                y1_n = y1; 
+                x2_n = x2; 
+                y2_n = y2; 
+                x3_n = x3; 
+                y3_n = y3;
+                r1_n = r1;
+                r2_n = r2;
+                a_n = a;
+                GFAU_done_from_control = 1;
+                operation_select = 2'b10; //multi
+                key_counter_n = key_counter;
+
+                mode_r = 0;
+				lookup_table_done_from_control_r = 0;
+				P_sel_r = 0;
+                                     
+                 
+                key_shift_done_from_control = 0; 
+                 
+				in_sig = 0;
+
+				state_n = state;
+				final_done = 0;
+
+                if(GFAU_done_to_control == 1)
+                    begin
+                        GFAU_done_from_control = 0;
+                        state_n = 50; 
+                        r1_n = r1;
+                        r2_n = GFAU_out;
+                    end
+                else begin                       
+					state_n = state;
+					r1_n = r1;
+					r2_n = r2;
+				end
+			end
+			50: begin
+				Px_mont = r1;
+                Py_mont = y1;
+                x1_n = x1; 
+                y1_n = y1; 
+                x2_n = x2; 
+                y2_n = y2; 
+                x3_n = x3; 
+                y3_n = y3;
+                r1_n = r1;
+                r2_n = r2;
+                a_n = a;
+                GFAU_done_from_control = 1;
+                operation_select = 2'b01; //sub
+                key_counter_n = key_counter;
+
+                mode_r = 0;
+				lookup_table_done_from_control_r = 0;
+				P_sel_r = 0;
+                                     
+                 
+                key_shift_done_from_control = 0; 
+                 
+				in_sig = 0;
+
+				state_n = state;
+				final_done = 0;
+
+                if(GFAU_done_to_control == 1)
+                    begin
+                        GFAU_done_from_control = 0;
+                        state_n = 51; 
+                        r1_n = r1;
+                        r2_n = r2;
+                        y3_n = GFAU_out;
+                    end
+                else begin                       
+					state_n = state;
+					r1_n = r1;
+					r2_n = r2;
+					y3_n = y3;
+				end
+			end
+			51: begin
+				Px_mont = x1;
+                Py_mont = y1;
+                x1_n = x3; 
+                y1_n = y3; 
+                x2_n = x2; 
+                y2_n = y2; 
+                x3_n = x3; 
+                y3_n = y3;
+                r1_n = r1;
+                r2_n = r2;
+                a_n = a;
+                GFAU_done_from_control = 0;
+                operation_select = 2'b00; //stall
+                key_counter_n = key_counter;
+
+                mode_r = 0;
+				lookup_table_done_from_control_r = 0;
+				P_sel_r = 0;
+                                     
+                 
+                key_shift_done_from_control = 0; 
+                 
+				in_sig = 0;
+
+				state_n = 27;
+				final_done = 0;
+				if (key_counter == 30) begin
+					state_n = 52;
+				end
+			end
+			52: begin
+				Px_mont = x1;
+                Py_mont = y1;
+                x1_n = x3; 
+                y1_n = y3; 
+                x2_n = x2; 
+                y2_n = y2; 
+                x3_n = x3; 
+                y3_n = y3;
+                r1_n = r1;
+                r2_n = r2;
+                a_n = a;
+                GFAU_done_from_control = 0;
+                operation_select = 2'b00; //stall
+                key_counter_n = key_counter;
+
+                mode_r = 0;
+				lookup_table_done_from_control_r = 0;
+				P_sel_r = 0;
+                                     
+                 
+                key_shift_done_from_control = 0; 
+                 
+				in_sig = 1;
+
+				state_n = 52;
+				final_done = 0;
+				if (Transfer_done_w1 == 1) begin
+					final_done = 1;
+					state_n = 53;
+				end
+			end
+		endcase
 	end
 
 /* ====================Sequential Part=================== */
 
-	always@(posedge  i_clk or posedge i_rst)
+	always@(posedge i_clk or posedge i_rst)
 	    begin
 	        if (i_rst)
 	            begin
@@ -779,45 +2781,164 @@ module key_shift(
 	input key_shift_done_from_control;
 
 
-	output [1 : 0] k_out;
-	output key_shift_done_to_control;
+	output reg [1 : 0] k_out;
+	output reg key_shift_done_to_control;
 
-	reg [6:0] i, i_n;
-	reg state, state_n;
-	reg key_shift_done_to_control;
-
-	assign k_out = k[i : i - 1];
-	//assign k_out = 0;
-	//assign key_shift_done_to_control = key_shift_done_to_control; //key_shift_done_to_control_r;
+	reg [5 : 0] state, state_n;
 
 	always @(*) begin
 		case(state)
 			0: begin
 				state_n = 0;
-				i_n = i;
 				key_shift_done_to_control = 0;
+				k_out = k[31 : 30];
 				if (key_shift_done_from_control == 1) begin
 					state_n = 1;
-					i_n = i - 2;
+					key_shift_done_to_control = 1;
 				end
 			end
 			1: begin
-				state_n = 0;
-				i_n = i;
-				key_shift_done_to_control = 1;
-				/*if (key_shift_done_from_control == 1) begin
-					state_n = 1;
-				end*/
+				state_n = 1;
+				key_shift_done_to_control = 0;
+				k_out = k[29 : 28];
+				if (key_shift_done_from_control == 1) begin
+					state_n = 2;
+					key_shift_done_to_control = 1;
+				end
+			end
+			2: begin
+				state_n = 2;
+				key_shift_done_to_control = 0;
+				k_out = k[27 : 26];
+				if (key_shift_done_from_control == 1) begin
+					state_n = 3;
+					key_shift_done_to_control = 1;
+				end
+			end
+			3: begin
+				state_n = 3;
+				key_shift_done_to_control = 0;
+				k_out = k[25 : 24];
+				if (key_shift_done_from_control == 1) begin
+					state_n = 4;
+					key_shift_done_to_control = 1;
+				end
+			end
+			4: begin
+				state_n = 4;
+				key_shift_done_to_control = 0;
+				k_out = k[23 : 22];
+				if (key_shift_done_from_control == 1) begin
+					state_n = 5;
+					key_shift_done_to_control = 1;
+				end
+			end
+			5: begin
+				state_n = 5;
+				key_shift_done_to_control = 0;
+				k_out = k[21 : 20];
+				if (key_shift_done_from_control == 1) begin
+					state_n = 6;
+					key_shift_done_to_control = 1;
+				end
+			end
+			6: begin
+				state_n = 6;
+				key_shift_done_to_control = 0;
+				k_out = k[19 : 18];
+				if (key_shift_done_from_control == 1) begin
+					state_n = 7;
+					key_shift_done_to_control = 1;
+				end
+			end
+			7: begin
+				state_n = 7;
+				key_shift_done_to_control = 0;
+				k_out = k[17 : 16];
+				if (key_shift_done_from_control == 1) begin
+					state_n = 8;
+					key_shift_done_to_control = 1;
+				end
+			end
+			8: begin
+				state_n = 8;
+				key_shift_done_to_control = 0;
+				k_out = k[15 : 14];
+				if (key_shift_done_from_control == 1) begin
+					state_n = 9;
+					key_shift_done_to_control = 1;
+				end
+			end
+			9: begin
+				state_n = 9;
+				key_shift_done_to_control = 0;
+				k_out = k[13 : 12];
+				if (key_shift_done_from_control == 1) begin
+					state_n = 10;
+					key_shift_done_to_control = 1;
+				end
+			end
+			10: begin
+				state_n = 10;
+				key_shift_done_to_control = 0;
+				k_out = k[11 : 10];
+				if (key_shift_done_from_control == 1) begin
+					state_n = 11;
+					key_shift_done_to_control = 1;
+				end
+			end
+			11: begin
+				state_n = 11;
+				key_shift_done_to_control = 0;
+				k_out = k[9 : 8];
+				if (key_shift_done_from_control == 1) begin
+					state_n = 12;
+					key_shift_done_to_control = 1;
+				end
+			end
+			12: begin
+				state_n = 12;
+				key_shift_done_to_control = 0;
+				k_out = k[7 : 6];
+				if (key_shift_done_from_control == 1) begin
+					state_n = 13;
+					key_shift_done_to_control = 1;
+				end
+			end
+			13: begin
+				state_n = 13;
+				key_shift_done_to_control = 0;
+				k_out = k[5 : 4];
+				if (key_shift_done_from_control == 1) begin
+					state_n = 14;
+					key_shift_done_to_control = 1;
+				end
+			end
+			14: begin
+				state_n = 14;
+				key_shift_done_to_control = 0;
+				k_out = k[3 : 2];
+				if (key_shift_done_from_control == 1) begin
+					state_n = 15;
+					key_shift_done_to_control = 1;
+				end
+			end
+			15: begin
+				state_n = 15;
+				key_shift_done_to_control = 0;
+				k_out = k[1 : 0];
+				if (key_shift_done_from_control == 1) begin
+					state_n = 0;
+					key_shift_done_to_control = 1;
+				end
 			end
 		endcase
 	end
 	always@ (posedge i_clk or posedge i_rst) begin
 		if (i_rst) begin
-			i <= SIZE - 1;
 			state <= 0;
 		end
 		else begin
-			i <= i_n;
 			state <= state_n;
 		end
 	end
@@ -1285,54 +3406,82 @@ endmodule
 module lookup_table(
 	i_rst,
 	i_clk,
+	lookup_table_done_from_control,
 	P_sel,
 	mode,
 	Px_in,
-	Py_in,
-	lookup_table_done_from_control,
+	Py_in,	
 	Px_out,
-	Py_out
+	Py_out,
 	);
 	
 	localparam SIZE = 32;
 	input i_rst, i_clk;
+	input lookup_table_done_from_control;
 	input [1 : 0] P_sel;
 	input mode; // 0: in from control; 1: out to control
 	input [SIZE - 1 : 0] Px_in, Py_in;
-	input lookup_table_done_from_control;
+	
 
 	output [SIZE - 1 : 0] Px_out, Py_out;
 
 	integer i;
 
-	reg [SIZE - 1 : 0] Px_store [1 : 0];
-	reg [SIZE - 1 : 0] Px_store_n [1 : 0];
-	reg [SIZE - 1 : 0] Py_store [1 : 0];
-	reg [SIZE - 1 : 0] Py_store_n [1 : 0];
+	reg [SIZE - 1 : 0] Px_store_1, Px_store_2, Px_store_3;
+	reg [SIZE - 1 : 0] Px_store_1_n, Px_store_2_n, Px_store_3_n;
+	reg [SIZE - 1 : 0] Py_store_1, Py_store_2, Py_store_3;
+	reg [SIZE - 1 : 0] Py_store_1_n, Py_store_2_n, Py_store_3_n;
+
 	reg [SIZE - 1 : 0] Px_out, Py_out, Px_out_n, Py_out_n;
 
 	always @(*) begin
 		case(mode)
 			0: begin // in from control
-				for (i = 0; i < 4 ; i = i + 1) begin
-					Px_store_n[i] = Px_store[i];
-					Py_store_n[i] = Py_store[i];
-				end
+				Px_store_1_n = Px_store_1;
+				Px_store_2_n = Px_store_2;
+				Px_store_3_n = Px_store_3;
+
+				Py_store_1_n = Py_store_1;
+				Py_store_2_n = Py_store_2;
+				Py_store_3_n = Py_store_3;
+
 				Px_out_n = Px_out;
 				Py_out_n = Py_out; 
-				if (P_sel != 0 && lookup_table_done_from_control == 1) begin
-					Px_store_n [P_sel] = Px_in;
-					Py_store_n [P_sel] = Py_in;
+				if (P_sel == 1 && lookup_table_done_from_control == 1) begin
+					Px_store_1_n  = Px_in;
+					Py_store_1_n  = Py_in;
+				end
+				else if (P_sel == 2 && lookup_table_done_from_control == 1) begin
+					Px_store_2_n  = Px_in;
+					Py_store_2_n  = Py_in;
+				end
+				else if (P_sel == 3 && lookup_table_done_from_control == 1) begin
+					Px_store_3_n  = Px_in;
+					Py_store_3_n  = Py_in;
 				end
 			end
 			1: begin //out to control
-				for (i = 0; i < 4 ; i = i + 1) begin
-					Px_store_n[i] = Px_store[i];
-					Py_store_n[i] = Py_store[i];
+				Px_store_1_n = Px_store_1;
+				Px_store_2_n = Px_store_2;
+				Px_store_3_n = Px_store_3;
+
+				Py_store_1_n = Py_store_1;
+				Py_store_2_n = Py_store_2;
+				Py_store_3_n = Py_store_3;
+
+				Px_out_n = Px_out;
+				Py_out_n = Py_out;
+				if (P_sel == 1 && lookup_table_done_from_control == 1) begin
+					Px_out_n = Px_store_1;
+					Py_out_n = Py_store_1;
 				end
-				if (P_sel != 0 && lookup_table_done_from_control == 1) begin
-					Px_out_n = Px_store[P_sel];
-					Py_out_n = Py_store[P_sel];
+				else if (P_sel == 2 && lookup_table_done_from_control == 1) begin
+					Px_out_n = Px_store_2;
+					Py_out_n = Py_store_2;
+				end
+				else if (P_sel == 3 && lookup_table_done_from_control == 1) begin
+					Px_out_n = Px_store_3;
+					Py_out_n = Py_store_3;
 				end
 				else begin
 					Px_out_n = Px_out;
@@ -1343,18 +3492,24 @@ module lookup_table(
 	end  
 	always @(posedge i_clk or posedge i_rst) begin
 		if (i_rst) begin
-			for (i = 0; i < 4; i = i + 1) begin
-				Px_store[i] <= 0;
-				Py_store[i] <= 0;
-			end
+			Px_store_1 <= 0;
+			Px_store_2 <= 0;
+			Px_store_3 <= 0;
+			Py_store_1 <= 0;
+			Py_store_2 <= 0;
+			Py_store_3 <= 0;
+
 			Px_out <= 0;
 			Py_out <= 0;
 		end
 		else begin
-			for (i = 0; i < 4; i = i + 1) begin
-				Px_store[i] <= Px_store_n[i];
-				Py_store[i] <= Py_store_n[i];
-			end
+			Px_store_1 <= Px_store_1_n;
+			Px_store_2 <= Px_store_2_n;
+			Px_store_3 <= Px_store_3_n;
+			Py_store_1 <= Py_store_1_n;
+			Py_store_2 <= Py_store_2_n;
+			Py_store_3 <= Py_store_3_n;
+
 			Px_out <= Px_out_n;
 			Py_out <= Py_out_n;
 		end
