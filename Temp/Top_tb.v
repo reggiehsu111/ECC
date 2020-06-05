@@ -1,6 +1,6 @@
 `timescale 1ns/10ps
-`define CYCLE    100
-//`define SDFFILE    "./top_alu.sdf"	
+`define CYCLE    100.0
+`define SDFFILE    "./top.sdf"	
 
 // Files for input ports
 `define START                      "sim_data/top/start.dat"
@@ -57,7 +57,7 @@ module Top_test();
 	reg           stop, over;
 	integer       i, j, out_f, err, pattern_num, data_num, counter, counter_flag;
 	integer       range_up, range_down;
-	
+
 	Top_ting top0(
 		.i_clk(clk),
 		.i_rst(reset),
@@ -86,9 +86,9 @@ module Top_test();
     initial $readmemh (`RESULT_Y, result_y_mem);
 
 	
-	/*`ifdef SDF
+	`ifdef SDF
     initial $sdf_annotate(`SDFFILE, top0);
-	`endif*/	
+	`endif	
 	initial begin
 		clk         = 1'b1;
 		reset       = 1'b0;
@@ -101,14 +101,18 @@ module Top_test();
 		counter     = 0;
 		counter_flag= 0;
 		#2.5 reset=1'b1;
-		#2.5 reset=1'b0;
+		#100 reset=1'b0;
 	end
 	
 	always begin #(`CYCLE/2) clk = ~clk; end
+
+	always@(*) begin
+		#(1000*`CYCLE) $display("1000 cycles"); 
+	end
 	
 	initial begin
-		$dumpfile("Top.fsdb");
-		$dumpvars;
+		$fsdbDumpfile("Top.fsdb");
+		$fsdbDumpvars;
 	
 		out_f = $fopen("out.dat");
 		if (out_f == 0) begin
