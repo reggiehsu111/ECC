@@ -2,6 +2,7 @@ from Base_Module import *
 from montmult import *
 from random import randint
 import Crypto.Util.number as num
+from test_DT import *
 import Crypto
 """
 module Top_ting(
@@ -146,6 +147,15 @@ def main():
 
     # Create Inputs
     inputs = []
+    Px_list = []
+    Py_list = []
+    a_list = []
+    key_list = []
+    prime_list = []
+    double_list = []
+    double_mont_list = []
+    triple_list = []
+    triple_mont_list = []
 
     for i in range(NUM_DATA):
         prime = num.getPrime(32)
@@ -153,6 +163,11 @@ def main():
         Py = randint(0, 2**32)
         a = randint(0, 2**32)
         key = randint(2**31, 2**32)
+        Px_list.append(Px)
+        Py_list.append(Py)
+        a_list.append(a)
+        key_list.append(key)
+        prime_list.append(prime)
         # prime = 3309607849
         # Px = 2544538276
         # Py = 2425451850
@@ -167,10 +182,41 @@ def main():
         result_x = 2421997543
         result_y = 611281146
         """
+        double_x, double_y = double(Px, Py, a, prime, False)
+        double_list.append((double_x, double_y))
+        double_mont_x = to_mont(double_x, prime)
+        double_mont_y = to_mont(double_y, prime)
+        double_mont_list.append((double_mont_x, double_mont_y))
+        triple_x, triple_y = add(double_x, double_y, Px, Py, prime, False)
+        triple_mont_x = to_mont(triple_x, prime)
+        triple_mont_y = to_mont(triple_y, prime)
+        triple_mont_list.append((triple_mont_x, triple_mont_y))
+        triple_list.append((triple_x, triple_y))
         Px = Px%prime
         Py = Py%prime
         a = a%prime
         inputs.append((a, prime, Px, Py, key))
+    
+    with open("../sim_data/top/save.txt", 'w') as f:
+        for x in range(NUM_DATA):
+            
+            f.write(str(x)+':\n')
+            f.write("Px: "+ str(hex(Px_list[x])[2:])+ " // "+str(Px_list[x])+'\n')
+            f.write("Py: "+str(hex(Py_list[x])[2:])+ " // "+str(Py_list[x])+'\n')
+            f.write("prime: "+ str(hex(prime_list[x])[2:])+ " // "+ str(prime_list[x])+'\n')
+            f.write("a: "+ str(hex(a_list[x])[2:])+" // "+ str(a_list[x])+'\n')
+            f.write("key: "+ str(hex(key_list[x])[2:])+" // "+ str(key_list[x])+'\n')
+            f.write("Double Px: "+ str(hex(double_list[x][0])[2:])+' // '+str(double_list[x][0])+'\n')
+            f.write("Double Py: "+ str(hex(double_list[x][1])[2:])+' // '+str(double_list[x][1])+'\n')
+            f.write("Double mont Px: "+ str(hex(double_mont_list[x][0])[2:])+' // '+str(double_mont_list[x][0])+'\n')
+            f.write("Double mont Py: "+ str(hex(double_mont_list[x][1])[2:])+' // '+str(double_mont_list[x][1])+'\n')
+            f.write("\n")
+            f.write("Triple Px: "+ str(hex(triple_list[x][0])[2:])+' // '+str(triple_list[x][0])+'\n')
+            f.write("Triple Py: "+ str(hex(triple_list[x][1])[2:])+' // '+str(triple_list[x][1])+'\n')
+            f.write("Triple mont Px: "+ str(hex(triple_mont_list[x][0])[2:])+' // '+str(triple_mont_list[x][0])+'\n')
+            f.write("Triple mont Py: "+ str(hex(triple_mont_list[x][1])[2:])+' // '+str(triple_mont_list[x][1])+'\n')
+            f.write("\n")
+            f.write("\n")
     
     
     top.operate(inputs)

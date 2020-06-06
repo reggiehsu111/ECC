@@ -1,0 +1,170 @@
+0:
+Px: 47a960b2 // 1202282674
+Py: ee367c56 // 3996548182
+prime: f92e8611 // 4180575761
+a: 547872b // 88573739
+key: eac970c2 // 3939070146
+Double Px: b789e411 // 3079267345
+Double Py: 1819d8c5 // 404347077
+Double mont Px: a27785e4 // 2725742052
+Double mont Py: 38c20a4d // 952240717
+
+Triple Px: f50631ff // 4110823935
+Triple Py: d2fafc4a // 3539663946
+Triple mont Px: c8cbc3c4 // 3368797124
+Triple mont Py: 17e712ae // 401019566
+
+
+1:
+Px: a5802f0b // 2776641291
+Py: 71825efb // 1904369403
+prime: ad4b9db3 // 2907413939
+a: 810ffdee // 2165308910
+key: e3a49f16 // 3819216662
+Double Px: 9f80d5d5 // 2676020693
+Double Py: 6e9db14f // 1855828303
+Double mont Px: 974f28b6 // 2538547382
+Double mont Py: 414edcfc // 1095687420
+
+Triple Px: 929d45ac // 2459780524
+Triple Py: 848cb1ee // 2223813102
+Triple mont Px: 9dc45b2c // 2646891308
+Triple mont Py: a1ed6f55 // 2716692309
+
+
+2:
+Px: a417b745 // 2753017669
+Py: e7edc42a // 3891119146
+prime: dad345d1 // 3671279057
+a: a73c18e // 175358350
+key: c581a1a9 // 3313607081
+Double Px: 6244e27a // 1648681594
+Double Py: 207723a3 // 544678819
+Double mont Px: 62e875ff // 1659401727
+Double mont Py: 153792c3 // 355963587
+
+Triple Px: cda1886 // 215619718
+Triple Py: 67f23039 // 1743925305
+Triple mont Px: 64caa61a // 1691002394
+Triple mont Py: 839abb48 // 2207955784
+
+
+3:
+Px: 3a6107ff // 979437567
+Py: 560dd0e9 // 1443746025
+prime: d9a6f617 // 3651597847
+a: 5a649ded // 1516543469
+key: d2b9875d // 3535374173
+Double Px: 1491b714 // 345093908
+Double Py: 49c6fa10 // 1237776912
+Double mont Px: 9d5e2454 // 2640192596
+Double mont Py: 20d0ddb8 // 550559160
+
+Triple Px: a147610c // 2705809676
+Triple Py: c7b3babd // 3350444733
+Triple mont Px: 3e1bc49f // 1042007199
+Triple mont Py: 939b643a // 2476434490
+
+
+4:
+Px: 922ae5cf // 2452284879
+Py: 47dfe3e7 // 1205855207
+prime: a3068d97 // 2735115671
+a: e862cf7c // 3898789756
+key: e9c74f20 // 3922153248
+Double Px: 7c9761e0 // 2090295776
+Double Py: 43f7b11f // 1140306207
+Double mont Px: 363a3c49 // 909786185
+Double mont Py: 398f73c4 // 965702596
+
+Triple Px: 9a29f7a4 // 2586441636
+Triple Py: 8383ac73 // 2206444659
+Triple mont Px: 9261dfe2 // 2455887842
+Triple mont Py: a285148b // 2726630539
+
+
+5:
+Px: 90931b34 // 2425559860
+Py: d82f4654 // 3626976852
+prime: c2496c7f // 3259591807
+a: 90ee6699 // 2431542937
+key: f8cf8bdc // 4174351324
+Double Px: 32c5c96 // 53238934
+Double Py: 19115e62 // 420568674
+Double mont Px: 686ab660 // 1751823968
+Double mont Py: c17bfef9 // 3246128889
+
+Triple Px: 82552f10 // 2186620688
+Triple Py: b37a840 // 188196928
+Triple mont Px: ea8883b // 245925947
+Triple mont Py: ad1163af // 2903597999
+
+
+6:
+Px: 4fec157a // 1340872058
+Py: 2756531c // 659968796
+prime: a421d4c1 // 2753680577
+a: 5a7d8a9b // 1518176923
+key: 8ea09702 // 2392889090
+Double Px: cd77fe8 // 215449576
+Double Py: 8668809 // 140937225
+Double mont Px: 77bd9bd4 // 2008914900
+Double mont Py: 95f1c05d // 2515648605
+
+Triple Px: 649eb333 // 1688122163
+Triple Py: 9e81fcdc // 2659319004
+Triple mont Px: 9a7126c9 // 2591106761
+Triple mont Py: 9e29faae // 2653551278
+
+
+7:
+Px: 5fd6c11e // 1607909662
+Py: 41b53fb6 // 1102397366
+prime: f4be8375 // 4106126197
+a: e26f49ba // 3798944186
+key: caa9810f // 3400106255
+Double Px: c6cd2701 // 3335333633
+Double Py: 43a9ef74 // 1135210356
+Double mont Px: 4a7af129 // 1249571113
+Double mont Py: 73ee319e // 1944990110
+
+Triple Px: 5bef8255 // 1542423125
+Triple Py: c9dcc2de // 3386688222
+Triple mont Px: e77fdccb // 3883916491
+Triple mont Py: 4829c6d6 // 1210697430
+
+
+8:
+Px: b206027e // 2986738302
+Py: b1d078a1 // 2983229601
+prime: d297295f // 3533121887
+a: d4f49e33 // 3572801075
+key: 80df982d // 2162137133
+Double Px: 814d54aa // 2169328810
+Double Py: 83f827e3 // 2214078435
+Double mont Px: c181eddf // 3246517727
+Double mont Py: 66d19b95 // 1725012885
+
+Triple Px: 34cd1da6 // 885857702
+Triple Py: 24cb786e // 617314414
+Triple mont Px: 2924de3d // 690282045
+Triple mont Py: 5d057cde // 1560640734
+
+
+9:
+Px: 6c7306ed // 1819477741
+Py: 87be5c26 // 2277399590
+prime: f166c337 // 4050043703
+a: 72b74bee // 1924615150
+key: 981cec34 // 2552032308
+Double Px: 47912787 // 1200695175
+Double Py: 342ccb5c // 875350876
+Double mont Px: 96dcce59 // 2531053145
+Double mont Py: faf9223 // 263164451
+
+Triple Px: 3cd3f460 // 1020523616
+Triple Py: 15d2fa7 // 22884263
+Triple mont Px: 2508a684 // 621323908
+Triple mont Py: ed97b2ec // 3986141932
+
+

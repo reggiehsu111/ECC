@@ -19,12 +19,13 @@ set_drive 1 [all_inputs]
 set_load  1 [all_outputs]
 
 set_fix_multiple_port_nets -all -buffer_constants
+exit
 
 set_operating_conditions -min_library fsa0m_a_generic_core_ff1p98vm40c -min BCCOM -max_library fsa0m_a_generic_core_ss1p62v125c -max WCCOM
 set_wire_load_model -name G200K -library fsa0m_a_generic_core_tt1p8v25c
 
 set_max_area 0
-set_max_fanout 6 Top_ting
+set_max_fanout 20 Top_ting
 set_boundary_optimization {"*"}
 
 #############in sdc file
@@ -35,7 +36,9 @@ check_design
 # remove_attribute [find -hierarchy design {"*"}] dont_touch
 
 # Map and Optimize the Design
-compile -map_effort medium
+compile
+#compile_ultra -top
+#optimize_netlist -area
 
 # Analyze and debug the design
 report_area > area_top.out
@@ -44,5 +47,5 @@ report_timing -path full -delay max > timing_top.out
 
 #write -format db -hierarchy -output $active_design.db
 write -format verilog -hierarchy -output top_syn.v
-write_sdf -version 2.1 -context verilog top_alu.sdf
+write_sdf -version 2.1 top.sdf
 write_sdc top_syn.sdc

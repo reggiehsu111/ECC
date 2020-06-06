@@ -9,30 +9,28 @@ module Top_ting(
 	Py,
 	kPx,
 	kPy,
-    final_output_1,
-    final_output_2,
-    final_done,
-	raw1);
+    done
+    );
 	
 	localparam SIZE = 32;
 	localparam IDLE = 0;
 	input i_rst, i_clk, i_start;
 	input [3 : 0] a, prime, Px, Py, k;
 
-	output [SIZE - 1 : 0] final_output_1, final_output_2;
-	output [SIZE - 1 : 0] raw1;
 	output reg [3 : 0] kPx, kPy;
-    output final_done;
+    output done;
 	
+
 	//////////GFAU vs. Control//////////
 	wire GFAU_done_to_control, GFAU_done_from_control;
-	wire [SIZE - 1 : 0] Px_mont, Py_mont;
+	wire [SIZE - 1 : 0] Px_mont, Py_mont, final_output_1, final_output_2;
 	wire [SIZE - 1 : 0] GFAU_out;
 	wire [1 : 0] operation_select;
+    wire final_done;
 	////////////////////////////////////
 
 	//////////key shift vs. Control//////////
-	wire key_shift_done_to_control, key_shift_from_control;
+	wire key_shift_done_to_control, key_shift_done_from_control;
 	wire key_from_key_shift;
 	/////////////////////////////////////////
 
@@ -54,6 +52,7 @@ module Top_ting(
 	assign raw_k = k_r;
 
 	assign load_done = load_done_r;
+    assign done = final_done;
 
 
 	always @(*) begin
@@ -276,6 +275,7 @@ module Top_ting(
 				raw_a_r_n = raw_a_r;
 				k_r_n = k_r;
 				state_n = 10;
+				load_done_r = 0;
 				kPx = final_output_1[3 : 0];
 				kPy = final_output_2[3 : 0];
 			end
@@ -286,6 +286,7 @@ module Top_ting(
 				raw_a_r_n = raw_a_r;
 				k_r_n = k_r;
 				state_n = 11;
+				load_done_r = 0;
 				kPx = final_output_1[7 : 4];
 				kPy = final_output_2[7 : 4];
 			end
@@ -297,6 +298,7 @@ module Top_ting(
 				raw_a_r_n = raw_a_r;
 				k_r_n = k_r;
 				state_n = 12;
+				load_done_r = 0;
 				kPx = final_output_1[11 : 8];
 				kPy = final_output_2[11 : 8];
 			end
@@ -308,6 +310,7 @@ module Top_ting(
 				raw_a_r_n = raw_a_r;
 				k_r_n = k_r;
 				state_n = 13;
+				load_done_r = 0;
 				kPx = final_output_1[15 : 12];
 				kPy = final_output_2[15 : 12];
 			end
@@ -319,6 +322,7 @@ module Top_ting(
 				raw_a_r_n = raw_a_r;
 				k_r_n = k_r;
 				state_n = 14;
+				load_done_r = 0;
 				kPx = final_output_1[19 : 16];
 				kPy = final_output_2[19 : 16];
 			end
@@ -330,6 +334,7 @@ module Top_ting(
 				raw_a_r_n = raw_a_r;
 				k_r_n = k_r;
 				state_n = 15;
+				load_done_r = 0;
 				kPx = final_output_1[23 : 20];
 				kPy = final_output_2[23 : 20];
 			end
@@ -341,6 +346,7 @@ module Top_ting(
 				raw_a_r_n = raw_a_r;
 				k_r_n = k_r;
 				state_n = 16;
+				load_done_r = 0;
 				kPx = final_output_1[27 : 24];
 				kPy = final_output_2[27 : 24];
 			end
@@ -351,6 +357,7 @@ module Top_ting(
 				raw_a_r_n = raw_a_r;
 				k_r_n = k_r;
 				state_n = 0;
+				load_done_r = 0;
 				kPx = final_output_1[31 : 28];
 				kPy = final_output_2[31 : 28];
 			end
@@ -362,7 +369,8 @@ module Top_ting(
 				raw_prime_r_n = 0;
 				raw_a_r_n = 0;
 				k_r_n = 0;
-
+				kPx = 0;
+				kPy = 0;
 				load_done_r = 0;
 			end
 		endcase
@@ -1590,6 +1598,7 @@ module GFAU(
 
     wire sel_add, sel_sub, sel_mult, sel_div;
     wire [SIZE - 1 : 0] add_out, sub_out, mult_out, div_out;
+    wire done_add, done_sub, done_mult, done_div;
     
 
     assign sel_add = (operation_select == 2'd0 && GFAU_done_from_control == 1) ? 1 : 0;
@@ -1763,7 +1772,7 @@ module mult(
 	prime,
 	sel_mult,
 	mult_out,
-	done_mult,
+	done_mult
 	//mult_out_mid
 	);
 
@@ -1857,7 +1866,7 @@ module div(
 	prime,
 	sel_div,
 	div_out,
-	done_div,
+	done_div
 	);
 	localparam SIZE = 32;
 
