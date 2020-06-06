@@ -1,4 +1,4 @@
-module Top_ting(
+module ECC_Lookup(
 	i_rst,
 	i_clk,
 	i_start,
@@ -498,6 +498,7 @@ module Control(
     wire mode, lookup_table_done_from_control;
     wire [1 : 0] P_sel;
     wire [SIZE - 1 : 0] Px_in_to_look, Py_in_to_look, Px_out_from_look, Py_out_from_look;
+    reg [3 : 0] counter, counter_n;
 
 
 
@@ -525,6 +526,8 @@ module Control(
 /*==========================next state logic=========================*/
     
 	always @(*) begin
+		counter_n = counter;
+		key_shift_done_from_control = 0;
 		case(state)
 			0: begin //IDLE
 				Px_mont = 0;
@@ -1277,7 +1280,7 @@ module Control(
 			end
 			19: begin
 				Px_mont = r2;
-                Py_mont = r1;
+                Py_mont = x1;
                 x1_n = x1; 
                 y1_n = y1; 
                 x2_n = x2; 
@@ -1442,7 +1445,7 @@ module Control(
 				end
 			end
 			23: begin
-				Px_mont = r1;
+				Px_mont = r2;
                 Py_mont = y1;
                 x1_n = x1; 
                 y1_n = y1; 
@@ -2119,6 +2122,12 @@ module Control(
 					P_sel_r = key_from_key_shift;
 					state_n = 41;
 				end
+				else if (key_counter == 30) begin
+					mode_r = 0;
+					lookup_table_done_from_control_r = 0;
+					P_sel_r = 0;
+					state_n = 51;
+				end
 				else begin
 					mode_r = 0;
 					lookup_table_done_from_control_r = 0;
@@ -2320,7 +2329,7 @@ module Control(
 			end
 			46: begin
 				Px_mont = r2;
-                Py_mont = r1;
+                Py_mont = x1;
                 x1_n = x1; 
                 y1_n = y1; 
                 x2_n = x2; 
@@ -2485,7 +2494,7 @@ module Control(
 				end
 			end
 			50: begin
-				Px_mont = r1;
+				Px_mont = r2;
                 Py_mont = y1;
                 x1_n = x1; 
                 y1_n = y1; 
@@ -2586,9 +2595,70 @@ module Control(
 				state_n = 52;
 				final_done = 0;
 				if (Transfer_done_w1 == 1) begin
-					final_done = 1;
 					state_n = 53;
 				end
+			end
+			53: begin
+				Px_mont = x1;
+                Py_mont = y1;
+                x1_n = x3; 
+                y1_n = y3; 
+                x2_n = x2; 
+                y2_n = y2; 
+                x3_n = x3; 
+                y3_n = y3;
+                r1_n = r1;
+                r2_n = r2;
+                a_n = a;
+                GFAU_done_from_control = 0;
+                operation_select = 2'b00; //stall
+                key_counter_n = key_counter;
+
+                mode_r = 0;
+				lookup_table_done_from_control_r = 0;
+				P_sel_r = 0;
+                                     
+                 
+                key_shift_done_from_control = 0; 
+                 
+				in_sig = 0;
+				counter_n = counter + 1;
+				state_n = 53;
+				final_done = 0;
+				if (counter == 0) begin
+					final_done = 1;
+				end
+				else if (counter == 8) begin
+					state_n = 0;
+				end
+			end
+			default: begin
+				Px_mont = x1;
+                Py_mont = y1;
+                x1_n = x1; 
+                y1_n = y1; 
+                x2_n = x2; 
+                y2_n = y2; 
+                x3_n = x3; 
+                y3_n = y3;
+                r1_n = r1;
+                r2_n = r2;
+                a_n = a;
+                GFAU_done_from_control = 0;
+                operation_select = 2'b00; //stall
+                key_counter_n = key_counter;
+
+                mode_r = 0;
+				lookup_table_done_from_control_r = 0;
+				P_sel_r = 0;
+                                     
+                 
+                key_shift_done_from_control = 0; 
+                 
+				in_sig = 0;
+				counter_n = counter;
+				state_n = 0;
+				final_done = 0;
 			end
 		endcase
 	end
@@ -2602,8 +2672,6 @@ module Control(
 	                r1              <= 0;
 	                r2              <= 0;
 	                state           <= 0;
-	                key_counter     <= key_counter_n;
-	                in_sig          <= 0;
 	                key_counter     <= 5'b00000;
 	                all_done_r      <= 0;
 	                x1              <= 0;
@@ -2612,7 +2680,8 @@ module Control(
 	                y2              <= 0;
 	                x3              <= 0;
 	                y3              <= 0;
-	                a               <= 0; 
+	                a               <= 0;
+	                counter 		<= 0; 
 	            end
 	        else
 	            begin
@@ -2620,7 +2689,6 @@ module Control(
 	                r2              <= r2_n;
 	                state           <= state_n;  
 	                key_counter     <= key_counter_n;
-	                in_sig          <= in_sig_n;
 	                all_done_r      <= all_done_rn;
 	                x1              <= x1_n;
 	                x2              <= x2_n;
@@ -2628,7 +2696,8 @@ module Control(
 	                y2              <= y2_n;
 	                x3              <= x3_n;
 	                y3              <= y3_n;
-	                a               <= a_n;    
+	                a               <= a_n;
+	                counter 		<= counter_n;    
 	            end
 	    end
 
@@ -2784,10 +2853,15 @@ module key_shift(
 	output reg [1 : 0] k_out;
 	output reg key_shift_done_to_control;
 
-	reg [5 : 0] state, state_n;
+	reg [3 : 0] state, state_n;
 
 	always @(*) begin
 		case(state)
+			default: begin
+				state_n = 0;
+				key_shift_done_to_control = 0;
+				k_out = 0;
+			end
 			0: begin
 				state_n = 0;
 				key_shift_done_to_control = 0;
