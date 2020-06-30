@@ -65,7 +65,7 @@ module Top_ting(
 				kPy = 0;
 				if (i_start == 1) begin
 					state_n = 1;
-
+ 
 					raw1_r_n[3 : 0] = Px;
 					raw2_r_n[3 : 0] = Py;
 					raw_prime_r_n[3 : 0] = prime;
