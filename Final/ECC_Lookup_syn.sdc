@@ -1,0 +1,82 @@
+###################################################################
+
+# Created by write_sdc on Tue Jun 30 23:13:33 2020
+
+###################################################################
+set sdc_version 2.0
+
+set_units -time ns -resistance kOhm -capacitance pF -voltage V -current mA
+set_operating_conditions -max WCCOM -max_library                               \
+fsa0m_a_generic_core_ss1p62v125c\
+                         -min BCCOM -min_library                               \
+fsa0m_a_generic_core_ff1p98vm40c
+set_wire_load_model -name G200K -library fsa0m_a_generic_core_tt1p8v25c
+set_max_fanout 20 [current_design]
+set_max_area 0
+set_load -pin_load 1 [get_ports {kPx[3]}]
+set_load -pin_load 1 [get_ports {kPx[2]}]
+set_load -pin_load 1 [get_ports {kPx[1]}]
+set_load -pin_load 1 [get_ports {kPx[0]}]
+set_load -pin_load 1 [get_ports {kPy[3]}]
+set_load -pin_load 1 [get_ports {kPy[2]}]
+set_load -pin_load 1 [get_ports {kPy[1]}]
+set_load -pin_load 1 [get_ports {kPy[0]}]
+set_load -pin_load 1 [get_ports done]
+create_clock [get_ports i_clk]  -period 10  -waveform {0 5}
+set_clock_latency 0.5  [get_clocks i_clk]
+set_clock_uncertainty 0.1  [get_clocks i_clk]
+set_input_delay -clock i_clk  -max 1  [get_ports i_clk]
+set_input_delay -clock i_clk  -max 1  [get_ports i_rst]
+set_input_delay -clock i_clk  -max 1  [get_ports i_start]
+set_input_delay -clock i_clk  -max 1  [get_ports {a[3]}]
+set_input_delay -clock i_clk  -max 1  [get_ports {a[2]}]
+set_input_delay -clock i_clk  -max 1  [get_ports {a[1]}]
+set_input_delay -clock i_clk  -max 1  [get_ports {a[0]}]
+set_input_delay -clock i_clk  -max 1  [get_ports {prime[3]}]
+set_input_delay -clock i_clk  -max 1  [get_ports {prime[2]}]
+set_input_delay -clock i_clk  -max 1  [get_ports {prime[1]}]
+set_input_delay -clock i_clk  -max 1  [get_ports {prime[0]}]
+set_input_delay -clock i_clk  -max 1  [get_ports {k[3]}]
+set_input_delay -clock i_clk  -max 1  [get_ports {k[2]}]
+set_input_delay -clock i_clk  -max 1  [get_ports {k[1]}]
+set_input_delay -clock i_clk  -max 1  [get_ports {k[0]}]
+set_input_delay -clock i_clk  -max 1  [get_ports {Px[3]}]
+set_input_delay -clock i_clk  -max 1  [get_ports {Px[2]}]
+set_input_delay -clock i_clk  -max 1  [get_ports {Px[1]}]
+set_input_delay -clock i_clk  -max 1  [get_ports {Px[0]}]
+set_input_delay -clock i_clk  -max 1  [get_ports {Py[3]}]
+set_input_delay -clock i_clk  -max 1  [get_ports {Py[2]}]
+set_input_delay -clock i_clk  -max 1  [get_ports {Py[1]}]
+set_input_delay -clock i_clk  -max 1  [get_ports {Py[0]}]
+set_output_delay -clock i_clk  -min 0.5  [get_ports {kPx[3]}]
+set_output_delay -clock i_clk  -min 0.5  [get_ports {kPx[2]}]
+set_output_delay -clock i_clk  -min 0.5  [get_ports {kPx[1]}]
+set_output_delay -clock i_clk  -min 0.5  [get_ports {kPx[0]}]
+set_output_delay -clock i_clk  -min 0.5  [get_ports {kPy[3]}]
+set_output_delay -clock i_clk  -min 0.5  [get_ports {kPy[2]}]
+set_output_delay -clock i_clk  -min 0.5  [get_ports {kPy[1]}]
+set_output_delay -clock i_clk  -min 0.5  [get_ports {kPy[0]}]
+set_output_delay -clock i_clk  -min 0.5  [get_ports done]
+set_drive 1  [get_ports i_rst]
+set_drive 1  [get_ports i_clk]
+set_drive 1  [get_ports i_start]
+set_drive 1  [get_ports {a[3]}]
+set_drive 1  [get_ports {a[2]}]
+set_drive 1  [get_ports {a[1]}]
+set_drive 1  [get_ports {a[0]}]
+set_drive 1  [get_ports {prime[3]}]
+set_drive 1  [get_ports {prime[2]}]
+set_drive 1  [get_ports {prime[1]}]
+set_drive 1  [get_ports {prime[0]}]
+set_drive 1  [get_ports {k[3]}]
+set_drive 1  [get_ports {k[2]}]
+set_drive 1  [get_ports {k[1]}]
+set_drive 1  [get_ports {k[0]}]
+set_drive 1  [get_ports {Px[3]}]
+set_drive 1  [get_ports {Px[2]}]
+set_drive 1  [get_ports {Px[1]}]
+set_drive 1  [get_ports {Px[0]}]
+set_drive 1  [get_ports {Py[3]}]
+set_drive 1  [get_ports {Py[2]}]
+set_drive 1  [get_ports {Py[1]}]
+set_drive 1  [get_ports {Py[0]}]

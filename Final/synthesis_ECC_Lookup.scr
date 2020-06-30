@@ -37,8 +37,8 @@ check_design
 
 # Map and Optimize the Design
 compile
-#compile_ultra -top
-#optimize_netlist -area
+
+remove_unconnected_ports -blast_buses [get_cells -hierarchical *]
 
 # Analyze and debug the design
 report_area > area_ECC_Lookup.out
