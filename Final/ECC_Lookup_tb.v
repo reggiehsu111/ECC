@@ -1,6 +1,6 @@
 `timescale 1ns/10ps
 `define CYCLE    100.0
-`define SDFFILE    "./ECC_Lookup_syn.sdf"	
+`define SDFFILE    "./CHIP.sdf"	
 
 // Files for input ports
 `define START                      "sim_data/top/start.dat"
@@ -58,7 +58,7 @@ module Top_test();
 	integer       i, j, out_f, err, pattern_num, data_num, counter, counter_flag;
 	integer       range_up, range_down;
 
-	ECC_Lookup ECC_Lookup_0(
+	CHIP top0(
 		.i_clk(clk),
 		.i_rst(reset),
         .i_start(i_start),
@@ -87,13 +87,14 @@ module Top_test();
 
 	
 	`ifdef SDF
-    initial $sdf_annotate(`SDFFILE, ECC_Lookup_0);
+    initial $sdf_annotate(`SDFFILE, top0);
 	`endif	
 	initial begin
-		clk         = 1'b1;
+		clk         = 1'b0;
 		reset       = 1'b0;
 		stop        = 1'b0;
 		over        = 1'b0;
+		i_start     = 1'b0;
 		pattern_num = 0;
 		err         = 0;
 		i           = 0;
@@ -101,14 +102,19 @@ module Top_test();
 		counter     = 0;
 		counter_flag= 0;
 		#2.5 reset=1'b1;
-		#100 reset=1'b0;
+		#1000 reset=1'b0;
+	end
+
+	always @(*) begin
+		$display(`CYCLE);
 	end
 	
 	always begin #(`CYCLE/2) clk = ~clk; end
-
+	
 	initial begin
 		$fsdbDumpfile("Top.fsdb");
-		$fsdbDumpvars;
+		$fsdbDumpvars();
+	
 	
 		out_f = $fopen("out.dat");
 		if (out_f == 0) begin
@@ -117,7 +123,7 @@ module Top_test();
 		end
 	end
 	
-	always @(posedge clk)begin
+	always @(negedge clk)begin
 		if (i<DATA_LENGTH) begin
 			// $display(i, j);
 			if (j<DATA_CYCLES) begin
@@ -156,6 +162,7 @@ module Top_test();
 				if (final_done) begin
 					counter_flag = 1;
 					counter = 0;
+					$display("Done");
 				end
 				if (counter_flag) counter = counter + 1;
 				else counter = 0;
