@@ -1,0 +1,736 @@
+[06/30 16:04:39      0s] 
+[06/30 16:04:39      0s] Cadence Innovus(TM) Implementation System.
+[06/30 16:04:39      0s] Copyright 2017 Cadence Design Systems, Inc. All rights reserved worldwide.
+[06/30 16:04:39      0s] 
+[06/30 16:04:39      0s] Version:	v17.11-s080_1, built Fri Aug 4 11:13:11 PDT 2017
+[06/30 16:04:39      0s] Options:	
+[06/30 16:04:39      0s] Date:		Tue Jun 30 16:04:39 2020
+[06/30 16:04:39      0s] Host:		cad29 (x86_64 w/Linux 2.6.32-754.el6.x86_64) (10cores*40cpus*Intel(R) Xeon(R) CPU E5-2650 v3 @ 2.30GHz 25600KB)
+[06/30 16:04:39      0s] OS:		CentOS release 6.10 (Final)
+[06/30 16:04:39      0s] 
+[06/30 16:04:39      0s] License:
+[06/30 16:04:40      0s] 		invs	Innovus Implementation System	17.1	checkout succeeded
+[06/30 16:04:40      0s] 		8 CPU jobs allowed with the current license(s). Use setMultiCpuUsage to set your required CPU count.
+[06/30 16:04:56     12s] @(#)CDS: Innovus v17.11-s080_1 (64bit) 08/04/2017 11:13 (Linux 2.6.18-194.el5)
+[06/30 16:04:56     12s] @(#)CDS: NanoRoute 17.11-s080_1 NR170721-2155/17_11-UB (database version 2.30, 390.7.1) {superthreading v1.44}
+[06/30 16:04:56     12s] @(#)CDS: AAE 17.11-s034 (64bit) 08/04/2017 (Linux 2.6.18-194.el5)
+[06/30 16:04:56     12s] @(#)CDS: CTE 17.11-s053_1 () Aug  1 2017 23:31:41 ( )
+[06/30 16:04:56     12s] @(#)CDS: SYNTECH 17.11-s012_1 () Jul 21 2017 02:29:12 ( )
+[06/30 16:04:56     12s] @(#)CDS: CPE v17.11-s095
+[06/30 16:04:56     12s] @(#)CDS: IQRC/TQRC 16.1.1-s215 (64bit) Thu Jul  6 20:18:10 PDT 2017 (Linux 2.6.18-194.el5)
+[06/30 16:04:56     12s] @(#)CDS: OA 22.50-p063 Fri Feb  3 19:45:13 2017
+[06/30 16:04:56     12s] @(#)CDS: SGN 10.10-p124 (19-Aug-2014) (64 bit executable)
+[06/30 16:04:56     12s] @(#)CDS: RCDB 11.10
+[06/30 16:04:56     12s] --- Running on cad29 (x86_64 w/Linux 2.6.32-754.el6.x86_64) (10cores*40cpus*Intel(R) Xeon(R) CPU E5-2650 v3 @ 2.30GHz 25600KB) ---
+[06/30 16:04:56     12s] Create and set the environment variable TMPDIR to /tmp/innovus_temp_120613_cad29_b4502040_gwnfDV.
+
+[06/30 16:04:56     12s] Change the soft stacksize limit to 0.2%RAM (677 mbytes). Set global soft_stack_size_limit to change the value.
+[06/30 16:04:56     13s] 
+[06/30 16:04:56     13s] **INFO:  MMMC transition support version v31-84 
+[06/30 16:04:56     13s] 
+[06/30 16:04:56     13s] <CMD> set_global _enable_mmmc_by_default_flow      $CTE::mmmc_default
+[06/30 16:04:56     13s] <CMD> suppressMessage ENCEXT-2799
+[06/30 16:04:56     13s] <CMD> getDrawView
+[06/30 16:04:56     13s] <CMD> loadWorkspace -name Physical
+[06/30 16:04:57     13s] <CMD> win
+[06/30 16:05:40     15s] <CMD> encMessage warning 0
+[06/30 16:05:40     15s] Suppress "**WARN ..." messages.
+[06/30 16:05:40     15s] <CMD> encMessage debug 0
+[06/30 16:05:40     15s] <CMD> encMessage info 0
+[06/30 16:05:40     15s] **WARN: (GLOBAL-100):	Global 'timing_enable_default_delay_arc' has become obsolete. It will be removed in the next release.
+[06/30 16:05:40     15s] **WARN: (IMPLF-119):	LAYER 'metal1' has been found in the database. Its content except ANTENNA* data will be ignored.
+[06/30 16:05:40     15s] Review the LEF files specified in the init_lef_file variable and remove redundant definitions.
+[06/30 16:05:40     15s] **WARN: (IMPLF-119):	LAYER 'metal2' has been found in the database. Its content except ANTENNA* data will be ignored.
+[06/30 16:05:40     15s] Review the LEF files specified in the init_lef_file variable and remove redundant definitions.
+[06/30 16:05:40     15s] **WARN: (IMPLF-119):	LAYER 'metal3' has been found in the database. Its content except ANTENNA* data will be ignored.
+[06/30 16:05:40     15s] Review the LEF files specified in the init_lef_file variable and remove redundant definitions.
+[06/30 16:05:40     15s] **WARN: (IMPLF-119):	LAYER 'metal4' has been found in the database. Its content except ANTENNA* data will be ignored.
+[06/30 16:05:40     15s] Review the LEF files specified in the init_lef_file variable and remove redundant definitions.
+[06/30 16:05:40     15s] **WARN: (IMPLF-119):	LAYER 'metal5' has been found in the database. Its content except ANTENNA* data will be ignored.
+[06/30 16:05:40     15s] Review the LEF files specified in the init_lef_file variable and remove redundant definitions.
+[06/30 16:05:40     15s] **WARN: (IMPLF-119):	LAYER 'metal6' has been found in the database. Its content except ANTENNA* data will be ignored.
+[06/30 16:05:40     15s] Review the LEF files specified in the init_lef_file variable and remove redundant definitions.
+[06/30 16:05:40     15s] **WARN: (IMPLF-58):	MACRO 'AN2' has been found in the database. Its content except DENSITY and PIN ANTENNA* data will be ignored.
+[06/30 16:05:40     15s] Review the LEF files specified in the init_lef_file variable and remove redundant definitions.
+[06/30 16:05:40     15s] **WARN: (IMPLF-58):	MACRO 'AN2B1' has been found in the database. Its content except DENSITY and PIN ANTENNA* data will be ignored.
+[06/30 16:05:40     15s] Review the LEF files specified in the init_lef_file variable and remove redundant definitions.
+[06/30 16:05:40     15s] **WARN: (IMPLF-58):	MACRO 'AN2B1P' has been found in the database. Its content except DENSITY and PIN ANTENNA* data will be ignored.
+[06/30 16:05:40     15s] Review the LEF files specified in the init_lef_file variable and remove redundant definitions.
+[06/30 16:05:40     15s] **WARN: (IMPLF-58):	MACRO 'AN2B1S' has been found in the database. Its content except DENSITY and PIN ANTENNA* data will be ignored.
+[06/30 16:05:40     15s] Review the LEF files specified in the init_lef_file variable and remove redundant definitions.
+[06/30 16:05:40     15s] **WARN: (IMPLF-58):	MACRO 'AN2B1T' has been found in the database. Its content except DENSITY and PIN ANTENNA* data will be ignored.
+[06/30 16:05:40     15s] Review the LEF files specified in the init_lef_file variable and remove redundant definitions.
+[06/30 16:05:40     15s] **WARN: (IMPLF-58):	MACRO 'AN2P' has been found in the database. Its content except DENSITY and PIN ANTENNA* data will be ignored.
+[06/30 16:05:40     15s] Review the LEF files specified in the init_lef_file variable and remove redundant definitions.
+[06/30 16:05:40     15s] **WARN: (IMPLF-58):	MACRO 'AN2S' has been found in the database. Its content except DENSITY and PIN ANTENNA* data will be ignored.
+[06/30 16:05:40     15s] Review the LEF files specified in the init_lef_file variable and remove redundant definitions.
+[06/30 16:05:40     15s] **WARN: (IMPLF-58):	MACRO 'AN2T' has been found in the database. Its content except DENSITY and PIN ANTENNA* data will be ignored.
+[06/30 16:05:40     15s] Review the LEF files specified in the init_lef_file variable and remove redundant definitions.
+[06/30 16:05:40     15s] **WARN: (IMPLF-58):	MACRO 'AN3' has been found in the database. Its content except DENSITY and PIN ANTENNA* data will be ignored.
+[06/30 16:05:40     15s] Review the LEF files specified in the init_lef_file variable and remove redundant definitions.
+[06/30 16:05:40     15s] **WARN: (IMPLF-58):	MACRO 'AN3B1' has been found in the database. Its content except DENSITY and PIN ANTENNA* data will be ignored.
+[06/30 16:05:40     15s] Review the LEF files specified in the init_lef_file variable and remove redundant definitions.
+[06/30 16:05:40     15s] **WARN: (IMPLF-58):	MACRO 'AN3B1P' has been found in the database. Its content except DENSITY and PIN ANTENNA* data will be ignored.
+[06/30 16:05:40     15s] Review the LEF files specified in the init_lef_file variable and remove redundant definitions.
+[06/30 16:05:40     15s] **WARN: (IMPLF-58):	MACRO 'AN3B1S' has been found in the database. Its content except DENSITY and PIN ANTENNA* data will be ignored.
+[06/30 16:05:40     15s] Review the LEF files specified in the init_lef_file variable and remove redundant definitions.
+[06/30 16:05:40     15s] **WARN: (IMPLF-58):	MACRO 'AN3B1T' has been found in the database. Its content except DENSITY and PIN ANTENNA* data will be ignored.
+[06/30 16:05:40     15s] Review the LEF files specified in the init_lef_file variable and remove redundant definitions.
+[06/30 16:05:40     15s] **WARN: (IMPLF-58):	MACRO 'AN3B2' has been found in the database. Its content except DENSITY and PIN ANTENNA* data will be ignored.
+[06/30 16:05:40     15s] Review the LEF files specified in the init_lef_file variable and remove redundant definitions.
+[06/30 16:05:40     15s] **WARN: (IMPLF-58):	MACRO 'AN3B2P' has been found in the database. Its content except DENSITY and PIN ANTENNA* data will be ignored.
+[06/30 16:05:40     15s] Review the LEF files specified in the init_lef_file variable and remove redundant definitions.
+[06/30 16:05:40     15s] **WARN: (IMPLF-58):	MACRO 'AN3B2S' has been found in the database. Its content except DENSITY and PIN ANTENNA* data will be ignored.
+[06/30 16:05:40     15s] Review the LEF files specified in the init_lef_file variable and remove redundant definitions.
+[06/30 16:05:40     15s] **WARN: (IMPLF-58):	MACRO 'AN3B2T' has been found in the database. Its content except DENSITY and PIN ANTENNA* data will be ignored.
+[06/30 16:05:40     15s] Review the LEF files specified in the init_lef_file variable and remove redundant definitions.
+[06/30 16:05:40     15s] **WARN: (IMPLF-58):	MACRO 'AN3P' has been found in the database. Its content except DENSITY and PIN ANTENNA* data will be ignored.
+[06/30 16:05:40     15s] Review the LEF files specified in the init_lef_file variable and remove redundant definitions.
+[06/30 16:05:40     15s] **WARN: (IMPLF-58):	MACRO 'AN3S' has been found in the database. Its content except DENSITY and PIN ANTENNA* data will be ignored.
+[06/30 16:05:40     15s] Review the LEF files specified in the init_lef_file variable and remove redundant definitions.
+[06/30 16:05:40     15s] **WARN: (IMPLF-58):	MACRO 'AN3T' has been found in the database. Its content except DENSITY and PIN ANTENNA* data will be ignored.
+[06/30 16:05:40     15s] Review the LEF files specified in the init_lef_file variable and remove redundant definitions.
+[06/30 16:05:40     15s] **WARN: (EMS-27):	Message (IMPLF-58) has exceeded the current message display limit of 20.
+[06/30 16:05:40     15s] To increase the message display limit, refer to the product command reference manual.
+[06/30 16:05:40     15s] **WARN: (IMPLF-119):	LAYER 'metal1' has been found in the database. Its content except ANTENNA* data will be ignored.
+[06/30 16:05:40     15s] Review the LEF files specified in the init_lef_file variable and remove redundant definitions.
+[06/30 16:05:40     15s] **WARN: (IMPLF-119):	LAYER 'metal2' has been found in the database. Its content except ANTENNA* data will be ignored.
+[06/30 16:05:40     15s] Review the LEF files specified in the init_lef_file variable and remove redundant definitions.
+[06/30 16:05:40     15s] **WARN: (IMPLF-119):	LAYER 'metal3' has been found in the database. Its content except ANTENNA* data will be ignored.
+[06/30 16:05:40     15s] Review the LEF files specified in the init_lef_file variable and remove redundant definitions.
+[06/30 16:05:40     15s] **WARN: (IMPLF-119):	LAYER 'metal4' has been found in the database. Its content except ANTENNA* data will be ignored.
+[06/30 16:05:40     15s] Review the LEF files specified in the init_lef_file variable and remove redundant definitions.
+[06/30 16:05:40     15s] **WARN: (IMPLF-119):	LAYER 'metal5' has been found in the database. Its content except ANTENNA* data will be ignored.
+[06/30 16:05:40     15s] Review the LEF files specified in the init_lef_file variable and remove redundant definitions.
+[06/30 16:05:40     15s] **WARN: (IMPLF-119):	LAYER 'metal6' has been found in the database. Its content except ANTENNA* data will be ignored.
+[06/30 16:05:40     15s] Review the LEF files specified in the init_lef_file variable and remove redundant definitions.
+[06/30 16:05:40     15s] **WARN: (IMPLF-61):	392 duplicated MACRO definitions have been found in the LEF file(s). Their content except DENSITY and PIN ANTENNA* data have been ignored.
+[06/30 16:05:40     15s] Review the LEF files specified in the init_lef_file variable and remove redundant definitions.
+[06/30 16:05:40     15s] **WARN: (IMPLF-200):	Pin 'IO' in macro 'ZMA2GSD' has no ANTENNAGATEAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+[06/30 16:05:40     15s] **WARN: (IMPLF-200):	Pin 'IO' in macro 'ZMA2GSC' has no ANTENNAGATEAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+[06/30 16:05:40     15s] **WARN: (IMPLF-200):	Pin 'I' in macro 'XMD' has no ANTENNAGATEAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+[06/30 16:05:40     15s] **WARN: (IMPLF-200):	Pin 'I' in macro 'XMC' has no ANTENNAGATEAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+[06/30 16:05:40     15s] **WARN: (IMPLF-200):	Pin 'GNDO' in macro 'GNDIOD' has no ANTENNAGATEAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+[06/30 16:05:40     15s] **WARN: (IMPLF-200):	Pin 'GNDO' in macro 'GNDIOC' has no ANTENNAGATEAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+[06/30 16:05:40     15s] **WARN: (IMPLF-200):	Pin 'A' in macro 'ANTENNA' has no ANTENNAGATEAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+[06/30 16:05:40     15s] Loading view definition file from /home/raid7_2/userb04/b4502040/ECC/Final/synthesis/dbs2/corefiller.dat/viewDefinition.tcl
+[06/30 16:05:41     16s] **WARN: (TECHLIB-302):	No function defined for cell 'ANTENNA'. The cell will only be used for analysis. (File /home/raid7_2/userb04/b4502040/ECC/Final/synthesis/lib/fsa0m_a_generic_core_ss1p62v125c.lib)
+[06/30 16:05:41     16s] **WARN: (TECHLIB-436):	Attribute 'max_capacitance' on 'output/inout' pin 'O' of cell 'YA2GSC' is not defined in the library. (File /home/raid7_2/userb04/b4502040/ECC/Final/synthesis/lib/fsa0m_a_t33_generic_io_ss1p62v125c.lib)
+[06/30 16:05:41     16s] **WARN: (TECHLIB-436):	Attribute 'max_capacitance' on 'output/inout' pin 'O' of cell 'YA2GSD' is not defined in the library. (File /home/raid7_2/userb04/b4502040/ECC/Final/synthesis/lib/fsa0m_a_t33_generic_io_ss1p62v125c.lib)
+[06/30 16:05:41     16s] **WARN: (TECHLIB-436):	Attribute 'max_capacitance' on 'output/inout' pin 'IO' of cell 'ZMA2GSC' is not defined in the library. (File /home/raid7_2/userb04/b4502040/ECC/Final/synthesis/lib/fsa0m_a_t33_generic_io_ss1p62v125c.lib)
+[06/30 16:05:41     16s] **WARN: (TECHLIB-436):	Attribute 'max_capacitance' on 'output/inout' pin 'IO' of cell 'ZMA2GSD' is not defined in the library. (File /home/raid7_2/userb04/b4502040/ECC/Final/synthesis/lib/fsa0m_a_t33_generic_io_ss1p62v125c.lib)
+[06/30 16:05:42     17s] **WARN: (TECHLIB-302):	No function defined for cell 'ANTENNA'. The cell will only be used for analysis. (File /home/raid7_2/userb04/b4502040/ECC/Final/synthesis/lib/fsa0m_a_generic_core_ff1p98vm40c.lib)
+[06/30 16:05:42     17s] **WARN: (TECHLIB-436):	Attribute 'max_capacitance' on 'output/inout' pin 'O' of cell 'YA2GSC' is not defined in the library. (File /home/raid7_2/userb04/b4502040/ECC/Final/synthesis/lib/fsa0m_a_t33_generic_io_ff1p98vm40c.lib)
+[06/30 16:05:42     17s] **WARN: (TECHLIB-436):	Attribute 'max_capacitance' on 'output/inout' pin 'O' of cell 'YA2GSD' is not defined in the library. (File /home/raid7_2/userb04/b4502040/ECC/Final/synthesis/lib/fsa0m_a_t33_generic_io_ff1p98vm40c.lib)
+[06/30 16:05:42     17s] **WARN: (TECHLIB-436):	Attribute 'max_capacitance' on 'output/inout' pin 'IO' of cell 'ZMA2GSC' is not defined in the library. (File /home/raid7_2/userb04/b4502040/ECC/Final/synthesis/lib/fsa0m_a_t33_generic_io_ff1p98vm40c.lib)
+[06/30 16:05:42     17s] **WARN: (TECHLIB-436):	Attribute 'max_capacitance' on 'output/inout' pin 'IO' of cell 'ZMA2GSD' is not defined in the library. (File /home/raid7_2/userb04/b4502040/ECC/Final/synthesis/lib/fsa0m_a_t33_generic_io_ff1p98vm40c.lib)
+[06/30 16:05:42     17s] *** End library_loading (cpu=0.03min, real=0.03min, mem=25.9M, fe_cpu=0.29min, fe_real=1.05min, fe_mem=575.1M) ***
+[06/30 16:05:42     17s] **WARN: (IMPVL-159):	Pin 'GND' of cell 'XOR4T' is defined in LEF but not in the timing library.
+[06/30 16:05:42     17s] **WARN: (IMPVL-159):	Pin 'VCC' of cell 'XOR4T' is defined in LEF but not in the timing library.
+[06/30 16:05:42     17s] **WARN: (IMPVL-159):	Pin 'GND' of cell 'XOR4S' is defined in LEF but not in the timing library.
+[06/30 16:05:42     17s] **WARN: (IMPVL-159):	Pin 'VCC' of cell 'XOR4S' is defined in LEF but not in the timing library.
+[06/30 16:05:42     17s] **WARN: (IMPVL-159):	Pin 'GND' of cell 'XOR4P' is defined in LEF but not in the timing library.
+[06/30 16:05:42     17s] **WARN: (IMPVL-159):	Pin 'VCC' of cell 'XOR4P' is defined in LEF but not in the timing library.
+[06/30 16:05:42     17s] **WARN: (IMPVL-159):	Pin 'GND' of cell 'XOR4' is defined in LEF but not in the timing library.
+[06/30 16:05:42     17s] **WARN: (IMPVL-159):	Pin 'VCC' of cell 'XOR4' is defined in LEF but not in the timing library.
+[06/30 16:05:42     17s] **WARN: (IMPVL-159):	Pin 'GND' of cell 'XOR3T' is defined in LEF but not in the timing library.
+[06/30 16:05:42     17s] **WARN: (IMPVL-159):	Pin 'VCC' of cell 'XOR3T' is defined in LEF but not in the timing library.
+[06/30 16:05:42     17s] **WARN: (IMPVL-159):	Pin 'GND' of cell 'XOR3S' is defined in LEF but not in the timing library.
+[06/30 16:05:42     17s] **WARN: (IMPVL-159):	Pin 'VCC' of cell 'XOR3S' is defined in LEF but not in the timing library.
+[06/30 16:05:42     17s] **WARN: (IMPVL-159):	Pin 'GND' of cell 'XOR3P' is defined in LEF but not in the timing library.
+[06/30 16:05:42     17s] **WARN: (IMPVL-159):	Pin 'VCC' of cell 'XOR3P' is defined in LEF but not in the timing library.
+[06/30 16:05:42     17s] **WARN: (IMPVL-159):	Pin 'GND' of cell 'XOR3' is defined in LEF but not in the timing library.
+[06/30 16:05:42     17s] **WARN: (IMPVL-159):	Pin 'VCC' of cell 'XOR3' is defined in LEF but not in the timing library.
+[06/30 16:05:42     17s] **WARN: (IMPVL-159):	Pin 'GND' of cell 'XOR2HT' is defined in LEF but not in the timing library.
+[06/30 16:05:42     17s] **WARN: (IMPVL-159):	Pin 'VCC' of cell 'XOR2HT' is defined in LEF but not in the timing library.
+[06/30 16:05:42     17s] **WARN: (IMPVL-159):	Pin 'GND' of cell 'XOR2HS' is defined in LEF but not in the timing library.
+[06/30 16:05:42     17s] **WARN: (IMPVL-159):	Pin 'VCC' of cell 'XOR2HS' is defined in LEF but not in the timing library.
+[06/30 16:05:42     17s] **WARN: (EMS-27):	Message (IMPVL-159) has exceeded the current message display limit of 20.
+[06/30 16:05:42     17s] To increase the message display limit, refer to the product command reference manual.
+[06/30 16:05:42     18s] *** Netlist is unique.
+[06/30 16:05:42     18s] **WARN: (IMPFP-3961):	The techSite 'iocore_f' has no related standard cells in LEF/OA library. Cannot make calculations for this site type unless standard cell models of this type exist in the LEF/OA library. If the SITE is not used by the library you can ignore this warning or remove the SITE definition from the LEF/OA to avoid this message.
+[06/30 16:05:42     18s] **WARN: (IMPFP-3961):	The techSite 'iocore_e' has no related standard cells in LEF/OA library. Cannot make calculations for this site type unless standard cell models of this type exist in the LEF/OA library. If the SITE is not used by the library you can ignore this warning or remove the SITE definition from the LEF/OA to avoid this message.
+[06/30 16:05:42     18s] **WARN: (IMPFP-3961):	The techSite 'iocore_ds' has no related standard cells in LEF/OA library. Cannot make calculations for this site type unless standard cell models of this type exist in the LEF/OA library. If the SITE is not used by the library you can ignore this warning or remove the SITE definition from the LEF/OA to avoid this message.
+[06/30 16:05:42     18s] **WARN: (IMPFP-3961):	The techSite 'iocore_cs' has no related standard cells in LEF/OA library. Cannot make calculations for this site type unless standard cell models of this type exist in the LEF/OA library. If the SITE is not used by the library you can ignore this warning or remove the SITE definition from the LEF/OA to avoid this message.
+[06/30 16:05:42     18s] **WARN: (IMPFP-3961):	The techSite 'iocore_d' has no related standard cells in LEF/OA library. Cannot make calculations for this site type unless standard cell models of this type exist in the LEF/OA library. If the SITE is not used by the library you can ignore this warning or remove the SITE definition from the LEF/OA to avoid this message.
+[06/30 16:05:42     18s] **WARN: (IMPFP-3961):	The techSite 'iocore_c' has no related standard cells in LEF/OA library. Cannot make calculations for this site type unless standard cell models of this type exist in the LEF/OA library. If the SITE is not used by the library you can ignore this warning or remove the SITE definition from the LEF/OA to avoid this message.
+[06/30 16:05:42     18s] **WARN: (IMPFP-3961):	The techSite 'iocore_b' has no related standard cells in LEF/OA library. Cannot make calculations for this site type unless standard cell models of this type exist in the LEF/OA library. If the SITE is not used by the library you can ignore this warning or remove the SITE definition from the LEF/OA to avoid this message.
+[06/30 16:05:42     18s] **WARN: (IMPFP-3961):	The techSite 'iocore_a' has no related standard cells in LEF/OA library. Cannot make calculations for this site type unless standard cell models of this type exist in the LEF/OA library. If the SITE is not used by the library you can ignore this warning or remove the SITE definition from the LEF/OA to avoid this message.
+[06/30 16:05:45     20s] Loading preference file /home/raid7_2/userb04/b4502040/ECC/Final/synthesis/dbs2/corefiller.dat/gui.pref.tcl ...
+[06/30 16:05:45     20s] **WARN: (IMPOPT-3602):	The specified path group name reg2reg is not defined.
+[06/30 16:05:45     20s] **WARN: (IMPOPT-3602):	The specified path group name reg2out is not defined.
+[06/30 16:05:45     20s] **WARN: (IMPOPT-3602):	The specified path group name in2reg is not defined.
+[06/30 16:05:45     20s] **WARN: (IMPOPT-3602):	The specified path group name in2out is not defined.
+[06/30 16:05:45     20s] **WARN: (IMPTCM-77):	Option "-drouteStartIteration" for command setNanoRouteMode is obsolete and will be removed in a future release. The obsolete option still works in this release but to avoid this warning and to ensure compatibility with future releases, remove the obsolete option from your script.
+[06/30 16:05:45     20s] **WARN: (IMPEXT-6202):	In addition to the technology file, the capacitance table file is specified for all the RC corners. If the technology file  is already specified for all the RC corners, the capacitance table file is not required for preRoute and postRoute extraction. In a new session, the capacitance table files can be removed from the create_rc_corner command to enable the technology file to be used for preRoute and postRoute (effort level medium/high/signoff) extraction engines.
+[06/30 16:05:49     24s] **WARN: (GLOBAL-100):	Global 'timing_enable_default_delay_arc' has become obsolete. It will be removed in the next release.
+[06/30 16:05:49     24s] Loading path group file /home/raid7_2/userb04/b4502040/ECC/Final/synthesis/dbs2/corefiller.dat/mmmc/pathgroup.sdc ...
+[06/30 16:06:11     31s] <CMD> setDrawView place
+[06/30 16:06:20     32s] <CMD> saveNetlist CHIP.v
+[06/30 16:06:20     32s] Writing Netlist "CHIP.v" ...
+[06/30 16:06:36     33s] <CMD> setAnalysisMode -analysisType bcwc
+[06/30 16:06:42     33s] <CMD> write_sdf -max_view av_func_mode_max -min_view av_func_mode_min -edges noedge  -splitsetuphold -remashold -splitrecrem -min_period_edges none  CHIP.sdf
+[06/30 16:06:42     33s] **WARN: (SDF-808):	The software is currently operating in a high performance mode which optimizes the handling of multiple timing arcs between input and output pin pairs. With the current settings, the SDF file generated will contain the same delay information for all of these arcs. To have the SDF recalculated with explicit pin pair data, you should use the option '-recompute_parallel_arcs'. This setting is recommended for generating SDF for functional  simulation applications.
+[06/30 16:06:42     33s] Starting SI iteration 1 using Infinite Timing Windows
+[06/30 16:06:42     33s] #################################################################################
+[06/30 16:06:42     33s] # Design Stage: PostRoute
+[06/30 16:06:42     33s] # Design Name: CHIP
+[06/30 16:06:42     33s] # Design Mode: 90nm
+[06/30 16:06:42     33s] # Analysis Mode: MMMC Non-OCV 
+[06/30 16:06:42     33s] # Parasitics Mode: No SPEF/RCDB
+[06/30 16:06:42     33s] # Signoff Settings: SI On 
+[06/30 16:06:42     33s] #################################################################################
+[06/30 16:06:42     33s] Extraction called for design 'CHIP' of instances=36927 and nets=15815 using extraction engine 'postRoute' at effort level 'low' .
+[06/30 16:06:42     33s] **WARN: (IMPEXT-3530):	The process node is not set. Use the command setDesignMode -process <process node> prior to extraction for maximum accuracy and optimal automatic threshold setting.
+[06/30 16:06:42     33s] Type 'man IMPEXT-3530' for more detail.
+[06/30 16:06:42     33s] PostRoute (effortLevel low) RC Extraction called for design CHIP.
+[06/30 16:06:42     33s] RC Extraction called in multi-corner(2) mode.
+[06/30 16:06:42     33s] Process corner(s) are loaded.
+[06/30 16:06:42     33s]  Corner: RC_worst
+[06/30 16:06:42     33s]  Corner: RC_best
+[06/30 16:06:42     33s] extractDetailRC Option : -outfile /tmp/innovus_temp_120613_cad29_b4502040_gwnfDV/CHIP_120613_D6Vyqg.rcdb.d  -extended
+[06/30 16:06:42     33s] RC Mode: PostRoute -effortLevel low [Extended CapTable, RC Table Resistances]
+[06/30 16:06:42     33s]       RC Corner Indexes            0       1   
+[06/30 16:06:42     33s] Capacitance Scaling Factor   : 1.00000 1.00000 
+[06/30 16:06:42     33s] Coupling Cap. Scaling Factor : 1.00000 1.00000 
+[06/30 16:06:42     33s] Resistance Scaling Factor    : 1.00000 1.00000 
+[06/30 16:06:42     33s] Clock Cap. Scaling Factor    : 1.00000 1.00000 
+[06/30 16:06:42     33s] Clock Res. Scaling Factor    : 1.00000 1.00000 
+[06/30 16:06:42     33s] Shrink Factor                : 1.00000
+[06/30 16:06:42     34s] Initializing multi-corner capacitance tables ... 
+[06/30 16:06:42     34s] Initializing multi-corner resistance tables ...
+[06/30 16:06:43     34s] Checking LVS Completed (CPU Time= 0:00:00.0  MEM= 1175.6M)
+[06/30 16:06:44     35s] Creating parasitic data file '/tmp/innovus_temp_120613_cad29_b4502040_gwnfDV/CHIP_120613_D6Vyqg.rcdb.d' for storing RC.
+[06/30 16:06:44     35s] Extracted 10.0008% (CPU Time= 0:00:01.8  MEM= 1272.4M)
+[06/30 16:06:44     35s] Extracted 20.0009% (CPU Time= 0:00:01.8  MEM= 1278.4M)
+[06/30 16:06:44     35s] Extracted 30.0009% (CPU Time= 0:00:01.9  MEM= 1279.4M)
+[06/30 16:06:44     36s] Extracted 40.001% (CPU Time= 0:00:02.0  MEM= 1282.4M)
+[06/30 16:06:44     36s] Extracted 50.0011% (CPU Time= 0:00:02.1  MEM= 1285.4M)
+[06/30 16:06:45     36s] Extracted 60.0012% (CPU Time= 0:00:02.2  MEM= 1286.4M)
+[06/30 16:06:45     36s] Extracted 70.0012% (CPU Time= 0:00:02.4  MEM= 1292.4M)
+[06/30 16:06:45     36s] Extracted 80.0013% (CPU Time= 0:00:02.6  MEM= 1293.4M)
+[06/30 16:06:45     36s] Extracted 90.0014% (CPU Time= 0:00:02.7  MEM= 1294.4M)
+[06/30 16:06:45     36s] Extracted 100% (CPU Time= 0:00:03.0  MEM= 1295.4M)
+[06/30 16:06:46     37s] Number of Extracted Resistors     : 233637
+[06/30 16:06:46     37s] Number of Extracted Ground Cap.   : 241999
+[06/30 16:06:46     37s] Number of Extracted Coupling Cap. : 450880
+[06/30 16:06:46     37s] Opening parasitic data file '/tmp/innovus_temp_120613_cad29_b4502040_gwnfDV/CHIP_120613_D6Vyqg.rcdb.d' for reading.
+[06/30 16:06:46     37s] Filtering XCap in 'relativeOnly' mode using values relative_c_threshold=0.03 and total_c_threshold=5fF.
+[06/30 16:06:46     37s]  Corner: RC_worst
+[06/30 16:06:46     37s]  Corner: RC_best
+[06/30 16:06:46     37s] Checking LVS Completed (CPU Time= 0:00:00.1  MEM= 1263.4M)
+[06/30 16:06:46     37s] Creating parasitic data file '/tmp/innovus_temp_120613_cad29_b4502040_gwnfDV/CHIP_120613_D6Vyqg.rcdb_Filter.rcdb.d' for storing RC.
+[06/30 16:06:46     37s] Closing parasitic data file '/tmp/innovus_temp_120613_cad29_b4502040_gwnfDV/CHIP_120613_D6Vyqg.rcdb.d'. 14880 times net's RC data read were performed.
+[06/30 16:06:46     37s] Lumped Parasitic Loading Started (total cpu=0:00:00.0, real=0:00:00.0, current mem=1263.375M)
+[06/30 16:06:46     37s] Opening parasitic data file '/tmp/innovus_temp_120613_cad29_b4502040_gwnfDV/CHIP_120613_D6Vyqg.rcdb.d' for reading.
+[06/30 16:06:46     37s] processing rcdb (/tmp/innovus_temp_120613_cad29_b4502040_gwnfDV/CHIP_120613_D6Vyqg.rcdb.d) for hinst (top) of cell (CHIP);
+[06/30 16:06:46     37s] Lumped Parasitic Loading Completed (total cpu=0:00:00.1, real=0:00:00.0, current mem=1263.375M)
+[06/30 16:06:46     37s] PostRoute (effortLevel low) RC Extraction DONE (CPU Time: 0:00:03.5  Real Time: 0:00:04.0  MEM: 1263.375M)
+[06/30 16:06:47     38s] AAE_INFO: 1 threads acquired from CTE.
+[06/30 16:06:47     38s] Setting infinite Tws ...
+[06/30 16:06:47     38s] First Iteration Infinite Tw... 
+[06/30 16:06:47     38s] Topological Sorting (REAL = 0:00:00.0, MEM = 1263.4M, InitMEM = 1263.4M)
+[06/30 16:06:47     38s] Start delay calculation (fullDC) (1 T). (MEM=1263.38)
+[06/30 16:06:47     38s] Initializing multi-corner capacitance tables ... 
+[06/30 16:06:47     38s] Initializing multi-corner resistance tables ...
+[06/30 16:06:47     38s] AAE_INFO: Number of noise libraries( CDBs ) loaded = 2
+[06/30 16:06:47     38s] AAE_INFO: Cdb files are: 
+[06/30 16:06:47     38s]  	/home/raid7_2/userb04/b4502040/ECC/Final/synthesis/dbs2/corefiller.dat/libs/mmmc/u18_ss.cdb
+[06/30 16:06:47     38s] 	/home/raid7_2/userb04/b4502040/ECC/Final/synthesis/dbs2/corefiller.dat/libs/mmmc/u18_ff.cdb
+[06/30 16:06:47     38s]  
+[06/30 16:06:47     38s] Start AAE Lib Loading. (MEM=1279.78)
+[06/30 16:06:51     41s] **WARN: (IMPESI-3086):	The cell 'YA2GSD' does not have characterized noise model(s) for 'fsa0m_a_t33_generic_io_ss1p62v125c, fsa0m_a_t33_generic_io_ff1p98vm40c' lib(s). Missing noise information could compromise the accuracy of analysis.
+[06/30 16:06:51     41s] **WARN: (IMPESI-3086):	The cell 'XMD' does not have characterized noise model(s) for 'fsa0m_a_t33_generic_io_ss1p62v125c, fsa0m_a_t33_generic_io_ff1p98vm40c' lib(s). Missing noise information could compromise the accuracy of analysis.
+[06/30 16:06:51     41s] End AAE Lib Loading. (MEM=1499.5 CPU=0:00:02.8 Real=0:00:04.0)
+[06/30 16:06:51     41s] End AAE Lib Interpolated Model. (MEM=1499.5 CPU Time=0:00:00.0, Real Time=0:00:00.0)
+[06/30 16:06:53     43s] Opening parasitic data file '/tmp/innovus_temp_120613_cad29_b4502040_gwnfDV/CHIP_120613_D6Vyqg.rcdb.d' for reading.
+[06/30 16:06:53     43s] RC Database In Completed (CPU Time= 0:00:00.0  Real Time=0:00:00.0  MEM= 1470.9M)
+[06/30 16:06:53     43s] AAE_INFO: 1 threads acquired from CTE.
+[06/30 16:06:53     43s] Opening parasitic data file '/tmp/innovus_temp_120613_cad29_b4502040_gwnfDV/CHIP_120613_D6Vyqg.rcdb.d' for reading.
+[06/30 16:06:53     43s] RC Database In Completed (CPU Time= 0:00:00.0  Real Time=0:00:00.0  MEM= 1480.4M)
+[06/30 16:06:53     43s] AAE_INFO: 1 threads acquired from CTE.
+[06/30 16:06:54     44s] Opening parasitic data file '/tmp/innovus_temp_120613_cad29_b4502040_gwnfDV/CHIP_120613_D6Vyqg.rcdb.d' for reading.
+[06/30 16:06:54     44s] RC Database In Completed (CPU Time= 0:00:00.0  Real Time=0:00:00.0  MEM= 1480.4M)
+[06/30 16:06:54     44s] AAE_INFO: 1 threads acquired from CTE.
+[06/30 16:06:57     47s] Total number of fetched objects 14880
+[06/30 16:06:57     47s] AAE_INFO-618: Total number of nets in the design is 15815,  94.3 percent of the nets selected for SI analysis
+[06/30 16:06:57     47s] Opening parasitic data file '/tmp/innovus_temp_120613_cad29_b4502040_gwnfDV/CHIP_120613_D6Vyqg.rcdb.d' for reading.
+[06/30 16:06:57     47s] Closing parasitic data file '/tmp/innovus_temp_120613_cad29_b4502040_gwnfDV/CHIP_120613_D6Vyqg.rcdb.d'. 14880 times net's RC data read were performed.
+[06/30 16:06:57     47s] RC Database In Completed (CPU Time= 0:00:00.0  Real Time=0:00:00.0  MEM= 1548.7M)
+[06/30 16:06:57     47s] AAE_INFO: 1 threads acquired from CTE.
+[06/30 16:07:01     51s] Total number of fetched objects 14880
+[06/30 16:07:01     51s] AAE_INFO-618: Total number of nets in the design is 15815,  94.3 percent of the nets selected for SI analysis
+[06/30 16:07:02     52s] End Timing Check Calculation. (CPU Time=0:00:01.4, Real Time=0:00:01.0)
+[06/30 16:07:02     52s] End Timing Check Calculation. (CPU Time=0:00:00.1, Real Time=0:00:00.0)
+[06/30 16:07:02     52s] End delay calculation. (MEM=1540.74 CPU=0:00:08.8 REAL=0:00:08.0)
+[06/30 16:07:06     57s] End delay calculation (fullDC). (MEM=1443.37 CPU=0:00:18.7 REAL=0:00:19.0)
+[06/30 16:07:06     57s] *** CDM Built up (cpu=0:00:23.1  real=0:00:24.0  mem= 1443.4M) ***
+[06/30 16:07:08     58s] Loading CTE timing window with TwFlowType 0...(CPU = 0:00:00.0, REAL = 0:00:00.0, MEM = 1443.4M)
+[06/30 16:07:08     58s] Add other clocks and setupCteToAAEClockMapping during iter 1
+[06/30 16:07:10     60s] Loading CTE timing window is completed (CPU = 0:00:01.4, REAL = 0:00:02.0, MEM = 1443.4M)
+[06/30 16:07:10     60s] Starting SI iteration 2
+[06/30 16:07:10     60s] Start delay calculation (fullDC) (1 T). (MEM=1443.37)
+[06/30 16:07:10     60s] End AAE Lib Interpolated Model. (MEM=1443.37 CPU Time=0:00:00.0, Real Time=0:00:00.0)
+[06/30 16:07:10     60s] Opening parasitic data file '/tmp/innovus_temp_120613_cad29_b4502040_gwnfDV/CHIP_120613_D6Vyqg.rcdb.d' for reading.
+[06/30 16:07:10     60s] Closing parasitic data file '/tmp/innovus_temp_120613_cad29_b4502040_gwnfDV/CHIP_120613_D6Vyqg.rcdb.d'. 14880 times net's RC data read were performed.
+[06/30 16:07:10     60s] RC Database In Completed (CPU Time= 0:00:00.0  Real Time=0:00:00.0  MEM= 1473.4M)
+[06/30 16:07:10     60s] AAE_INFO: 1 threads acquired from CTE.
+[06/30 16:07:12     62s] Total number of fetched objects 14880
+[06/30 16:07:12     62s] AAE_INFO-618: Total number of nets in the design is 15815,  0.0 percent of the nets selected for SI analysis
+[06/30 16:07:12     62s] Opening parasitic data file '/tmp/innovus_temp_120613_cad29_b4502040_gwnfDV/CHIP_120613_D6Vyqg.rcdb.d' for reading.
+[06/30 16:07:12     62s] Closing parasitic data file '/tmp/innovus_temp_120613_cad29_b4502040_gwnfDV/CHIP_120613_D6Vyqg.rcdb.d'. 7 times net's RC data read were performed.
+[06/30 16:07:12     62s] RC Database In Completed (CPU Time= 0:00:00.0  Real Time=0:00:00.0  MEM= 1473.4M)
+[06/30 16:07:12     62s] AAE_INFO: 1 threads acquired from CTE.
+[06/30 16:07:12     62s] Glitch Analysis: View av_func_mode_min -- Total Number of Nets Skipped = 0. 
+[06/30 16:07:12     62s] Glitch Analysis: View av_func_mode_min -- Total Number of Nets Analyzed = 14880. 
+[06/30 16:07:12     62s] Glitch Analysis: View av_scan_mode_min -- Total Number of Nets Skipped = 0. 
+[06/30 16:07:12     62s] Glitch Analysis: View av_scan_mode_min -- Total Number of Nets Analyzed = 32. 
+[06/30 16:07:12     62s] Total number of fetched objects 14880
+[06/30 16:07:12     62s] AAE_INFO-618: Total number of nets in the design is 15815,  0.0 percent of the nets selected for SI analysis
+[06/30 16:07:12     62s] End delay calculation. (MEM=1443.37 CPU=0:00:02.1 REAL=0:00:02.0)
+[06/30 16:07:12     62s] End delay calculation (fullDC). (MEM=1443.37 CPU=0:00:02.2 REAL=0:00:02.0)
+[06/30 16:07:12     62s] *** CDM Built up (cpu=0:00:02.2  real=0:00:02.0  mem= 1443.4M) ***
+[06/30 16:07:21     63s] <CMD> set dbgLefDefOutVersion 5.8
+[06/30 16:07:21     63s] <CMD> global dbgLefDefOutVersion
+[06/30 16:07:21     63s] <CMD> set dbgLefDefOutVersion 5.8
+[06/30 16:07:21     63s] <CMD> defOut -floorplan -netlist -routing CHIP.def
+[06/30 16:07:21     63s] Writing DEF file 'CHIP.def', current time is Tue Jun 30 16:07:21 2020 ...
+[06/30 16:07:21     63s] unitPerMicron=1000, dbgMicronPerDBU=0.001000, unitPerDBU=1.000000
+[06/30 16:07:21     64s] DEF file 'CHIP.def' is written, current time is Tue Jun 30 16:07:21 2020 ...
+[06/30 16:07:21     64s] <CMD> set dbgLefDefOutVersion 5.8
+[06/30 16:07:21     64s] <CMD> set dbgLefDefOutVersion 5.8
+[06/30 16:07:42     65s] <CMD> addInst -physical -cell BONDPADD_m -inst BPad_ipad_py_i_1 -loc 194.06 -56.92 -ori R0
+[06/30 16:07:42     65s] **WARN: (IMPSYC-6308):	Instance 'BPad_ipad_py_i_1' is placed at (194060, -56920) which is outside of core box.
+[06/30 16:07:42     65s] <CMD> addInst -physical -cell BONDPADD_m -inst BPad_ipad_py_i_2 -loc 310.62 -56.92 -ori R0
+[06/30 16:07:42     65s] **WARN: (IMPSYC-6308):	Instance 'BPad_ipad_py_i_2' is placed at (310620, -56920) which is outside of core box.
+[06/30 16:07:42     65s] <CMD> addInst -physical -cell BONDPADD_m -inst BPad_ipad_py_i_3 -loc 427.18 -56.92 -ori R0
+[06/30 16:07:42     65s] **WARN: (IMPSYC-6308):	Instance 'BPad_ipad_py_i_3' is placed at (427180, -56920) which is outside of core box.
+[06/30 16:07:42     65s] <CMD> addInst -physical -cell BONDPADD_m -inst BPad_ipad_k_i_0 -loc 543.74 -56.92 -ori R0
+[06/30 16:07:42     65s] **WARN: (IMPSYC-6308):	Instance 'BPad_ipad_k_i_0' is placed at (543740, -56920) which is outside of core box.
+[06/30 16:07:42     65s] <CMD> addInst -physical -cell BONDPADD_m -inst BPad_ipad_CoreVSS2 -loc 660.3 -56.92 -ori R0
+[06/30 16:07:42     65s] **WARN: (IMPSYC-6308):	Instance 'BPad_ipad_CoreVSS2' is placed at (660300, -56920) which is outside of core box.
+[06/30 16:07:42     65s] <CMD> addInst -physical -cell BONDPADD_m -inst BPad_ipad_CoreVDD2 -loc 776.86 -56.92 -ori R0
+[06/30 16:07:42     65s] **WARN: (IMPSYC-6308):	Instance 'BPad_ipad_CoreVDD2' is placed at (776860, -56920) which is outside of core box.
+[06/30 16:07:42     65s] <CMD> addInst -physical -cell BONDPADD_m -inst BPad_ipad_k_i_1 -loc 893.42 -56.92 -ori R0
+[06/30 16:07:42     65s] **WARN: (IMPSYC-6308):	Instance 'BPad_ipad_k_i_1' is placed at (893420, -56920) which is outside of core box.
+[06/30 16:07:42     65s] <CMD> addInst -physical -cell BONDPADD_m -inst BPad_ipad_k_i_2 -loc 1009.98 -56.92 -ori R0
+[06/30 16:07:42     65s] **WARN: (IMPSYC-6308):	Instance 'BPad_ipad_k_i_2' is placed at (1009980, -56920) which is outside of core box.
+[06/30 16:07:42     65s] <CMD> addInst -physical -cell BONDPADD_m -inst BPad_ipad_k_i_3 -loc 1126.54 -56.92 -ori R0
+[06/30 16:07:42     65s] **WARN: (IMPSYC-6308):	Instance 'BPad_ipad_k_i_3' is placed at (1126540, -56920) which is outside of core box.
+[06/30 16:07:42     65s] <CMD> addInst -physical -cell BONDPADD_m -inst BPad_ipad_kpx_0 -loc 1243.1 -56.92 -ori R0
+[06/30 16:07:42     65s] **WARN: (IMPSYC-6308):	Instance 'BPad_ipad_kpx_0' is placed at (1243100, -56920) which is outside of core box.
+[06/30 16:07:42     65s] <CMD> addInst -physical -cell BONDPADD_m -inst BPad_ipad_kpx_1 -loc 1499.78 194.11 -ori R90
+[06/30 16:07:42     65s] **WARN: (IMPSYC-6308):	Instance 'BPad_ipad_kpx_1' is placed at (1499780, 194110) which is outside of core box.
+[06/30 16:07:42     65s] <CMD> addInst -physical -cell BONDPADD_m -inst BPad_ipad_kpx_2 -loc 1499.78 310.71 -ori R90
+[06/30 16:07:42     65s] **WARN: (IMPSYC-6308):	Instance 'BPad_ipad_kpx_2' is placed at (1499780, 310710) which is outside of core box.
+[06/30 16:07:42     65s] <CMD> addInst -physical -cell BONDPADD_m -inst BPad_ipad_kpx_3 -loc 1499.78 427.31 -ori R90
+[06/30 16:07:42     65s] **WARN: (IMPSYC-6308):	Instance 'BPad_ipad_kpx_3' is placed at (1499780, 427310) which is outside of core box.
+[06/30 16:07:42     65s] <CMD> addInst -physical -cell BONDPADD_m -inst BPad_ipad_kpy_0 -loc 1499.78 543.91 -ori R90
+[06/30 16:07:42     65s] **WARN: (IMPSYC-6308):	Instance 'BPad_ipad_kpy_0' is placed at (1499780, 543910) which is outside of core box.
+[06/30 16:07:42     65s] <CMD> addInst -physical -cell BONDPADD_m -inst BPad_ipad_IOVDD2 -loc 1499.78 660.51 -ori R90
+[06/30 16:07:42     65s] **WARN: (IMPSYC-6308):	Instance 'BPad_ipad_IOVDD2' is placed at (1499780, 660510) which is outside of core box.
+[06/30 16:07:42     65s] <CMD> addInst -physical -cell BONDPADD_m -inst BPad_ipad_IOVSS2 -loc 1499.78 777.11 -ori R90
+[06/30 16:07:42     65s] **WARN: (IMPSYC-6308):	Instance 'BPad_ipad_IOVSS2' is placed at (1499780, 777110) which is outside of core box.
+[06/30 16:07:42     65s] <CMD> addInst -physical -cell BONDPADD_m -inst BPad_ipad_kpy_1 -loc 1499.78 893.71 -ori R90
+[06/30 16:07:42     65s] **WARN: (IMPSYC-6308):	Instance 'BPad_ipad_kpy_1' is placed at (1499780, 893710) which is outside of core box.
+[06/30 16:07:42     65s] <CMD> addInst -physical -cell BONDPADD_m -inst BPad_ipad_kpy_2 -loc 1499.78 1010.31 -ori R90
+[06/30 16:07:42     65s] **WARN: (IMPSYC-6308):	Instance 'BPad_ipad_kpy_2' is placed at (1499780, 1010310) which is outside of core box.
+[06/30 16:07:42     65s] <CMD> addInst -physical -cell BONDPADD_m -inst BPad_ipad_kpy_3 -loc 1499.78 1126.91 -ori R90
+[06/30 16:07:42     65s] **WARN: (IMPSYC-6308):	Instance 'BPad_ipad_kpy_3' is placed at (1499780, 1126910) which is outside of core box.
+[06/30 16:07:42     65s] <CMD> addInst -physical -cell BONDPADD_m -inst BPad_ipad_done -loc 1499.78 1243.51 -ori R90
+[06/30 16:07:42     65s] **WARN: (IMPSYC-6308):	Instance 'BPad_ipad_done' is placed at (1499780, 1243510) which is outside of core box.
+[06/30 16:07:42     65s] <CMD> addInst -physical -cell BONDPADD_m -inst BPad_ipad_prime_i_0 -loc 1243.1 1500.24 -ori R180
+[06/30 16:07:42     65s] **WARN: (IMPSYC-6308):	Instance 'BPad_ipad_prime_i_0' is placed at (1243100, 1500240) which is outside of core box.
+[06/30 16:07:42     65s] <CMD> addInst -physical -cell BONDPADD_m -inst BPad_ipad_a_i_3 -loc 1126.54 1500.24 -ori R180
+[06/30 16:07:42     65s] **WARN: (IMPSYC-6308):	Instance 'BPad_ipad_a_i_3' is placed at (1126540, 1500240) which is outside of core box.
+[06/30 16:07:42     65s] <CMD> addInst -physical -cell BONDPADD_m -inst BPad_ipad_a_i_2 -loc 1009.98 1500.24 -ori R180
+[06/30 16:07:42     65s] **WARN: (IMPSYC-6308):	Instance 'BPad_ipad_a_i_2' is placed at (1009980, 1500240) which is outside of core box.
+[06/30 16:07:42     65s] <CMD> addInst -physical -cell BONDPADD_m -inst BPad_ipad_i_rst -loc 893.42 1500.24 -ori R180
+[06/30 16:07:42     65s] **WARN: (IMPSYC-6308):	Instance 'BPad_ipad_i_rst' is placed at (893420, 1500240) which is outside of core box.
+[06/30 16:07:42     65s] <CMD> addInst -physical -cell BONDPADD_m -inst BPad_ipad_CoreVSS1 -loc 776.86 1500.24 -ori R180
+[06/30 16:07:42     65s] **WARN: (IMPSYC-6308):	Instance 'BPad_ipad_CoreVSS1' is placed at (776860, 1500240) which is outside of core box.
+[06/30 16:07:42     65s] <CMD> addInst -physical -cell BONDPADD_m -inst BPad_ipad_CoreVDD1 -loc 660.3 1500.24 -ori R180
+[06/30 16:07:42     65s] **WARN: (IMPSYC-6308):	Instance 'BPad_ipad_CoreVDD1' is placed at (660300, 1500240) which is outside of core box.
+[06/30 16:07:42     65s] <CMD> addInst -physical -cell BONDPADD_m -inst BPad_ipad_i_clk -loc 543.74 1500.24 -ori R180
+[06/30 16:07:42     65s] **WARN: (IMPSYC-6308):	Instance 'BPad_ipad_i_clk' is placed at (543740, 1500240) which is outside of core box.
+[06/30 16:07:42     65s] <CMD> addInst -physical -cell BONDPADD_m -inst BPad_ipad_a_i_1 -loc 427.18 1500.24 -ori R180
+[06/30 16:07:42     65s] **WARN: (IMPSYC-6308):	Instance 'BPad_ipad_a_i_1' is placed at (427180, 1500240) which is outside of core box.
+[06/30 16:07:42     65s] <CMD> addInst -physical -cell BONDPADD_m -inst BPad_ipad_a_i_0 -loc 310.62 1500.24 -ori R180
+[06/30 16:07:42     65s] **WARN: (IMPSYC-6308):	Instance 'BPad_ipad_a_i_0' is placed at (310620, 1500240) which is outside of core box.
+[06/30 16:07:42     65s] <CMD> addInst -physical -cell BONDPADD_m -inst BPad_ipad_i_start -loc 194.06 1500.24 -ori R180
+[06/30 16:07:42     65s] **WARN: (IMPSYC-6308):	Instance 'BPad_ipad_i_start' is placed at (194060, 1500240) which is outside of core box.
+[06/30 16:07:42     65s] <CMD> addInst -physical -cell BONDPADD_m -inst BPad_ipad_py_i_0 -loc -56.92 1243.51 -ori R270
+[06/30 16:07:42     65s] **WARN: (IMPSYC-6308):	Instance 'BPad_ipad_py_i_0' is placed at (-56920, 1243510) which is outside of core box.
+[06/30 16:07:42     65s] <CMD> addInst -physical -cell BONDPADD_m -inst BPad_ipad_px_i_3 -loc -56.92 1126.91 -ori R270
+[06/30 16:07:42     65s] **WARN: (IMPSYC-6308):	Instance 'BPad_ipad_px_i_3' is placed at (-56920, 1126910) which is outside of core box.
+[06/30 16:07:42     65s] <CMD> addInst -physical -cell BONDPADD_m -inst BPad_ipad_px_i_2 -loc -56.92 1010.31 -ori R270
+[06/30 16:07:42     65s] **WARN: (IMPSYC-6308):	Instance 'BPad_ipad_px_i_2' is placed at (-56920, 1010310) which is outside of core box.
+[06/30 16:07:42     65s] <CMD> addInst -physical -cell BONDPADD_m -inst BPad_ipad_px_i_1 -loc -56.92 893.71 -ori R270
+[06/30 16:07:42     65s] **WARN: (IMPSYC-6308):	Instance 'BPad_ipad_px_i_1' is placed at (-56920, 893710) which is outside of core box.
+[06/30 16:07:42     65s] <CMD> addInst -physical -cell BONDPADD_m -inst BPad_ipad_IOVSS1 -loc -56.92 777.11 -ori R270
+[06/30 16:07:42     65s] **WARN: (IMPSYC-6308):	Instance 'BPad_ipad_IOVSS1' is placed at (-56920, 777110) which is outside of core box.
+[06/30 16:07:42     65s] <CMD> addInst -physical -cell BONDPADD_m -inst BPad_ipad_IOVDD1 -loc -56.92 660.51 -ori R270
+[06/30 16:07:42     65s] **WARN: (IMPSYC-6308):	Instance 'BPad_ipad_IOVDD1' is placed at (-56920, 660510) which is outside of core box.
+[06/30 16:07:42     65s] <CMD> addInst -physical -cell BONDPADD_m -inst BPad_ipad_px_i_0 -loc -56.92 543.91 -ori R270
+[06/30 16:07:42     65s] **WARN: (IMPSYC-6308):	Instance 'BPad_ipad_px_i_0' is placed at (-56920, 543910) which is outside of core box.
+[06/30 16:07:42     65s] <CMD> addInst -physical -cell BONDPADD_m -inst BPad_ipad_prime_i_3 -loc -56.92 427.31 -ori R270
+[06/30 16:07:42     65s] **WARN: (IMPSYC-6308):	Instance 'BPad_ipad_prime_i_3' is placed at (-56920, 427310) which is outside of core box.
+[06/30 16:07:42     65s] <CMD> addInst -physical -cell BONDPADD_m -inst BPad_ipad_prime_i_2 -loc -56.92 310.71 -ori R270
+[06/30 16:07:42     65s] **WARN: (IMPSYC-6308):	Instance 'BPad_ipad_prime_i_2' is placed at (-56920, 310710) which is outside of core box.
+[06/30 16:07:42     65s] <CMD> addInst -physical -cell BONDPADD_m -inst BPad_ipad_prime_i_1 -loc -56.92 194.11 -ori R270
+[06/30 16:07:42     65s] **WARN: (IMPSYC-6308):	Instance 'BPad_ipad_prime_i_1' is placed at (-56920, 194110) which is outside of core box.
+[06/30 16:07:42     65s] <CMD> setDrawView place
+[06/30 16:07:42     65s] <CMD> redraw
+[06/30 16:10:01     72s] <CMD> add_text -layer metal5 -pt 1435 640 -label IOVDD -height 10
+[06/30 16:10:54     75s] <CMD> add_text -layer metal5 -pt 1435 750 -label IOVSS -height 10
+[06/30 16:13:01     81s] <CMD> addMetalFill -layer { metal1 metal2 metal3 metal4 metal5 metal6 } -timingAware sta -slackThreshold 0.2
+[06/30 16:13:01     81s] Design State:
+[06/30 16:13:01     81s]     #signal nets       :  14840
+[06/30 16:13:01     81s]     #routed signal nets:  14808
+[06/30 16:13:01     81s]     #clock nets        :  40
+[06/30 16:13:01     81s]     #routed clock nets :  40
+[06/30 16:13:01     81s] #################################################################################
+[06/30 16:13:01     81s] # Design Stage: PostRoute
+[06/30 16:13:01     81s] # Design Name: CHIP
+[06/30 16:13:01     81s] # Design Mode: 90nm
+[06/30 16:13:01     81s] # Analysis Mode: MMMC Non-OCV 
+[06/30 16:13:01     81s] # Parasitics Mode: SPEF/RCDB
+[06/30 16:13:01     81s] # Signoff Settings: SI On 
+[06/30 16:13:01     81s] #################################################################################
+[06/30 16:13:01     81s] Design State:
+[06/30 16:13:01     81s]     #signal nets       :  14840
+[06/30 16:13:01     81s]     #routed signal nets:  14808
+[06/30 16:13:01     81s]     #clock nets        :  40
+[06/30 16:13:01     81s]     #routed clock nets :  40
+[06/30 16:13:01     81s] #################################################################################
+[06/30 16:13:01     81s] # Design Stage: PostRoute
+[06/30 16:13:01     81s] # Design Name: CHIP
+[06/30 16:13:01     81s] # Design Mode: 90nm
+[06/30 16:13:01     81s] # Analysis Mode: MMMC Non-OCV 
+[06/30 16:13:01     81s] # Parasitics Mode: SPEF/RCDB
+[06/30 16:13:01     81s] # Signoff Settings: SI On 
+[06/30 16:13:01     81s] #################################################################################
+[06/30 16:13:01     81s] Closing parasitic data file '/tmp/innovus_temp_120613_cad29_b4502040_gwnfDV/CHIP_120613_D6Vyqg.rcdb.d'. 3 times net's RC data read were performed.
+[06/30 16:13:01     81s] Extraction called for design 'CHIP' of instances=36967 and nets=15815 using extraction engine 'postRoute' at effort level 'low' .
+[06/30 16:13:01     81s] **WARN: (IMPEXT-3530):	The process node is not set. Use the command setDesignMode -process <process node> prior to extraction for maximum accuracy and optimal automatic threshold setting.
+[06/30 16:13:01     81s] Type 'man IMPEXT-3530' for more detail.
+[06/30 16:13:01     81s] PostRoute (effortLevel low) RC Extraction called for design CHIP.
+[06/30 16:13:01     81s] RC Extraction called in multi-corner(2) mode.
+[06/30 16:13:01     81s] Process corner(s) are loaded.
+[06/30 16:13:01     81s]  Corner: RC_worst
+[06/30 16:13:01     81s]  Corner: RC_best
+[06/30 16:13:01     81s] extractDetailRC Option : -outfile /tmp/innovus_temp_120613_cad29_b4502040_gwnfDV/CHIP_120613_D6Vyqg.rcdb.d -maxResLength 200  -extended
+[06/30 16:13:01     81s] RC Mode: PostRoute -effortLevel low [Extended CapTable, RC Table Resistances]
+[06/30 16:13:01     81s]       RC Corner Indexes            0       1   
+[06/30 16:13:01     81s] Capacitance Scaling Factor   : 1.00000 1.00000 
+[06/30 16:13:01     81s] Coupling Cap. Scaling Factor : 1.00000 1.00000 
+[06/30 16:13:01     81s] Resistance Scaling Factor    : 1.00000 1.00000 
+[06/30 16:13:01     81s] Clock Cap. Scaling Factor    : 1.00000 1.00000 
+[06/30 16:13:01     81s] Clock Res. Scaling Factor    : 1.00000 1.00000 
+[06/30 16:13:01     81s] Shrink Factor                : 1.00000
+[06/30 16:13:01     82s] Initializing multi-corner capacitance tables ... 
+[06/30 16:13:01     82s] Initializing multi-corner resistance tables ...
+[06/30 16:13:01     82s] Checking LVS Completed (CPU Time= 0:00:00.0  MEM= 1342.5M)
+[06/30 16:13:01     82s] Creating parasitic data file '/tmp/innovus_temp_120613_cad29_b4502040_gwnfDV/CHIP_120613_D6Vyqg.rcdb.d' for storing RC.
+[06/30 16:13:01     82s] Extracted 10.0008% (CPU Time= 0:00:00.4  MEM= 1425.2M)
+[06/30 16:13:01     82s] Extracted 20.0009% (CPU Time= 0:00:00.5  MEM= 1425.2M)
+[06/30 16:13:01     82s] Extracted 30.0009% (CPU Time= 0:00:00.5  MEM= 1425.2M)
+[06/30 16:13:03     83s] Extracted 40.001% (CPU Time= 0:00:01.9  MEM= 1425.2M)
+[06/30 16:13:03     83s] Extracted 50.0011% (CPU Time= 0:00:02.0  MEM= 1428.2M)
+[06/30 16:13:03     84s] Extracted 60.0012% (CPU Time= 0:00:02.1  MEM= 1430.2M)
+[06/30 16:13:03     84s] Extracted 70.0012% (CPU Time= 0:00:02.2  MEM= 1435.2M)
+[06/30 16:13:03     84s] Extracted 80.0013% (CPU Time= 0:00:02.5  MEM= 1436.2M)
+[06/30 16:13:03     84s] Extracted 90.0014% (CPU Time= 0:00:02.6  MEM= 1437.2M)
+[06/30 16:13:04     84s] Extracted 100% (CPU Time= 0:00:02.9  MEM= 1438.2M)
+[06/30 16:13:04     84s] Number of Extracted Resistors     : 233637
+[06/30 16:13:04     84s] Number of Extracted Ground Cap.   : 241999
+[06/30 16:13:04     84s] Number of Extracted Coupling Cap. : 450880
+[06/30 16:13:04     84s] Opening parasitic data file '/tmp/innovus_temp_120613_cad29_b4502040_gwnfDV/CHIP_120613_D6Vyqg.rcdb.d' for reading.
+[06/30 16:13:04     84s] Filtering XCap in 'relativeOnly' mode using values relative_c_threshold=0.03 and total_c_threshold=5fF.
+[06/30 16:13:04     84s]  Corner: RC_worst
+[06/30 16:13:04     84s]  Corner: RC_best
+[06/30 16:13:04     84s] Checking LVS Completed (CPU Time= 0:00:00.1  MEM= 1406.2M)
+[06/30 16:13:04     84s] Creating parasitic data file '/tmp/innovus_temp_120613_cad29_b4502040_gwnfDV/CHIP_120613_D6Vyqg.rcdb_Filter.rcdb.d' for storing RC.
+[06/30 16:13:04     85s] Closing parasitic data file '/tmp/innovus_temp_120613_cad29_b4502040_gwnfDV/CHIP_120613_D6Vyqg.rcdb.d'. 14880 times net's RC data read were performed.
+[06/30 16:13:04     85s] Lumped Parasitic Loading Started (total cpu=0:00:00.0, real=0:00:00.0, current mem=1406.172M)
+[06/30 16:13:04     85s] Opening parasitic data file '/tmp/innovus_temp_120613_cad29_b4502040_gwnfDV/CHIP_120613_D6Vyqg.rcdb.d' for reading.
+[06/30 16:13:04     85s] processing rcdb (/tmp/innovus_temp_120613_cad29_b4502040_gwnfDV/CHIP_120613_D6Vyqg.rcdb.d) for hinst (top) of cell (CHIP);
+[06/30 16:13:04     85s] Lumped Parasitic Loading Completed (total cpu=0:00:00.1, real=0:00:00.0, current mem=1406.172M)
+[06/30 16:13:04     85s] PostRoute (effortLevel low) RC Extraction DONE (CPU Time: 0:00:03.5  Real Time: 0:00:03.0  MEM: 1406.172M)
+[06/30 16:13:04     85s] Starting SI iteration 1 using Infinite Timing Windows
+[06/30 16:13:05     85s] #################################################################################
+[06/30 16:13:05     85s] # Design Stage: PostRoute
+[06/30 16:13:05     85s] # Design Name: CHIP
+[06/30 16:13:05     85s] # Design Mode: 90nm
+[06/30 16:13:05     85s] # Analysis Mode: MMMC Non-OCV 
+[06/30 16:13:05     85s] # Parasitics Mode: SPEF/RCDB
+[06/30 16:13:05     85s] # Signoff Settings: SI On 
+[06/30 16:13:05     85s] #################################################################################
+[06/30 16:13:05     86s] AAE_INFO: 1 threads acquired from CTE.
+[06/30 16:13:05     86s] Setting infinite Tws ...
+[06/30 16:13:05     86s] First Iteration Infinite Tw... 
+[06/30 16:13:05     86s] Calculate delays in BcWc mode...
+[06/30 16:13:05     86s] Calculate delays in BcWc mode...
+[06/30 16:13:05     86s] Topological Sorting (REAL = 0:00:00.0, MEM = 1404.2M, InitMEM = 1404.2M)
+[06/30 16:13:05     86s] Start delay calculation (fullDC) (1 T). (MEM=1404.17)
+[06/30 16:13:05     86s] Initializing multi-corner capacitance tables ... 
+[06/30 16:13:05     86s] Initializing multi-corner resistance tables ...
+[06/30 16:13:06     86s] End AAE Lib Interpolated Model. (MEM=1420.53 CPU Time=0:00:00.0, Real Time=0:00:00.0)
+[06/30 16:13:06     86s] Opening parasitic data file '/tmp/innovus_temp_120613_cad29_b4502040_gwnfDV/CHIP_120613_D6Vyqg.rcdb.d' for reading.
+[06/30 16:13:06     86s] RC Database In Completed (CPU Time= 0:00:00.0  Real Time=0:00:00.0  MEM= 1420.5M)
+[06/30 16:13:06     86s] AAE_INFO: 1 threads acquired from CTE.
+[06/30 16:13:10     91s] Total number of fetched objects 14880
+[06/30 16:13:10     91s] AAE_INFO-618: Total number of nets in the design is 15815,  94.3 percent of the nets selected for SI analysis
+[06/30 16:13:10     91s] End Timing Check Calculation. (CPU Time=0:00:00.1, Real Time=0:00:00.0)
+[06/30 16:13:10     91s] End delay calculation. (MEM=1457.29 CPU=0:00:04.3 REAL=0:00:04.0)
+[06/30 16:13:10     91s] End delay calculation (fullDC). (MEM=1457.29 CPU=0:00:04.9 REAL=0:00:05.0)
+[06/30 16:13:10     91s] *** CDM Built up (cpu=0:00:05.7  real=0:00:05.0  mem= 1457.3M) ***
+[06/30 16:13:11     92s] Loading CTE timing window with TwFlowType 0...(CPU = 0:00:00.0, REAL = 0:00:00.0, MEM = 1457.3M)
+[06/30 16:13:11     92s] Add other clocks and setupCteToAAEClockMapping during iter 1
+[06/30 16:13:12     92s] Loading CTE timing window is completed (CPU = 0:00:00.1, REAL = 0:00:01.0, MEM = 1457.3M)
+[06/30 16:13:12     92s] Starting SI iteration 2
+[06/30 16:13:12     92s] AAE_INFO: 1 threads acquired from CTE.
+[06/30 16:13:12     92s] Calculate delays in BcWc mode...
+[06/30 16:13:12     92s] Calculate delays in BcWc mode...
+[06/30 16:13:12     92s] Start delay calculation (fullDC) (1 T). (MEM=1457.29)
+[06/30 16:13:12     92s] End AAE Lib Interpolated Model. (MEM=1457.29 CPU Time=0:00:00.0, Real Time=0:00:00.0)
+[06/30 16:13:12     92s] Total number of fetched objects 14880
+[06/30 16:13:12     92s] AAE_INFO-618: Total number of nets in the design is 15815,  0.0 percent of the nets selected for SI analysis
+[06/30 16:13:12     92s] End delay calculation. (MEM=1457.29 CPU=0:00:00.1 REAL=0:00:00.0)
+[06/30 16:13:12     92s] End delay calculation (fullDC). (MEM=1457.29 CPU=0:00:00.2 REAL=0:00:00.0)
+[06/30 16:13:12     92s] *** CDM Built up (cpu=0:00:00.2  real=0:00:00.0  mem= 1457.3M) ***
+[06/30 16:13:13     93s] Critical nets number = 2088.
+[06/30 16:13:13     93s] **WARN: (from .metalfill_120613.conf) Unknown option 'srouteLayerFillMinUnionDensityToAboveLayer.1'!
+[06/30 16:13:13     93s] **WARN: (from .metalfill_120613.conf) Unknown option '0'!
+[06/30 16:13:13     93s] **WARN: (from .metalfill_120613.conf) Unknown option 'srouteLayerFillMaxUnionDensityToAboveLayer.1'!
+[06/30 16:13:13     93s] **WARN: (from .metalfill_120613.conf) Unknown option '2'!
+[06/30 16:13:13     93s] **WARN: (from .metalfill_120613.conf) Unknown option 'srouteLayerFillMinUnionDensityToAboveLayer.2'!
+[06/30 16:13:13     93s] **WARN: (from .metalfill_120613.conf) Unknown option '0'!
+[06/30 16:13:13     93s] **WARN: (from .metalfill_120613.conf) Unknown option 'srouteLayerFillMaxUnionDensityToAboveLayer.2'!
+[06/30 16:13:13     93s] **WARN: (from .metalfill_120613.conf) Unknown option '2'!
+[06/30 16:13:13     93s] **WARN: (from .metalfill_120613.conf) Unknown option 'srouteLayerFillMinUnionDensityToAboveLayer.3'!
+[06/30 16:13:13     93s] **WARN: (from .metalfill_120613.conf) Unknown option '0'!
+[06/30 16:13:13     93s] **WARN: (from .metalfill_120613.conf) Unknown option 'srouteLayerFillMaxUnionDensityToAboveLayer.3'!
+[06/30 16:13:13     93s] **WARN: (from .metalfill_120613.conf) Unknown option '2'!
+[06/30 16:13:13     93s] **WARN: (from .metalfill_120613.conf) Unknown option 'srouteLayerFillMinUnionDensityToAboveLayer.4'!
+[06/30 16:13:13     93s] **WARN: (from .metalfill_120613.conf) Unknown option '0'!
+[06/30 16:13:13     93s] **WARN: (from .metalfill_120613.conf) Unknown option 'srouteLayerFillMaxUnionDensityToAboveLayer.4'!
+[06/30 16:13:13     93s] **WARN: (from .metalfill_120613.conf) Unknown option '2'!
+[06/30 16:13:13     93s] **WARN: (from .metalfill_120613.conf) Unknown option 'srouteLayerFillMinUnionDensityToAboveLayer.5'!
+[06/30 16:13:13     93s] **WARN: (from .metalfill_120613.conf) Unknown option '0'!
+[06/30 16:13:13     93s] **WARN: (from .metalfill_120613.conf) Unknown option 'srouteLayerFillMaxUnionDensityToAboveLayer.5'!
+[06/30 16:13:13     93s] **WARN: (from .metalfill_120613.conf) Unknown option '2'!
+[06/30 16:13:13     93s] **WARN: (from .metalfill_120613.conf) Unknown option 'srouteLayerFillMinUnionDensityToAboveLayer.6'!
+[06/30 16:13:13     93s] **WARN: (from .metalfill_120613.conf) Unknown option '0'!
+[06/30 16:13:13     93s] **WARN: (from .metalfill_120613.conf) Unknown option 'srouteLayerFillMaxUnionDensityToAboveLayer.6'!
+[06/30 16:13:13     93s] **WARN: (from .metalfill_120613.conf) Unknown option '2'!
+[06/30 16:13:13     93s] **WARN: (IMPMF-126):	Layer [6] has smaller min_width(800) than the value in LEF file. Program default change to (1200)
+[06/30 16:13:13     93s] **WARN: (IMPMF-5043):	Layer [6] has smaller min_length(1000) than the value in LEF file. Program default change to (1200)
+[06/30 16:13:13     93s] **WARN: (IMPMF-139):	Layer [6] Active spacing(800) should be greater than min_space in LEF File. Program default change to (1000).
+[06/30 16:13:20    100s] ************************
+[06/30 16:13:20    100s] Timing Aware sta
+[06/30 16:13:20    100s] P/G Nets: 2
+[06/30 16:13:20    100s] Non-Critical Signal Nets: 13684
+[06/30 16:13:20    100s] Critical Signal Nets: 2088
+[06/30 16:13:20    100s] Clock Nets:41
+[06/30 16:13:20    100s] ************************
+[06/30 16:13:20    101s] Density calculation ...... Slot :   1 of   3
+[06/30 16:13:21    101s] Density calculation ...... Slot :   2 of   3
+[06/30 16:13:27    107s] Density calculation ...... Slot :   3 of   3
+[06/30 16:13:27    107s] Density calculation ...... Slot :   1 of   3
+[06/30 16:13:27    107s] Density calculation ...... Slot :   2 of   3
+[06/30 16:13:30    110s] Density calculation ...... Slot :   3 of   3
+[06/30 16:13:30    110s] End of Density Calculation : cpu time : 0:00:16.3, real time : 0:00:17.0, peak mem : 1611.90 megs
+[06/30 16:13:30    110s] Process data during iteration   1 in region   0 of 4.
+[06/30 16:13:32    112s] Process data during iteration   1 in region   1 of 4.
+[06/30 16:13:32    113s] Process data during iteration   1 in region   2 of 4.
+[06/30 16:13:33    113s] Process data during iteration   1 in region   3 of 4.
+[06/30 16:13:33    113s] End metal filling: cpu:  0:00:19.3,  real:  0:00:20.0,  peak mem:  1817.90  megs.
+[06/30 16:14:20    115s] <CMD> saveDesign dbs2/finish
+[06/30 16:14:21    115s] The in-memory database contained RC information but was not saved. To save 
+[06/30 16:14:21    115s] the RC information, use saveDesign's -rc option. Note: Saving RC information can be quite large, 
+[06/30 16:14:21    115s] so it should only be saved when it is really desired.
+[06/30 16:14:21    115s] #% Begin save design ... (date=06/30 16:14:21, mem=1527.6M)
+[06/30 16:14:21    116s] % Begin Save netlist data ... (date=06/30 16:14:21, mem=1528.4M)
+[06/30 16:14:21    116s] Writing Binary DB to dbs2/finish.dat/CHIP.v.bin in single-threaded mode...
+[06/30 16:14:21    116s] % End Save netlist data ... (date=06/30 16:14:21, total cpu=0:00:00.0, real=0:00:00.0, peak res=1528.8M, current mem=1528.8M)
+[06/30 16:14:21    116s] % Begin Save AAE data ... (date=06/30 16:14:21, mem=1528.4M)
+[06/30 16:14:21    116s] Saving AAE Data ...
+[06/30 16:14:21    116s] % End Save AAE data ... (date=06/30 16:14:21, total cpu=0:00:00.0, real=0:00:00.0, peak res=1528.4M, current mem=1528.4M)
+[06/30 16:14:22    116s] % Begin Save clock tree data ... (date=06/30 16:14:22, mem=1532.7M)
+[06/30 16:14:22    116s] % End Save clock tree data ... (date=06/30 16:14:22, total cpu=0:00:00.0, real=0:00:00.0, peak res=1532.7M, current mem=1532.5M)
+[06/30 16:14:22    116s] Saving preference file dbs2/finish.dat/gui.pref.tcl ...
+[06/30 16:14:22    116s] Saving mode setting ...
+[06/30 16:14:22    116s] Saving global file ...
+[06/30 16:14:23    116s] % Begin Save floorplan data ... (date=06/30 16:14:23, mem=1532.7M)
+[06/30 16:14:23    116s] Saving floorplan file ...
+[06/30 16:14:23    117s] % End Save floorplan data ... (date=06/30 16:14:23, total cpu=0:00:00.3, real=0:00:00.0, peak res=1533.3M, current mem=1533.3M)
+[06/30 16:14:23    117s] Saving Drc markers ...
+[06/30 16:14:23    117s] ... 198 markers are saved ...
+[06/30 16:14:23    117s] ... 154 geometry drc markers are saved ...
+[06/30 16:14:23    117s] ... 0 antenna drc markers are saved ...
+[06/30 16:14:23    117s] % Begin Save placement data ... (date=06/30 16:14:23, mem=1532.9M)
+[06/30 16:14:23    117s] ** Saving stdCellPlacement_binary (version# 1) ...
+[06/30 16:14:24    117s] *** Completed savePlace (cpu=0:00:00.0 real=0:00:01.0 mem=1839.9M) ***
+[06/30 16:14:24    117s] % End Save placement data ... (date=06/30 16:14:24, total cpu=0:00:00.1, real=0:00:01.0, peak res=1532.9M, current mem=1532.9M)
+[06/30 16:14:24    117s] % Begin Save routing data ... (date=06/30 16:14:24, mem=1532.9M)
+[06/30 16:14:24    117s] Saving route file ...
+[06/30 16:14:24    117s] *** Completed saveRoute (cpu=0:00:00.3 real=0:00:00.0 mem=1839.9M) ***
+[06/30 16:14:24    117s] % End Save routing data ... (date=06/30 16:14:24, total cpu=0:00:00.3, real=0:00:00.0, peak res=1532.9M, current mem=1532.9M)
+[06/30 16:14:24    117s] Saving property file dbs2/finish.dat/CHIP.prop
+[06/30 16:14:24    117s] *** Completed saveProperty (cpu=0:00:00.0 real=0:00:00.0 mem=1839.9M) ***
+[06/30 16:14:24    117s] % Begin Save power constraints data ... (date=06/30 16:14:24, mem=1533.2M)
+[06/30 16:14:24    117s] % End Save power constraints data ... (date=06/30 16:14:24, total cpu=0:00:00.0, real=0:00:00.0, peak res=1533.2M, current mem=1533.2M)
+[06/30 16:14:25    117s] Generated self-contained design finish.dat
+[06/30 16:14:25    117s] #% End save design ... (date=06/30 16:14:25, total cpu=0:00:01.9, real=0:00:04.0, peak res=1533.3M, current mem=1390.0M)
+[06/30 16:14:25    117s] *** Message Summary: 0 warning(s), 0 error(s)
+[06/30 16:14:25    117s] 
+[06/30 16:14:36    118s] <CMD> setStreamOutMode -specifyViaName default -SEvianames false -virtualConnection false -uniquifyCellNamesPrefix false -snapToMGrid false -textSize 1 -version 3
+[06/30 16:14:46    119s] <CMD> streamOut CHIP.gds -mapFile streamOut.map -merge { ./Phantom/fsa0m_a_generic_core_cic.gds ./Phantom/fsa0m_a_t33_generic_io_cic.gds ./Phantom/BONDPAD.gds} -stripes 1 -units 1000 -mode ALL
+[06/30 16:14:46    119s] Finding the highest version number among the merge files
+[06/30 16:14:46    119s] Merge file: ./Phantom/fsa0m_a_generic_core_cic.gds has version number: 5
+[06/30 16:14:46    119s] Merge file: ./Phantom/fsa0m_a_t33_generic_io_cic.gds has version number: 5
+[06/30 16:14:46    119s] Merge file: ./Phantom/BONDPAD.gds has version number: 5
+[06/30 16:14:46    119s] 
+[06/30 16:14:47    119s] Parse map file...
+[06/30 16:14:47    119s] **WARN: (IMPOGDS-392):	Unknown layer contact 
+[06/30 16:14:47    119s] Writing GDSII file ...
+[06/30 16:14:47    119s] 	****** db unit per micron = 1000 ******
+[06/30 16:14:47    119s] 	****** output gds2 file unit per micron = 1000 ******
+[06/30 16:14:47    119s] 	****** unit scaling factor = 1 ******
+[06/30 16:14:47    119s] Output for instance
+[06/30 16:14:47    119s] Output for bump
+[06/30 16:14:47    119s] Output for physical terminals
+[06/30 16:14:47    119s] Output for logical terminals
+[06/30 16:14:47    119s] Output for regular nets
+[06/30 16:14:47    119s] Output for special nets and metal fills
+[06/30 16:14:47    119s] Output for via structure generation
+[06/30 16:14:47    119s] Statistics for GDS generated (version 5)
+[06/30 16:14:47    119s] ----------------------------------------
+[06/30 16:14:47    119s] Stream Out Layer Mapping Information:
+[06/30 16:14:47    119s] GDS Layer Number          GDS Layer Name
+[06/30 16:14:47    119s] ----------------------------------------
+[06/30 16:14:47    119s]     235                          DIEAREA
+[06/30 16:14:47    119s]     46                            metal1
+[06/30 16:14:47    119s]     47                               via
+[06/30 16:14:47    119s]     48                            metal2
+[06/30 16:14:47    119s]     49                              via2
+[06/30 16:14:47    119s]     50                            metal3
+[06/30 16:14:47    119s]     51                              via3
+[06/30 16:14:47    119s]     52                            metal4
+[06/30 16:14:47    119s]     53                              via4
+[06/30 16:14:47    119s]     54                            metal5
+[06/30 16:14:47    119s]     55                              via5
+[06/30 16:14:47    119s]     56                            metal6
+[06/30 16:14:47    119s]     46                            metal1
+[06/30 16:14:47    119s]     101                           metal1
+[06/30 16:14:47    119s]     48                            metal2
+[06/30 16:14:47    119s]     102                           metal2
+[06/30 16:14:47    119s]     50                            metal3
+[06/30 16:14:47    119s]     103                           metal3
+[06/30 16:14:47    119s]     52                            metal4
+[06/30 16:14:47    119s]     104                           metal4
+[06/30 16:14:47    119s]     54                            metal5
+[06/30 16:14:47    119s]     105                           metal5
+[06/30 16:14:47    119s]     56                            metal6
+[06/30 16:14:47    119s]     106                           metal6
+[06/30 16:14:47    119s] 
+[06/30 16:14:47    119s] 
+[06/30 16:14:47    119s] Stream Out Information Processed for GDS version 5:
+[06/30 16:14:47    119s] Units: 1000 DBU
+[06/30 16:14:47    119s] 
+[06/30 16:14:47    119s] Object                             Count
+[06/30 16:14:47    119s] ----------------------------------------
+[06/30 16:14:47    119s] Instances                          36967
+[06/30 16:14:47    119s] 
+[06/30 16:14:47    119s] Ports/Pins                             0
+[06/30 16:14:47    119s] 
+[06/30 16:14:47    119s] Nets                              145029
+[06/30 16:14:47    119s]     metal layer metal1             20066
+[06/30 16:14:47    119s]     metal layer metal2             72167
+[06/30 16:14:47    119s]     metal layer metal3             38266
+[06/30 16:14:47    119s]     metal layer metal4             12998
+[06/30 16:14:47    119s]     metal layer metal5              1462
+[06/30 16:14:47    119s]     metal layer metal6                70
+[06/30 16:14:47    119s] 
+[06/30 16:14:47    119s]     Via Instances                  87655
+[06/30 16:14:47    119s] 
+[06/30 16:14:47    119s] Special Nets                         812
+[06/30 16:14:47    119s]     metal layer metal1               630
+[06/30 16:14:47    119s]     metal layer metal4               118
+[06/30 16:14:47    119s]     metal layer metal5                64
+[06/30 16:14:47    119s] 
+[06/30 16:14:47    119s]     Via Instances                   4336
+[06/30 16:14:47    119s] 
+[06/30 16:14:47    119s] Metal Fills                            0
+[06/30 16:14:47    119s] 
+[06/30 16:14:47    119s]     Via Instances                      0
+[06/30 16:14:47    119s] 
+[06/30 16:14:47    119s] Metal FillOPCs                         0
+[06/30 16:14:47    119s] 
+[06/30 16:14:47    119s]     Via Instances                      0
+[06/30 16:14:47    119s] 
+[06/30 16:14:47    119s] Text                               14882
+[06/30 16:14:47    119s]     metal layer metal1              3265
+[06/30 16:14:47    119s]     metal layer metal2              9016
+[06/30 16:14:47    119s]     metal layer metal3              2397
+[06/30 16:14:47    119s]     metal layer metal4               192
+[06/30 16:14:47    119s]     metal layer metal5                 8
+[06/30 16:14:47    119s]     metal layer metal6                 4
+[06/30 16:14:47    119s] 
+[06/30 16:14:47    119s] 
+[06/30 16:14:47    119s] Blockages                              0
+[06/30 16:14:47    119s] 
+[06/30 16:14:47    119s] 
+[06/30 16:14:47    119s] Custom Text                            0
+[06/30 16:14:47    119s] 
+[06/30 16:14:47    119s] 
+[06/30 16:14:47    119s] Custom Box                             0
+[06/30 16:14:47    119s] 
+[06/30 16:14:47    119s] Trim Metal                             0
+[06/30 16:14:47    119s] 
+[06/30 16:14:47    119s] Merging with GDS libraries
+[06/30 16:14:47    119s] Scanning GDS file ./Phantom/fsa0m_a_generic_core_cic.gds to register cell name ......
+[06/30 16:14:47    119s] Scanning GDS file ./Phantom/fsa0m_a_t33_generic_io_cic.gds to register cell name ......
+[06/30 16:14:47    119s] Scanning GDS file ./Phantom/BONDPAD.gds to register cell name ......
+[06/30 16:14:47    119s] Merging GDS file ./Phantom/fsa0m_a_generic_core_cic.gds ......
+[06/30 16:14:47    119s] 	****** Merge file: ./Phantom/fsa0m_a_generic_core_cic.gds has version number: 5.
+[06/30 16:14:47    119s] 	****** Merge file: ./Phantom/fsa0m_a_generic_core_cic.gds has units: 1000 per micron.
+[06/30 16:14:47    119s] 	****** unit scaling factor = 1 ******
+[06/30 16:14:47    119s] Merging GDS file ./Phantom/fsa0m_a_t33_generic_io_cic.gds ......
+[06/30 16:14:47    119s] 	****** Merge file: ./Phantom/fsa0m_a_t33_generic_io_cic.gds has version number: 5.
+[06/30 16:14:47    119s] 	****** Merge file: ./Phantom/fsa0m_a_t33_generic_io_cic.gds has units: 1000 per micron.
+[06/30 16:14:47    119s] 	****** unit scaling factor = 1 ******
+[06/30 16:14:47    119s] Merging GDS file ./Phantom/BONDPAD.gds ......
+[06/30 16:14:47    119s] 	****** Merge file: ./Phantom/BONDPAD.gds has version number: 5.
+[06/30 16:14:47    119s] 	****** Merge file: ./Phantom/BONDPAD.gds has units: 1000 per micron.
+[06/30 16:14:47    119s] 	****** unit scaling factor = 1 ******
+[06/30 16:14:47    119s] ######Streamout is finished!
+[06/30 16:14:55    120s] 
+[06/30 16:14:55    120s] *** Memory Usage v#1 (Current mem = 1720.961M, initial mem = 184.410M) ***
+[06/30 16:14:55    120s] 
+[06/30 16:14:55    120s] *** Summary of all messages that are not suppressed in this session:
+[06/30 16:14:55    120s] Severity  ID               Count  Summary                                  
+[06/30 16:14:55    120s] WARNING   IMPLF-58           392  MACRO '%s' has been found in the databas...
+[06/30 16:14:55    120s] WARNING   IMPLF-61             1  %d duplicated MACRO definitions have bee...
+[06/30 16:14:55    120s] WARNING   IMPLF-200            7  Pin '%s' in macro '%s' has no ANTENNAGAT...
+[06/30 16:14:55    120s] WARNING   IMPLF-119           12  LAYER '%s' has been found in the databas...
+[06/30 16:14:55    120s] WARNING   IMPFP-3961           8  The techSite '%s' has no related standar...
+[06/30 16:14:55    120s] WARNING   IMPOGDS-392          1  Unknown layer %s                         
+[06/30 16:14:55    120s] WARNING   IMPEXT-6202          1  In addition to the technology file, the ...
+[06/30 16:14:55    120s] WARNING   IMPEXT-3530          2  The process node is not set. Use the com...
+[06/30 16:14:55    120s] WARNING   IMPSYC-6308         40  Instance '%s' is placed at (%d, %d) whic...
+[06/30 16:14:55    120s] WARNING   IMPVL-159          764  Pin '%s' of cell '%s' is defined in LEF ...
+[06/30 16:14:55    120s] WARNING   IMPESI-3086          2  The cell '%s' does not have characterize...
+[06/30 16:14:55    120s] WARNING   IMPMF-139            1  Layer [%d] Active spacing(%d) should be ...
+[06/30 16:14:55    120s] WARNING   IMPMF-5043           1  Layer [%d] has smaller min_length(%d) th...
+[06/30 16:14:55    120s] WARNING   IMPMF-126            1  Layer [%d] has smaller min_width(%d) tha...
+[06/30 16:14:55    120s] WARNING   IMPOPT-3602          4  The specified path group name %s is not ...
+[06/30 16:14:55    120s] WARNING   IMPTCM-77            1  Option "%s" for command %s is obsolete a...
+[06/30 16:14:55    120s] WARNING   GLOBAL-100           2  Global '%s' has become obsolete. It will...
+[06/30 16:14:55    120s] WARNING   SDF-808              1  The software is currently operating in a...
+[06/30 16:14:55    120s] WARNING   TECHLIB-302          2  No function defined for cell '%s'. The c...
+[06/30 16:14:55    120s] WARNING   TECHLIB-436          8  Attribute '%s' on '%s' pin '%s' of cell ...
+[06/30 16:14:55    120s] *** Message Summary: 1251 warning(s), 0 error(s)
+[06/30 16:14:55    120s] 
+[06/30 16:14:55    120s] --- Ending "Innovus" (totcpu=0:02:00, real=0:10:16, mem=1721.0M) ---

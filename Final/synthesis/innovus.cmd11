@@ -1,0 +1,188 @@
+#######################################################
+#                                                     
+#  Innovus Command Logging File                     
+#  Created on Tue Jun 30 11:13:18 2020                
+#                                                     
+#######################################################
+
+#@(#)CDS: Innovus v17.11-s080_1 (64bit) 08/04/2017 11:13 (Linux 2.6.18-194.el5)
+#@(#)CDS: NanoRoute 17.11-s080_1 NR170721-2155/17_11-UB (database version 2.30, 390.7.1) {superthreading v1.44}
+#@(#)CDS: AAE 17.11-s034 (64bit) 08/04/2017 (Linux 2.6.18-194.el5)
+#@(#)CDS: CTE 17.11-s053_1 () Aug  1 2017 23:31:41 ( )
+#@(#)CDS: SYNTECH 17.11-s012_1 () Jul 21 2017 02:29:12 ( )
+#@(#)CDS: CPE v17.11-s095
+#@(#)CDS: IQRC/TQRC 16.1.1-s215 (64bit) Thu Jul  6 20:18:10 PDT 2017 (Linux 2.6.18-194.el5)
+
+set_global _enable_mmmc_by_default_flow      $CTE::mmmc_default
+suppressMessage ENCEXT-2799
+getDrawView
+loadWorkspace -name Physical
+win
+encMessage warning 0
+encMessage debug 0
+encMessage info 0
+restoreDesign /home/raid7_2/userb04/b4502040/ECC/Final/synthesis/dbs/powerplan.dat CHIP
+setDrawView fplan
+encMessage warning 1
+encMessage debug 0
+encMessage info 1
+addIoFiller -cell EMPTY16D -prefix IOFILLER
+addIoFiller -cell EMPTY8D -prefix IOFILLER
+addIoFiller -cell EMPTY4D -prefix IOFILLER
+addIoFiller -cell EMPTY2D -prefix IOFILLER
+addIoFiller -cell EMPTY1D -prefix IOFILLER -fillAnyGap
+setSrouteMode -viaConnectToShape { ring }
+sroute -connect { corePin } -layerChangeRange { metal1(1) metal6(6) } -blockPinTarget { nearestTarget } -corePinTarget { firstAfterRowEnd } -allowJogging 1 -crossoverViaLayerRange { metal1(1) metal6(6) } -nets { VCC GND } -allowLayerChange 1 -targetViaLayerRange { metal1(1) metal6(6) }
+setDrawView place
+setDrawView fplan
+setVerifyGeometryMode -area { 0 0 0 0 } -minWidth true -minSpacing true -minArea true -sameNet true -short true -overlap true -offRGrid false -offMGrid true -mergedMGridCheck true -minHole true -implantCheck true -minimumCut true -minStep true -viaEnclosure true -antenna false -insuffMetalOverlap true -pinInBlkg false -diffCellViol true -sameCellViol false -padFillerCellsOverlap true -routingBlkgPinOverlap true -routingCellBlkgOverlap true -regRoutingOnly false -stackedViasOnRegNet false -wireExt true -useNonDefaultSpacing false -maxWidth true -maxNonPrefLength -1 -error 1000
+verifyGeometry
+setVerifyGeometryMode -area { 0 0 0 0 }
+setLayerPreference violation -isVisible 1
+violationBrowser -all -no_display_false
+violationBrowserClose
+createBasicPathGroups -expanded
+place_opt_design
+create_ccopt_clock_tree_spec -file ./ccopt.spec
+ccopt_check_and_flatten_ilms_no_restore
+set_ccopt_property case_analysis -pin ipad_i_clk/PD 0
+set_ccopt_property case_analysis -pin ipad_i_clk/PU 0
+set_ccopt_property case_analysis -pin ipad_i_clk/SMT 0
+create_ccopt_clock_tree -name i_clk -source i_clk -no_skew_group
+set_ccopt_property clock_period -pin i_clk 10
+create_ccopt_skew_group -name i_clk/func_mode -sources i_clk -auto_sinks
+set_ccopt_property include_source_latency -skew_group i_clk/func_mode true
+set_ccopt_property target_insertion_delay -skew_group i_clk/func_mode 0.500
+set_ccopt_property extracted_from_clock_name -skew_group i_clk/func_mode i_clk
+set_ccopt_property extracted_from_constraint_mode_name -skew_group i_clk/func_mode func_mode
+set_ccopt_property extracted_from_delay_corners -skew_group i_clk/func_mode {DC_max DC_min}
+create_ccopt_skew_group -name i_clk/scan_mode -sources i_clk -auto_sinks
+set_ccopt_property include_source_latency -skew_group i_clk/scan_mode true
+set_ccopt_property target_insertion_delay -skew_group i_clk/scan_mode 0.500
+set_ccopt_property extracted_from_clock_name -skew_group i_clk/scan_mode i_clk
+set_ccopt_property extracted_from_constraint_mode_name -skew_group i_clk/scan_mode scan_mode
+set_ccopt_property extracted_from_delay_corners -skew_group i_clk/scan_mode {DC_max DC_min}
+check_ccopt_clock_tree_convergence
+get_ccopt_property auto_design_state_for_ilms
+ccopt_design -cts
+setDrawView place
+setDrawView place
+setDrawView place
+setDrawView place
+redirect -quiet {set honorDomain [getAnalysisMode -honorClockDomains]} > /dev/null
+timeDesign -postCTS -pathReports -drvReports -slackReports -numPaths 50 -prefix CHIP_postCTS -outDir timingReports
+setOptMode -fixCap true -fixTran true -fixFanoutLoad true
+optDesign -postCTS
+redirect -quiet {set honorDomain [getAnalysisMode -honorClockDomains]} > /dev/null
+timeDesign -postCTS -hold -pathReports -slackReports -numPaths 50 -prefix CHIP_postCTS -outDir timingReports
+ctd_win -id ctd_window
+saveDesign dbs/CTS
+setLayerPreference violation -isVisible 1
+violationBrowser -all -no_display_false
+violationBrowserClose
+setVerifyGeometryMode -area { 0 0 0 0 } -minWidth true -minSpacing true -minArea true -sameNet true -short true -overlap true -offRGrid false -offMGrid true -mergedMGridCheck true -minHole true -implantCheck true -minimumCut true -minStep true -viaEnclosure true -antenna false -insuffMetalOverlap true -pinInBlkg false -diffCellViol true -sameCellViol false -padFillerCellsOverlap true -routingBlkgPinOverlap true -routingCellBlkgOverlap true -regRoutingOnly false -stackedViasOnRegNet false -wireExt true -useNonDefaultSpacing false -maxWidth true -maxNonPrefLength -1 -error 1000
+verifyGeometry
+setVerifyGeometryMode -area { 0 0 0 0 }
+setLayerPreference violation -isVisible 1
+violationBrowser -all -no_display_false
+violationBrowserClose
+setMultiCpuUsage -localCpu 4 -cpuPerRemoteHost 1 -remoteHost 0 -keepLicense true
+setDistributeHost -local
+setNanoRouteMode -quiet -routeInsertAntennaDiode 1
+setNanoRouteMode -quiet -routeAntennaCellName ANTENNA
+setNanoRouteMode -quiet -timingEngine {}
+setNanoRouteMode -quiet -routeWithTimingDriven 1
+setNanoRouteMode -quiet -routeWithSiDriven 1
+setNanoRouteMode -quiet -routeWithSiPostRouteFix 0
+setNanoRouteMode -quiet -drouteStartIteration default
+setNanoRouteMode -quiet -routeTopRoutingLayer default
+setNanoRouteMode -quiet -routeBottomRoutingLayer default
+setNanoRouteMode -quiet -drouteEndIteration default
+setNanoRouteMode -quiet -routeWithTimingDriven true
+setNanoRouteMode -quiet -routeWithSiDriven true
+routeDesign -globalDetail -viaOpt -wireOpt
+setLayerPreference violation -isVisible 1
+violationBrowser -all -no_display_false
+violationBrowserClose
+redirect -quiet {set honorDomain [getAnalysisMode -honorClockDomains]} > /dev/null
+timeDesign -postRoute -pathReports -drvReports -slackReports -numPaths 50 -prefix CHIP_postRoute -outDir timingReports
+saveDesign dbs/routed
+setLayerPreference violation -isVisible 1
+violationBrowser -all -no_display_false
+violationBrowserClose
+setAnalysisMode -analysisType onChipVariation
+redirect -quiet {set honorDomain [getAnalysisMode -honorClockDomains]} > /dev/null
+timeDesign -postRoute -pathReports -drvReports -slackReports -numPaths 50 -prefix CHIP_postRoute -outDir timingReports
+redirect -quiet {set honorDomain [getAnalysisMode -honorClockDomains]} > /dev/null
+timeDesign -postRoute -hold -si -pathReports -slackReports -numPaths 50 -prefix CHIP_postRoute -outDir timingReports
+redirect -quiet {set honorDomain [getAnalysisMode -honorClockDomains]} > /dev/null
+timeDesign -postRoute -hold -pathReports -slackReports -numPaths 50 -prefix CHIP_postRoute -outDir timingReports
+setOptMode -fixCap true -fixTran true -fixFanoutLoad true
+setDelayCalMode -engine default -siAware true
+optDesign -postRoute -hold
+setOptMode -fixCap true -fixTran true -fixFanoutLoad true
+setDelayCalMode -engine default -siAware true
+optDesign -postRoute -hold
+saveDesign dbs/routed
+getFillerMode -quiet
+addFiller -cell FILLERBC FILLERCC FILLERAC FILLER8C FILLER4C FILLER2C FILLER8 FILLER64 FILLER4 FILLER32 FILLER2 FILLER16 FILLER1 -prefix FILLER
+setVerifyGeometryMode -area { 0 0 0 0 } -minWidth true -minSpacing true -minArea true -sameNet true -short true -overlap true -offRGrid false -offMGrid true -mergedMGridCheck true -minHole true -implantCheck true -minimumCut true -minStep true -viaEnclosure true -antenna false -insuffMetalOverlap true -pinInBlkg false -diffCellViol true -sameCellViol false -padFillerCellsOverlap true -routingBlkgPinOverlap true -routingCellBlkgOverlap true -regRoutingOnly false -stackedViasOnRegNet false -wireExt true -useNonDefaultSpacing false -maxWidth true -maxNonPrefLength -1 -error 1000
+verifyGeometry
+setVerifyGeometryMode -area { 0 0 0 0 }
+verifyProcessAntenna -reportfile CHIP.antenna.rpt -error 1000
+verifyConnectivity -type all -error 1000 -warning 50
+saveDesign dbs/corefiller
+saveNetlist CHIP.v
+setAnalysisMode -analysisType bcwc
+write_sdf -max_view av_func_mode_max -min_view av_func_mode_min -edges noedge -splitsetuphold -remashold -splitrecrem -min_period_edges none CHIP.sdf
+set dbgLefDefOutVersion 5.8
+global dbgLefDefOutVersion
+set dbgLefDefOutVersion 5.8
+defOut -floorplan -netlist -routing CHIP.def
+set dbgLefDefOutVersion 5.8
+set dbgLefDefOutVersion 5.8
+addInst -physical -cell BONDPADD_m -inst BPad_ipad_py_i_1 -loc 194.06 -56.92 -ori R0
+addInst -physical -cell BONDPADD_m -inst BPad_ipad_py_i_2 -loc 310.62 -56.92 -ori R0
+addInst -physical -cell BONDPADD_m -inst BPad_ipad_py_i_3 -loc 427.18 -56.92 -ori R0
+addInst -physical -cell BONDPADD_m -inst BPad_ipad_k_i_0 -loc 543.74 -56.92 -ori R0
+addInst -physical -cell BONDPADD_m -inst BPad_ipad_CoreVSS2 -loc 660.3 -56.92 -ori R0
+addInst -physical -cell BONDPADD_m -inst BPad_ipad_CoreVDD2 -loc 776.86 -56.92 -ori R0
+addInst -physical -cell BONDPADD_m -inst BPad_ipad_k_i_1 -loc 893.42 -56.92 -ori R0
+addInst -physical -cell BONDPADD_m -inst BPad_ipad_k_i_2 -loc 1009.98 -56.92 -ori R0
+addInst -physical -cell BONDPADD_m -inst BPad_ipad_k_i_3 -loc 1126.54 -56.92 -ori R0
+addInst -physical -cell BONDPADD_m -inst BPad_ipad_kpx_0 -loc 1243.1 -56.92 -ori R0
+addInst -physical -cell BONDPADD_m -inst BPad_ipad_kpx_1 -loc 1499.78 194.11 -ori R90
+addInst -physical -cell BONDPADD_m -inst BPad_ipad_kpx_2 -loc 1499.78 310.71 -ori R90
+addInst -physical -cell BONDPADD_m -inst BPad_ipad_kpx_3 -loc 1499.78 427.31 -ori R90
+addInst -physical -cell BONDPADD_m -inst BPad_ipad_kpy_0 -loc 1499.78 543.91 -ori R90
+addInst -physical -cell BONDPADD_m -inst BPad_ipad_IOVDD2 -loc 1499.78 660.51 -ori R90
+addInst -physical -cell BONDPADD_m -inst BPad_ipad_IOVSS2 -loc 1499.78 777.11 -ori R90
+addInst -physical -cell BONDPADD_m -inst BPad_ipad_kpy_1 -loc 1499.78 893.71 -ori R90
+addInst -physical -cell BONDPADD_m -inst BPad_ipad_kpy_2 -loc 1499.78 1010.31 -ori R90
+addInst -physical -cell BONDPADD_m -inst BPad_ipad_kpy_3 -loc 1499.78 1126.91 -ori R90
+addInst -physical -cell BONDPADD_m -inst BPad_ipad_done -loc 1499.78 1243.51 -ori R90
+addInst -physical -cell BONDPADD_m -inst BPad_ipad_prime_i_0 -loc 1243.1 1500.24 -ori R180
+addInst -physical -cell BONDPADD_m -inst BPad_ipad_a_i_3 -loc 1126.54 1500.24 -ori R180
+addInst -physical -cell BONDPADD_m -inst BPad_ipad_a_i_2 -loc 1009.98 1500.24 -ori R180
+addInst -physical -cell BONDPADD_m -inst BPad_ipad_i_rst -loc 893.42 1500.24 -ori R180
+addInst -physical -cell BONDPADD_m -inst BPad_ipad_CoreVSS1 -loc 776.86 1500.24 -ori R180
+addInst -physical -cell BONDPADD_m -inst BPad_ipad_CoreVDD1 -loc 660.3 1500.24 -ori R180
+addInst -physical -cell BONDPADD_m -inst BPad_ipad_i_clk -loc 543.74 1500.24 -ori R180
+addInst -physical -cell BONDPADD_m -inst BPad_ipad_a_i_1 -loc 427.18 1500.24 -ori R180
+addInst -physical -cell BONDPADD_m -inst BPad_ipad_a_i_0 -loc 310.62 1500.24 -ori R180
+addInst -physical -cell BONDPADD_m -inst BPad_ipad_i_start -loc 194.06 1500.24 -ori R180
+addInst -physical -cell BONDPADD_m -inst BPad_ipad_py_i_0 -loc -56.92 1243.51 -ori R270
+addInst -physical -cell BONDPADD_m -inst BPad_ipad_px_i_3 -loc -56.92 1126.91 -ori R270
+addInst -physical -cell BONDPADD_m -inst BPad_ipad_px_i_2 -loc -56.92 1010.31 -ori R270
+addInst -physical -cell BONDPADD_m -inst BPad_ipad_px_i_1 -loc -56.92 893.71 -ori R270
+addInst -physical -cell BONDPADD_m -inst BPad_ipad_IOVSS1 -loc -56.92 777.11 -ori R270
+addInst -physical -cell BONDPADD_m -inst BPad_ipad_IOVDD1 -loc -56.92 660.51 -ori R270
+addInst -physical -cell BONDPADD_m -inst BPad_ipad_px_i_0 -loc -56.92 543.91 -ori R270
+addInst -physical -cell BONDPADD_m -inst BPad_ipad_prime_i_3 -loc -56.92 427.31 -ori R270
+addInst -physical -cell BONDPADD_m -inst BPad_ipad_prime_i_2 -loc -56.92 310.71 -ori R270
+addInst -physical -cell BONDPADD_m -inst BPad_ipad_prime_i_1 -loc -56.92 194.11 -ori R270
+setDrawView place
+redraw
+setStreamOutMode -specifyViaName default -SEvianames false -virtualConnection false -uniquifyCellNamesPrefix false -snapToMGrid false -textSize 1 -version 3
+streamOut CHIP.gds -mapFile streamOut.map -merge { ./Phantom/fsa0m_a_generic_core_cic.gds ./Phantom/fsa0m_a_t33_generic_io_cic.gds ./Phantom/BONDPAD.gds} -stripes 1 -units 1000 -mode ALL
+streamOut CHIP.gds -mapFile streamOut.map -merge { ./Phantom/fsa0m_a_generic_core_cic.gds ./Phantom/fsa0m_a_t33_generic_io_cic.gds ./Phantom/BONDPAD.gds} -stripes 1 -units 1000 -mode ALL
