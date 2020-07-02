@@ -1,0 +1,113 @@
+ 
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 1
+Design : ECC_Lookup
+Version: N-2017.09-SP2
+Date   : Tue Jun 30 23:13:29 2020
+****************************************
+
+ # A fanout number of 1000 was used for high fanout net computations.
+
+Operating Conditions: WCCOM   Library: fsa0m_a_generic_core_ss1p62v125c
+Wire Load Model Mode: enclosed
+
+  Startpoint: raw_prime_r_reg[1]
+              (rising edge-triggered flip-flop clocked by i_clk)
+  Endpoint: control_0/d0/Py_reg[31]
+            (rising edge-triggered flip-flop clocked by i_clk)
+  Path Group: i_clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  ECC_Lookup         G200K                 fsa0m_a_generic_core_tt1p8v25c
+  Control            enG30K                fsa0m_a_generic_core_tt1p8v25c
+  Domain_Transfer_1  enG10K                fsa0m_a_generic_core_tt1p8v25c
+  Domain_Transfer_1_DW01_sub_1
+                     enG5K                 fsa0m_a_generic_core_tt1p8v25c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock i_clk (rise edge)                                 0.00       0.00
+  clock network delay (ideal)                             0.50       0.50
+  raw_prime_r_reg[1]/CK (QDFFRBP)                         0.00 #     0.50 r
+  raw_prime_r_reg[1]/Q (QDFFRBP)                          0.35       0.85 r
+  U308/O (INV2)                                           0.06       0.91 f
+  U307/O (INV3CK)                                         0.08       0.99 r
+  control_0/raw_prime[1] (Control)                        0.00       0.99 r
+  control_0/U91/O (BUF6)                                  0.12       1.11 r
+  control_0/d0/Prime[1] (Domain_Transfer_1)               0.00       1.11 r
+  control_0/d0/U76/O (BUF12CK)                            0.14       1.25 r
+  control_0/d0/sub_2789_S2/B[1] (Domain_Transfer_1_DW01_sub_1)
+                                                          0.00       1.25 r
+  control_0/d0/sub_2789_S2/U32/O (INV1S)                  0.09       1.34 f
+  control_0/d0/sub_2789_S2/U2_1/CO (FA1)                  0.33       1.67 f
+  control_0/d0/sub_2789_S2/U2_2/CO (FA1)                  0.30       1.97 f
+  control_0/d0/sub_2789_S2/U2_3/CO (FA1)                  0.33       2.30 f
+  control_0/d0/sub_2789_S2/U41/O (ND2)                    0.13       2.43 r
+  control_0/d0/sub_2789_S2/U3/O (ND3P)                    0.11       2.54 f
+  control_0/d0/sub_2789_S2/U77/O (ND2)                    0.14       2.68 r
+  control_0/d0/sub_2789_S2/U79/O (ND3P)                   0.12       2.80 f
+  control_0/d0/sub_2789_S2/U84/O (ND2)                    0.12       2.91 r
+  control_0/d0/sub_2789_S2/U28/O (ND3)                    0.11       3.03 f
+  control_0/d0/sub_2789_S2/U2_7/CO (FA1)                  0.34       3.37 f
+  control_0/d0/sub_2789_S2/U61/O (ND2)                    0.10       3.47 r
+  control_0/d0/sub_2789_S2/U27/O (ND3)                    0.11       3.58 f
+  control_0/d0/sub_2789_S2/U2_9/CO (FA1)                  0.30       3.88 f
+  control_0/d0/sub_2789_S2/U2_10/CO (FA1)                 0.33       4.21 f
+  control_0/d0/sub_2789_S2/U44/O (ND2)                    0.13       4.35 r
+  control_0/d0/sub_2789_S2/U5/O (ND3P)                    0.11       4.46 f
+  control_0/d0/sub_2789_S2/U65/O (ND2)                    0.15       4.60 r
+  control_0/d0/sub_2789_S2/U14/O (ND3P)                   0.12       4.72 f
+  control_0/d0/sub_2789_S2/U69/O (ND2)                    0.12       4.84 r
+  control_0/d0/sub_2789_S2/U54/O (OR3B2)                  0.14       4.99 f
+  control_0/d0/sub_2789_S2/U11/O (ND2)                    0.11       5.10 r
+  control_0/d0/sub_2789_S2/U13/O (ND3)                    0.11       5.20 f
+  control_0/d0/sub_2789_S2/U2_15/CO (FA1S)                0.40       5.60 f
+  control_0/d0/sub_2789_S2/U2_16/CO (FA1)                 0.32       5.92 f
+  control_0/d0/sub_2789_S2/U2_17/CO (FA1)                 0.30       6.21 f
+  control_0/d0/sub_2789_S2/U2_18/CO (FA1)                 0.30       6.51 f
+  control_0/d0/sub_2789_S2/U2_19/CO (FA1)                 0.30       6.80 f
+  control_0/d0/sub_2789_S2/U2_20/CO (FA1)                 0.33       7.13 f
+  control_0/d0/sub_2789_S2/U34/O (ND2)                    0.10       7.24 r
+  control_0/d0/sub_2789_S2/U7/O (ND3)                     0.11       7.35 f
+  control_0/d0/sub_2789_S2/U2_22/CO (FA1)                 0.30       7.65 f
+  control_0/d0/sub_2789_S2/U2_23/CO (FA1)                 0.33       7.98 f
+  control_0/d0/sub_2789_S2/U38/O (ND2)                    0.10       8.09 r
+  control_0/d0/sub_2789_S2/U8/O (ND3)                     0.11       8.20 f
+  control_0/d0/sub_2789_S2/U2_25/CO (FA1)                 0.30       8.50 f
+  control_0/d0/sub_2789_S2/U2_26/CO (FA1)                 0.33       8.84 f
+  control_0/d0/sub_2789_S2/U47/O (ND2)                    0.15       8.99 r
+  control_0/d0/sub_2789_S2/U48/O (ND3P)                   0.12       9.10 f
+  control_0/d0/sub_2789_S2/U53/O (ND2)                    0.15       9.25 r
+  control_0/d0/sub_2789_S2/U1/O (ND3P)                    0.11       9.36 f
+  control_0/d0/sub_2789_S2/U59/O (ND2)                    0.13       9.49 r
+  control_0/d0/sub_2789_S2/U15/O (ND3P)                   0.11       9.61 f
+  control_0/d0/sub_2789_S2/U22/O (ND2)                    0.13       9.74 r
+  control_0/d0/sub_2789_S2/U73/O (ND3P)                   0.09       9.83 f
+  control_0/d0/sub_2789_S2/U74/O (XNR2H)                  0.16       9.99 f
+  control_0/d0/sub_2789_S2/DIFF[31] (Domain_Transfer_1_DW01_sub_1)
+                                                          0.00       9.99 f
+  control_0/d0/U5/O (ND2P)                                0.08      10.07 r
+  control_0/d0/U8/O (ND3)                                 0.08      10.15 f
+  control_0/d0/U40/O (OR2)                                0.19      10.34 f
+  control_0/d0/Py_reg[31]/D (QDFFRBN)                     0.00      10.34 f
+  data arrival time                                                 10.34
+
+  clock i_clk (rise edge)                                10.00      10.00
+  clock network delay (ideal)                             0.50      10.50
+  clock uncertainty                                      -0.10      10.40
+  control_0/d0/Py_reg[31]/CK (QDFFRBN)                    0.00      10.40 r
+  library setup time                                     -0.06      10.34
+  data required time                                                10.34
+  --------------------------------------------------------------------------
+  data required time                                                10.34
+  data arrival time                                                -10.34
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.00
+
+
+1

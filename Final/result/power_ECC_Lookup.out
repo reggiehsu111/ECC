@@ -1,0 +1,151 @@
+Loading db file '/home/raid7_2/userb05/b05016/fsa0m_a_generic_core_tt1p8v25c.db'
+Information: Propagating switching activity (low effort zero delay simulation). (PWR-6)
+Warning: Design has unannotated primary inputs. (PWR-414)
+Warning: Design has unannotated sequential cell outputs. (PWR-415)
+ 
+****************************************
+Report : power
+        -analysis_effort low
+Design : ECC_Lookup
+Version: N-2017.09-SP2
+Date   : Tue Jun 30 23:13:28 2020
+****************************************
+
+
+Library(s) Used:
+
+    fsa0m_a_generic_core_tt1p8v25c (File: /home/raid7_2/userb05/b05016/fsa0m_a_generic_core_tt1p8v25c.db)
+
+
+Operating Conditions: WCCOM   Library: fsa0m_a_generic_core_ss1p62v125c
+Wire Load Model Mode: enclosed
+
+Design        Wire Load Model            Library
+------------------------------------------------
+ECC_Lookup             G200K             fsa0m_a_generic_core_tt1p8v25c
+Control                enG30K            fsa0m_a_generic_core_tt1p8v25c
+GFAU                   enG30K            fsa0m_a_generic_core_tt1p8v25c
+key_shift              enG5K             fsa0m_a_generic_core_tt1p8v25c
+Domain_Transfer_1      enG10K            fsa0m_a_generic_core_tt1p8v25c
+lookup_table           enG5K             fsa0m_a_generic_core_tt1p8v25c
+add                    enG5K             fsa0m_a_generic_core_tt1p8v25c
+sub                    enG5K             fsa0m_a_generic_core_tt1p8v25c
+mult                   enG5K             fsa0m_a_generic_core_tt1p8v25c
+div                    enG10K            fsa0m_a_generic_core_tt1p8v25c
+Domain_Transfer_0      enG10K            fsa0m_a_generic_core_tt1p8v25c
+div_DW01_sub_0         enG5K             fsa0m_a_generic_core_tt1p8v25c
+div_DW01_add_0         enG5K             fsa0m_a_generic_core_tt1p8v25c
+div_DW01_sub_1         enG5K             fsa0m_a_generic_core_tt1p8v25c
+div_DW01_sub_2         enG5K             fsa0m_a_generic_core_tt1p8v25c
+div_DW01_sub_3         enG5K             fsa0m_a_generic_core_tt1p8v25c
+div_DW01_inc_0         enG5K             fsa0m_a_generic_core_tt1p8v25c
+div_DW01_sub_5         enG5K             fsa0m_a_generic_core_tt1p8v25c
+div_DW_cmp_1           enG5K             fsa0m_a_generic_core_tt1p8v25c
+div_DW_cmp_2           enG5K             fsa0m_a_generic_core_tt1p8v25c
+div_DW01_add_1         enG5K             fsa0m_a_generic_core_tt1p8v25c
+div_DW_cmp_4           enG5K             fsa0m_a_generic_core_tt1p8v25c
+mult_DW01_sub_0        enG5K             fsa0m_a_generic_core_tt1p8v25c
+mult_DW_cmp_0          enG5K             fsa0m_a_generic_core_tt1p8v25c
+mult_DW01_inc_0        enG5K             fsa0m_a_generic_core_tt1p8v25c
+sub_DW_cmp_0           enG5K             fsa0m_a_generic_core_tt1p8v25c
+Domain_Transfer_0_DW01_sub_0
+                       enG5K             fsa0m_a_generic_core_tt1p8v25c
+Domain_Transfer_0_DW_cmp_0
+                       enG5K             fsa0m_a_generic_core_tt1p8v25c
+Domain_Transfer_0_DW01_sub_1
+                       enG5K             fsa0m_a_generic_core_tt1p8v25c
+Domain_Transfer_0_DW_cmp_1
+                       enG5K             fsa0m_a_generic_core_tt1p8v25c
+Domain_Transfer_0_DW01_sub_2
+                       enG5K             fsa0m_a_generic_core_tt1p8v25c
+Domain_Transfer_0_DW_cmp_2
+                       enG5K             fsa0m_a_generic_core_tt1p8v25c
+Domain_Transfer_0_DW01_sub_3
+                       enG5K             fsa0m_a_generic_core_tt1p8v25c
+Domain_Transfer_0_DW_cmp_3
+                       enG5K             fsa0m_a_generic_core_tt1p8v25c
+Domain_Transfer_0_DW01_sub_4
+                       enG5K             fsa0m_a_generic_core_tt1p8v25c
+Domain_Transfer_0_DW_cmp_4
+                       enG5K             fsa0m_a_generic_core_tt1p8v25c
+Domain_Transfer_0_DW01_sub_5
+                       enG5K             fsa0m_a_generic_core_tt1p8v25c
+Domain_Transfer_0_DW_cmp_5
+                       enG5K             fsa0m_a_generic_core_tt1p8v25c
+Domain_Transfer_0_DW01_add_0
+                       enG5K             fsa0m_a_generic_core_tt1p8v25c
+Domain_Transfer_0_DW01_add_1
+                       enG5K             fsa0m_a_generic_core_tt1p8v25c
+Domain_Transfer_0_DW01_add_2
+                       enG5K             fsa0m_a_generic_core_tt1p8v25c
+Domain_Transfer_1_DW01_sub_0
+                       enG5K             fsa0m_a_generic_core_tt1p8v25c
+Domain_Transfer_1_DW_cmp_0
+                       enG5K             fsa0m_a_generic_core_tt1p8v25c
+Domain_Transfer_1_DW01_sub_1
+                       enG5K             fsa0m_a_generic_core_tt1p8v25c
+Domain_Transfer_1_DW_cmp_1
+                       enG5K             fsa0m_a_generic_core_tt1p8v25c
+Domain_Transfer_1_DW01_sub_2
+                       enG5K             fsa0m_a_generic_core_tt1p8v25c
+Domain_Transfer_1_DW_cmp_2
+                       enG5K             fsa0m_a_generic_core_tt1p8v25c
+Domain_Transfer_1_DW01_sub_3
+                       enG5K             fsa0m_a_generic_core_tt1p8v25c
+Domain_Transfer_1_DW_cmp_3
+                       enG5K             fsa0m_a_generic_core_tt1p8v25c
+Domain_Transfer_1_DW01_sub_4
+                       enG5K             fsa0m_a_generic_core_tt1p8v25c
+Domain_Transfer_1_DW_cmp_4
+                       enG5K             fsa0m_a_generic_core_tt1p8v25c
+Domain_Transfer_1_DW01_sub_5
+                       enG5K             fsa0m_a_generic_core_tt1p8v25c
+Domain_Transfer_1_DW_cmp_5
+                       enG5K             fsa0m_a_generic_core_tt1p8v25c
+Domain_Transfer_1_DW01_add_0
+                       enG5K             fsa0m_a_generic_core_tt1p8v25c
+Domain_Transfer_1_DW01_add_1
+                       enG5K             fsa0m_a_generic_core_tt1p8v25c
+Domain_Transfer_1_DW01_add_2
+                       enG5K             fsa0m_a_generic_core_tt1p8v25c
+mult_DW_mult_uns_1     enG5K             fsa0m_a_generic_core_tt1p8v25c
+add_DW_cmp_1           enG5K             fsa0m_a_generic_core_tt1p8v25c
+sub_DW01_sub_3         enG5K             fsa0m_a_generic_core_tt1p8v25c
+sub_DW01_add_2         enG5K             fsa0m_a_generic_core_tt1p8v25c
+sub_DW01_sub_4         enG5K             fsa0m_a_generic_core_tt1p8v25c
+add_DW01_add_2         enG5K             fsa0m_a_generic_core_tt1p8v25c
+add_DW01_sub_2         enG5K             fsa0m_a_generic_core_tt1p8v25c
+mult_DW01_add_4        enG5K             fsa0m_a_generic_core_tt1p8v25c
+mult_DW01_add_5        enG5K             fsa0m_a_generic_core_tt1p8v25c
+
+
+Global Operating Voltage = 1.62 
+Power-specific unit information :
+    Voltage Units = 1V
+    Capacitance Units = 1.000000pf
+    Time Units = 1ns
+    Dynamic Power Units = 1mW    (derived from V,C,T units)
+    Leakage Power Units = 1pW
+
+
+  Cell Internal Power  =   6.6977 mW   (87%)
+  Net Switching Power  =   1.0239 mW   (13%)
+                         ---------
+Total Dynamic Power    =   7.7216 mW  (100%)
+
+Cell Leakage Power     =   1.0483 uW
+
+
+                 Internal         Switching           Leakage            Total
+Power Group      Power            Power               Power              Power   (   %    )  Attrs
+--------------------------------------------------------------------------------------------------
+io_pad             0.0000            0.0000            0.0000            0.0000  (   0.00%)
+memory             0.0000            0.0000            0.0000            0.0000  (   0.00%)
+black_box          0.0000            0.0000            0.0000            0.0000  (   0.00%)
+clock_network      0.0000            0.0000            0.0000            0.0000  (   0.00%)
+register           5.8555            0.2046        2.5379e+05            6.0604  (  78.48%)
+sequential         0.0000            0.0000            0.0000            0.0000  (   0.00%)
+combinational      0.8422            0.8193        7.9455e+05            1.6623  (  21.52%)
+--------------------------------------------------------------------------------------------------
+Total              6.6977 mW         1.0239 mW     1.0483e+06 pW         7.7227 mW
+1

@@ -1,0 +1,32 @@
+ 
+****************************************
+Report : area
+Design : ECC_Lookup
+Version: N-2017.09-SP2
+Date   : Tue Jun 30 23:13:23 2020
+****************************************
+
+Information: Updating design information... (UID-85)
+Warning: Design 'ECC_Lookup' contains 1 high-fanout nets. A fanout number of 1000 will be used for delay calculations involving these nets. (TIM-134)
+Library(s) Used:
+
+    fsa0m_a_generic_core_tt1p8v25c (File: /home/raid7_2/userb05/b05016/fsa0m_a_generic_core_tt1p8v25c.db)
+
+Number of ports:                         6082
+Number of nets:                         19475
+Number of cells:                        13043
+Number of combinational cells:          11780
+Number of sequential cells:              1199
+Number of macros/black boxes:               0
+Number of buf/inv:                       3004
+Number of references:                      28
+
+Combinational area:             208342.916154
+Buf/Inv area:                    22664.174171
+Noncombinational area:           71254.815052
+Macro/Black Box area:                0.000000
+Net Interconnect area:      undefined  (Wire load has zero net area)
+
+Total cell area:                279597.731206
+Total area:                 undefined
+1
