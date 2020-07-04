@@ -3,7 +3,7 @@
 ==================================================================================
 === CALIBRE::DRC-F SUMMARY REPORT
 ===
-Execution Date/Time:       Thu Jul  2 00:23:12 2020
+Execution Date/Time:       Fri Jul  3 11:28:31 2020
 Calibre Version:           v2019.2_14.13    Tue Apr 9 20:09:15 PDT 2019
 Rule File Pathname:        G-DF-Mixed_Mode_RFCMOS18-1.8v_3.3v-1P6M-MMC-Calibre-DRC-2.11_P2
 Rule File Title:           
@@ -747,8 +747,8 @@ RULECHECK LOGO_5.20B .............................. TOTAL Result Count = 0
 ----------------------------------------------------------------------------------
 --- SUMMARY
 ---
-TOTAL CPU Time:                  18
-TOTAL REAL Time:                 20
+TOTAL CPU Time:                  14
+TOTAL REAL Time:                 15
 TOTAL Original Layer Geometries: 691280
 TOTAL DRC RuleChecks Executed:   581
 TOTAL DRC Results Generated:     64
